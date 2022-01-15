@@ -3,11 +3,11 @@ import TextButton from "../TextButton";
 import { Hidden } from "@mui/material";
 
 function Dashboard() {
-  let isStudent = localStorage.getItem("isStudent");
-  isStudent === "true" ? (isStudent = true) : (isStudent = false);
+  // let isStudent = localStorage.getItem("isStudent");
+  // isStudent === "true" ? (isStudent = true) : (isStudent = false);
   return (
     <Hidden mdDown>
-      <TextButton
+      {/* <TextButton
         value="Mon Profil"
         url={
           localStorage.getItem("isStudent") === "true"
@@ -16,7 +16,7 @@ function Dashboard() {
               ? "/admin/dashboard"
               : "/prof/dashboard"
         }
-      />
+      /> */}
     </Hidden>
   );
 }

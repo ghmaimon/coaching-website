@@ -6,35 +6,29 @@ import AboutUs from "./AboutUs";
 import Logout from "./Logout";
 
 import Logo from "./Logo";
-import Cours from "./Cours";
-// import Search from "./Search";
-import Dashboard from "./Dashboard";
-import MyCourses from "./MyCourses";
+// import Dashboard from "./Dashboard";
 
 function Header() {
-  const [logedIn, setLogedIn] = useState(false);
-  useEffect(() => {
-    if (
-      localStorage.getItem("currentUser") !== undefined &&
-      localStorage.getItem("currentUser") !== null
-    )
-      setLogedIn(true);
-    console.log("header" + logedIn);
-  });
+  // const [logedIn, setLogedIn] = useState(false);
+  // useEffect(() => {
+  //   if (
+  //     localStorage.getItem("currentUser") !== undefined &&
+  //     localStorage.getItem("currentUser") !== null
+  //   )
+  //     setLogedIn(true);
+  //   console.log("header" + logedIn);
+  // });
+  let logedIn = true;
   return (
     <div>
-      {logedIn ? <Logout /> : <SignUp />}
-      {logedIn ? <Dashboard /> : <SignIn />}
-      {logedIn &&
-        (localStorage.getItem("isAdmin") === null ||
-          localStorage.getItem("isAdmin") === undefined) && <MyCourses />}
+      <SignUp />
+      <SignIn />
       <ContactUs />
       <AboutUs />
       <Logo />
-      <Cours />
-      {/* {localStorage.getItem("isAdmin") !== "true" &&
-        localStorage.getItem("isStudent") !== "false" && <Search />} */}
+
     </div>
   );
 }
 export default Header;
+// so far i realized that logo is the one causing not showing 
