@@ -43,7 +43,7 @@ function Footer(props) {
             </Paper>
           </Grid>
           <Grid item xs={4}>
-            <Paper className={style.paper}></Paper>
+            <Paper className={style.paper} />
           </Grid>
 
           <Grid item xs={12} elevation={0}>

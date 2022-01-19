@@ -32,7 +32,7 @@ function Offre(props) {
   return (
     <div>
       <Grid container>
-        <Grid item md={4} xs={4}></Grid>
+        <Grid item md={4} xs={4} />
         <Grid item container md={4} xs={4}>
           <Grid item  >   <img src={iversefeuille} alt="feuille" className={style.inversefeuille} />
           </Grid>
@@ -51,7 +51,7 @@ function Offre(props) {
           </Grid>
           <Grid item > <img src={feuille} alt="feuille" height="30px" className={style.feuille} /></Grid>
         </Grid>
-        <Grid item md={4} xs={4}></Grid>
+        <Grid item md={4} xs={4} />
       </Grid>
 
 
