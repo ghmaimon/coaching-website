@@ -4,11 +4,10 @@ import com.coaching.backend.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository<T extends User> extends JpaRepository<T, Long> {
-    T findByEmail(String email);
-    T findById(String email);
+    Optional<T> findByEmail(String email);
+    Optional<T> findById(long id);
     List<T> findByFirstNameAndLastName(String first_name, String last_name);
-    List<T> findByFirstName(String first_name);
-    List<T> findByLastName(String last_name);
 }

@@ -1,4 +1,6 @@
 package com.coaching.backend.repository;
 
-public interface ClientRepository {
+import com.coaching.backend.model.Client;
+
+public interface ClientRepository extends UserRepository<Client>{
 }

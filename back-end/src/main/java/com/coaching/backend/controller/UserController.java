@@ -1,2 +1,4 @@
-package com.coaching.backend.controller;public class UserController {
+package com.coaching.backend.controller;
+
+public class UserController {
 }
