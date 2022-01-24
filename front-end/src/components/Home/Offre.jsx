@@ -28,7 +28,7 @@ const useStyles = makeStyles({
   }
 });
 function Offre(props) {
-  let style = useStyles();;
+  let style = useStyles();
   return (
     <div>
       <Grid container>

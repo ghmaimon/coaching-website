@@ -6,8 +6,8 @@ import Toolbar from '@mui/material/Toolbar';
 
 import Contactus from "./Contactus"
 
-import '../../../css/App.css';
-import logo from "../../../css/logo.png"
+import '../../css/App.css';
+import logo from "../../css/logo.png"
 import AppName from "./AppName.jsx"
 import Searching from "./Searching.jsx"
 import Profile from "./Profile.jsx"

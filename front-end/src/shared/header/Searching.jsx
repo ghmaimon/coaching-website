@@ -17,9 +17,11 @@ import IconButton from '@mui/material/IconButton';
           type='text'
           placeholder="Search..."
           inputProps={{ "aria-label": "search" }}
-          onChange={event=>{                                
+          onChange={
+              event=>{
             setSearch(event.target.value)
-        }}         
+            }
+          }
    
         />
         <IconButton    type="submit" sx={{ p: "10px" }} aria-label="search">

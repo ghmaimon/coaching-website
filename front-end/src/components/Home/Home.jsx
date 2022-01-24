@@ -2,7 +2,7 @@
 import React from "react";
 
 import Image from "./Image"
-import ButtonLogin  from "../UsedComponents/ButtonLogin";
+import ButtonLogin  from "../../shared/ButtonLogin";
 
 import "../../css/App.css"
 import Desc from "./Desc";
