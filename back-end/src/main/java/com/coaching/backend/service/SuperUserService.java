@@ -30,4 +30,8 @@ public class SuperUserService{
     public List<SuperUser> getUsersWithName(String first_name, String last_name) {
         return superUserRepository.findByFirstNameAndLastName(first_name, last_name);
     }
+
+    public SuperUser createSuperUser(SuperUser superUser){
+        return superUserRepository.save(superUser);
+    }
 }

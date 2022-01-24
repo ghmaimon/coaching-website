@@ -5,6 +5,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Inheritance
+@Table(name = "users")
 public class User {
 
     @Id
@@ -12,16 +14,15 @@ public class User {
     private long id;
 
     @Column(nullable = false)
-    private String first_name;
+    private String firstName;
 
     @Column(nullable = false)
-    private String last_name;
+    private String lastName;
 
     @Column(nullable = false)
     private Date birth_date;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Role role;
 
     @Column(nullable = false)
@@ -30,34 +31,36 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    public User(String first_name, String last_name, Date birth_date,
+    public User(String firstName, String lastName, Date birth_date,
                 Role role, String email, String password) {
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.birth_date = birth_date;
         this.role = role;
         this.email = email;
         this.password = password;
     }
 
+    public User() {}
+
     public long getId() {
         return id;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public Date getBirth_date() {

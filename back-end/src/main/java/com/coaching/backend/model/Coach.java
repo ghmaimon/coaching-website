@@ -3,31 +3,35 @@ package com.coaching.backend.model;
 import com.coaching.backend.enumeration.Level;
 import com.coaching.backend.enumeration.Role;
 import com.coaching.backend.enumeration.Speciality;
-import org.hibernate.annotations.Type;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class Coach extends User{
 
     private boolean verified = false;
 
-    @Type(type = "json")
+    @ElementCollection(targetClass = Speciality.class)
+    @JoinTable(name = "specialities", joinColumns = @JoinColumn(name = "ID"))
+    @Column(name = "specialities", nullable = false)
+    @Enumerated(EnumType.STRING)
     private List<Speciality> specialities;
 
     @Enumerated(EnumType.STRING)
     private Level level;
 
     public Coach(String first_name, String last_name, Date birth_date,
-                 Role role, String email, String password,
+                 String email, String password,
                  boolean verified, List<Speciality> specialities, Level level) {
-        super(first_name, last_name, birth_date, role, email, password);
+        super(first_name, last_name, birth_date, Role.COACH, email, password);
         this.verified = verified;
         this.specialities = specialities;
         this.level = level;
     }
+
+    public Coach() {}
 
     public boolean isVerified() {
         return verified;

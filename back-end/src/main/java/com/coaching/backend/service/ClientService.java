@@ -30,4 +30,8 @@ public class ClientService{
     public List<Client> getUsersWithName(String first_name, String last_name) {
         return clientRepository.findByFirstNameAndLastName(first_name, last_name);
     }
+
+    public Client createClient(Client client){
+        return clientRepository.save(client);
+    }
 }

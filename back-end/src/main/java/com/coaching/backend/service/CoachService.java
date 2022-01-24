@@ -30,4 +30,8 @@ public class CoachService{
     public List<Coach> getUsersWithName(String first_name, String last_name) {
         return coachRepository.findByFirstNameAndLastName(first_name, last_name);
     }
+
+    public Coach createCoach(Coach coach){
+        return coachRepository.save(coach);
+    }
 }

@@ -2,22 +2,27 @@ package com.coaching.backend.model;
 
 import com.coaching.backend.enumeration.Role;
 import com.coaching.backend.enumeration.SuperUserAuthorities;
-import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class SuperUser extends User{
 
-    @Type(type = "json")
+    @ElementCollection(targetClass = SuperUserAuthorities.class)
+    @Column(name = "authorities", nullable = false)
+    @Enumerated(EnumType.STRING)
     private List<SuperUserAuthorities> authorities;
 
     public SuperUser(String first_name, String last_name, Date birth_date,
-                     Role role, String email, String password,
+                     String email, String password,
                      List<SuperUserAuthorities> authorities) {
-        super(first_name, last_name, birth_date, role, email, password);
+        super(first_name, last_name, birth_date, Role.SUPERUSER, email, password);
         this.authorities = authorities;
     }
+
+    public SuperUser() {}
 
     public List<SuperUserAuthorities> getAuthorities() {
         return authorities;
