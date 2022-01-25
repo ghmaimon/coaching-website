@@ -33,10 +33,10 @@ public class UserController {
     @PostMapping(path = "/create/coach",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Coach> createCoach(@RequestBody Coach coach){
+    public ResponseEntity<Coach> createCoach(@RequestBody Coach coach) throws Throwable {
         coach.setRole(Role.COACH);
         return new ResponseEntity<>(
-                coachService.createCoach(coach),
+                coachService.createUser(coach),
                 HttpStatus.CREATED
         );
     }
@@ -44,10 +44,10 @@ public class UserController {
     @PostMapping(path = "/create/client",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Client> createClient(@RequestBody Client client){
+    public ResponseEntity<Client> createClient(@RequestBody Client client) throws Throwable {
         client.setRole(Role.CLIENT);
         return new ResponseEntity<>(
-                clientService.createClient(client),
+                clientService.createUser(client),
                 HttpStatus.CREATED
         );
     }
@@ -55,10 +55,10 @@ public class UserController {
     @PostMapping(path = "/create/superuser",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SuperUser> createSuperUser(@RequestBody SuperUser superUser){
+    public ResponseEntity<SuperUser> createSuperUser(@RequestBody SuperUser superUser) throws Throwable {
         superUser.setRole(Role.SUPERUSER);
         return new ResponseEntity<>(
-                superUserService.createSuperUser(superUser),
+                superUserService.createUser(superUser),
                 HttpStatus.CREATED
         );
     }

@@ -31,17 +31,30 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "isActive", columnDefinition = "BOOLEAN default TRUE")
+    private boolean isActive;
+
     public User(String firstName, String lastName, Date birth_date,
                 Role role, String email, String password) {
+        isActive = true;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birth_date = birth_date;
         this.role = role;
         this.email = email;
         this.password = password;
+
     }
 
     public User() {}
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 
     public long getId() {
         return id;

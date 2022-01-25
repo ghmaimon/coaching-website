@@ -1,6 +1,6 @@
 package com.coaching.backend.enumeration;
 
-public enum SuperUserAuthorities {
+public enum SuperUserAuthority {
 
     view_users,
     delete_users,
