@@ -4,6 +4,8 @@ import com.coaching.backend.enumeration.Role;
 import com.coaching.backend.model.Client;
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.model.SuperUser;
+import com.coaching.backend.model.User;
+import com.coaching.backend.security.JwtChangePassword;
 import com.coaching.backend.security.JwtProperties;
 import com.coaching.backend.service.ClientService;
 import com.coaching.backend.service.CoachService;
@@ -121,6 +123,14 @@ public class UserController {
         }
         return new ResponseEntity<>(
                 userService.deleteUserWithToken(jwtToken)
+        );
+    }
+
+    @PutMapping(path = "/changePassword")
+    public ResponseEntity<User> changePassword(@RequestBody JwtChangePassword jwtChangePassword,
+                                               @RequestHeader("Authorization") String jwtToken) {
+        return new ResponseEntity<>(
+                userService.changePassword(jwtToken, jwtChangePassword)
         );
     }
 }

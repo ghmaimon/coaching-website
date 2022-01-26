@@ -2,10 +2,13 @@ package com.coaching.backend.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.coaching.backend.exception.PasswordsUnmatchedException;
 import com.coaching.backend.exception.UserAlreadyExistsException;
 import com.coaching.backend.exception.UserNotFoundException;
+import com.coaching.backend.exception.WrongPasswordException;
 import com.coaching.backend.model.User;
 import com.coaching.backend.repository.UserRepository;
+import com.coaching.backend.security.JwtChangePassword;
 import com.coaching.backend.security.JwtProperties;
 import com.coaching.backend.security.SecurityConfiguration;
 import org.springframework.http.HttpStatus;
@@ -48,13 +51,18 @@ public class UserService<T extends User> {
     }
 
     public HttpStatus deleteUserWithToken(String jwtToken) {
+        String email = getEmailFromJwtToken(jwtToken);
+        deleteUserWithEmail(email);
+        return HttpStatus.OK;
+    }
+
+    public String getEmailFromJwtToken(String jwtToken) {
         jwtToken = jwtToken.replace(JwtProperties.TOKEN_PREFIX, "");
         String email = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET.getBytes()))
                 .build()
                 .verify(jwtToken)
                 .getSubject();
-        deleteUserWithEmail(email);
-        return HttpStatus.OK;
+        return email;
     }
 
     public void deleteUserWithId(long id) {
@@ -64,5 +72,17 @@ public class UserService<T extends User> {
     public void deleteUserWithEmail(String email) {
         T user = getUserWithEmail(email);
         userRepository.deleteById(user.getId());
+    }
+
+    public HttpStatus changePassword(String jwtToken, JwtChangePassword jwtChangePassword) {
+        String email = getEmailFromJwtToken(jwtToken);
+        T user = getUserWithEmail(email);
+        if (!passwordEncoder.matches(jwtChangePassword.getOldPass(), user.getPassword()))
+            throw new WrongPasswordException(jwtChangePassword.getOldPass());
+        if (!jwtChangePassword.getNewPass1().equals(jwtChangePassword.getNewPass2()))
+            throw new PasswordsUnmatchedException(jwtChangePassword.getNewPass1(), jwtChangePassword.getNewPass2());
+        user.setPassword(passwordEncoder.encode(jwtChangePassword.getNewPass1()));
+        userRepository.save(user);
+        return HttpStatus.OK;
     }
 }
