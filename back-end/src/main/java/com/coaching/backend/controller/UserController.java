@@ -4,9 +4,11 @@ import com.coaching.backend.enumeration.Role;
 import com.coaching.backend.model.Client;
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.model.SuperUser;
+import com.coaching.backend.security.JwtProperties;
 import com.coaching.backend.service.ClientService;
 import com.coaching.backend.service.CoachService;
 import com.coaching.backend.service.SuperUserService;
+import com.coaching.backend.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +23,14 @@ public class UserController {
     CoachService coachService;
     ClientService clientService;
     SuperUserService superUserService;
+    UserService userService;
 
-    public UserController(CoachService coachService, ClientService clientService, SuperUserService superUserService) {
+    public UserController(CoachService coachService, ClientService clientService,
+                          SuperUserService superUserService, UserService userService) {
         this.coachService = coachService;
         this.clientService = clientService;
         this.superUserService = superUserService;
+        this.userService = userService;
     }
 
     // create users:
@@ -86,6 +91,36 @@ public class UserController {
         return new ResponseEntity<>(
                 superUserService.getAllUsers(),
                 HttpStatus.OK
+        );
+    }
+
+    // delete users:
+
+    @DeleteMapping(path = "/delete/ByEmail")
+    public ResponseEntity<Void> deleteUserByEmail(@RequestHeader String email) {
+        userService.deleteUserWithEmail(email);
+        return new ResponseEntity<>(
+                HttpStatus.OK
+        );
+    }
+
+    @DeleteMapping(path = "/delete/ById/{id}")
+    public ResponseEntity<Void> deleteUserById(@PathVariable long id) {
+        userService.deleteUserWithId(id);
+        return new ResponseEntity<>(
+                HttpStatus.OK
+        );
+    }
+
+    @DeleteMapping(path = "/delete")
+    public ResponseEntity<Void> deleteCurrentUser(@RequestHeader("Authorization") String jwtToken) {
+        if (jwtToken == null || !jwtToken.startsWith(JwtProperties.TOKEN_PREFIX)){
+            return new ResponseEntity<>(
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+        return new ResponseEntity<>(
+                userService.deleteUserWithToken(jwtToken)
         );
     }
 }

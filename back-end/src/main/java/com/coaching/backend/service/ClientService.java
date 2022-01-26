@@ -6,7 +6,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ClientService extends UserService<Client>{
+
+    ClientRepository clientRepository;
+
     public ClientService(ClientRepository clientRepository) {
         super(clientRepository);
+        this.clientRepository = clientRepository;
     }
 }
