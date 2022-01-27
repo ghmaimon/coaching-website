@@ -57,7 +57,7 @@ export default function SignIn() {
         } >
         <
         Avatar sx = {
-            { m: 1, bgcolor: 'green' }
+            { m: 1, bgcolor: '#2e7d32' }
         } >
         <
         LockOutlinedIcon / >
@@ -65,7 +65,7 @@ export default function SignIn() {
         /Avatar> <
         Typography component = "h1"
         variant = "h5"
-        color = "green" >
+        color = "#2e7d32" >
         Sign in
         <
         /Typography> <
@@ -80,6 +80,7 @@ export default function SignIn() {
         label = "Email Address"
         name = "email"
         autoComplete = "email"
+        color = "success"
         autoFocus /
         >
         <
@@ -87,18 +88,20 @@ export default function SignIn() {
         required fullWidth name = "password"
         label = "Password"
         type = "password"
+        color = "success"
         id = "password"
         autoComplete = "current-password" /
         >
         <
         FormControlLabel control = { < Checkbox value = "remember"
-            color = "primary" / >
+            color = "success" / >
         }
         label = "Remember me" /
         >
         <
         Button type = "submit"
         fullWidth variant = "contained"
+        color = "success"
         sx = {
             { mt: 3, mb: 2 }
         } >
@@ -109,6 +112,7 @@ export default function SignIn() {
         Grid item xs >
         <
         Link href = "#"
+        color = "#2e7d32"
         variant = "body2" >
         Forgot password ?
         <
@@ -117,6 +121,7 @@ export default function SignIn() {
         Grid item >
         <
         Link href = "#"
+        color = "#2e7d32"
         variant = "body2" > { "Don't have an account? Sign Up" } <
         /Link> < /
         Grid > <

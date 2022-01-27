@@ -15,7 +15,7 @@ function App() {
         div className = "body" >
         <
         Header / > { /*<Home/>*/ } { /* <Profil /> */ } <
-        SignUp / >
+        SignIn / >
         <
         Footer / >
         <
