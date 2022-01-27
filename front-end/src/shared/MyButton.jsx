@@ -8,7 +8,7 @@ function MyButton(props) {
     float: "right",
     filter: "drop-shadow(0px 5px 5px #dbdbdb)",
     marginRight: "10px",
-    marginTop: "1px",
+    marginTop: props.marginTop || "1px",
     borderRadius: props.radius || 100,
     fontSize: props.size || "12px",
     fontFamily: "Montserrat",

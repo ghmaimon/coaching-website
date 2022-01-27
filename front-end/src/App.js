@@ -3,7 +3,7 @@ import './css/App.css';
 import Header from './shared/header/header';
 import Home from "./components/Home/Home";
 import Footer from "./shared/footer/Footer";
-import Profil from "./components/Dashboard/Admin/profil";
+import Profil from "./components/Dashboard/Client/profil";
 
 function App() {
     console.log(Home);
