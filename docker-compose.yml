@@ -1,0 +1,57 @@
+version: '3.7'
+
+services:
+
+  app-server:
+
+    build:
+      context: back-end
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3307/coaching_website
+      SPRING_DATASOURCE_USERNAME: coaching-app-admin
+      SPRING_DATASOURCE_PASSWORD: coaching
+    networks:
+      - backend
+      - frontend
+
+  app-client:
+    build:
+      context: front-end
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_BASE_URL: http://127.0.0.1:8080
+    ports:
+      - "9090:80"
+    restart: always
+    depends_on:
+      - app-server
+    networks:
+      - frontend
+
+  db:
+    image: mysql
+    ports:
+      - "3307:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: coaching_website
+      MYSQL_USER: coaching-app-admin
+      MYSQL_PASSWORD: coaching
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - backend
+
+volumes:
+  db-data:
+
+networks:
+  backend:
+  frontend:
