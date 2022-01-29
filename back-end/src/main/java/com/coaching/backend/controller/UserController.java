@@ -11,6 +11,8 @@ import com.coaching.backend.service.ClientService;
 import com.coaching.backend.service.CoachService;
 import com.coaching.backend.service.SuperUserService;
 import com.coaching.backend.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import java.util.List;
 
 @RestController
@@ -28,6 +31,7 @@ public class UserController {
     ClientService clientService;
     SuperUserService superUserService;
     UserService userService;
+    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 
     public UserController(CoachService coachService, ClientService clientService,
                           SuperUserService superUserService, UserService userService) {
@@ -42,7 +46,7 @@ public class UserController {
     @PostMapping(path = "/create/coach",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Coach> createCoach(@RequestBody Coach coach) throws Throwable {
+    public ResponseEntity<Coach> createCoach(@Valid @RequestBody Coach coach) throws Throwable {
         coach.setRole(Role.COACH);
         return new ResponseEntity<>(
                 coachService.createUser(coach),
@@ -64,7 +68,7 @@ public class UserController {
     @PostMapping(path = "/create/superuser",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SuperUser> createSuperUser(@RequestBody SuperUser superUser) throws Throwable {
+    public ResponseEntity<SuperUser> createSuperUser(@Valid @RequestBody SuperUser superUser) throws Throwable {
         superUser.setRole(Role.SUPERUSER);
         return new ResponseEntity<>(
                 superUserService.createUser(superUser),
@@ -100,7 +104,7 @@ public class UserController {
     // delete users:
 
     @DeleteMapping(path = "/delete/ByEmail")
-    public ResponseEntity<Void> deleteUserByEmail(@RequestHeader String email) {
+    public ResponseEntity<Void> deleteUserByEmail(@RequestHeader @Email(message = "must be an email") String email) {
         userService.deleteUserWithEmail(email);
         return new ResponseEntity<>(
                 HttpStatus.OK
