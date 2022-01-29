@@ -4,6 +4,7 @@ import com.coaching.backend.enumeration.Role;
 import com.coaching.backend.enumeration.SuperUserAuthority;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,8 @@ import java.util.List;
 public class SuperUser extends User{
 
     @ElementCollection(targetClass = SuperUserAuthority.class, fetch = FetchType.EAGER)
-    @Column(name = "authorities", nullable = false)
+    @Column(name = "authorities")
+    @NotNull(message = "Authorities cannot be null")
     @Enumerated(EnumType.STRING)
     private List<SuperUserAuthority> authorities;
 

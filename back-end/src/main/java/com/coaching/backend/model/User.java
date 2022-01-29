@@ -1,7 +1,10 @@
 package com.coaching.backend.model;
 
 import com.coaching.backend.enumeration.Role;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -13,10 +16,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @NotNull(message = "firstName must not be null")
+    @NotEmpty(message = "firstName must not be an empty string")
     private String firstName;
 
-    @Column(nullable = false)
+    @NotNull(message = "lastName must not be null")
+    @NotEmpty(message = "lastName must not be an empty string")
     private String lastName;
 
     @Column(nullable = false)
@@ -25,10 +30,13 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @NotNull(message = "Email must not be null")
+    @Column(name = "email", unique = true)
+    @javax.validation.constraints.Email
     private String email;
 
-    @Column(nullable = false)
+    @NotNull(message = "password must not be null")
+    @NotEmpty(message = "password must not be an empty string")
     private String password;
 
     @Column(name = "isActive", columnDefinition = "BOOLEAN default TRUE")

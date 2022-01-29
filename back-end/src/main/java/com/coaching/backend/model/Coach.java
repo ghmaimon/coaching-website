@@ -5,6 +5,7 @@ import com.coaching.backend.enumeration.Role;
 import com.coaching.backend.enumeration.Speciality;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,8 @@ public class Coach extends User{
 
     @ElementCollection(targetClass = Speciality.class)
     @JoinTable(name = "specialities", joinColumns = @JoinColumn(name = "ID"))
-    @Column(name = "specialities", nullable = false)
+    @Column(name = "specialities")
+    @NotNull(message = "Speciality is required")
     @Enumerated(EnumType.STRING)
     private List<Speciality> specialities;
 

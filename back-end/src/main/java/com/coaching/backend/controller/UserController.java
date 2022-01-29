@@ -14,8 +14,10 @@ import com.coaching.backend.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -51,7 +53,7 @@ public class UserController {
     @PostMapping(path = "/create/client",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Client> createClient(@RequestBody Client client) throws Throwable {
+    public ResponseEntity<Client> createClient(@Valid @RequestBody Client client) throws Throwable {
         client.setRole(Role.CLIENT);
         return new ResponseEntity<>(
                 clientService.createUser(client),
@@ -71,7 +73,6 @@ public class UserController {
     }
 
     // list users
-
     @GetMapping(path = "/list/coach/all")
     public ResponseEntity<List<Coach>> listAllCoaches(){
         return new ResponseEntity<>(

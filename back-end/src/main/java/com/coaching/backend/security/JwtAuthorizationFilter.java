@@ -38,7 +38,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             Authentication auth = getEmailPasswordAuthentication(jwtToken);
             SecurityContextHolder.getContext().setAuthentication(auth);
             chain.doFilter(request, response);
-        } catch (Throwable e) {}
+        } catch (Throwable ignored) {}
     }
 
     private Authentication getEmailPasswordAuthentication(String jwtToken) throws Throwable {
