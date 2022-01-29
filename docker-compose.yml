@@ -6,12 +6,12 @@ services:
       context: back-end
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8000:8000"
     restart: always
     depends_on:
       - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/coaching_website
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/coaching_website
       SPRING_DATASOURCE_USERNAME: coaching-app-admin
       SPRING_DATASOURCE_PASSWORD: coaching
     networks:
@@ -23,9 +23,9 @@ services:
       context: front-end
       dockerfile: Dockerfile
       args:
-        REACT_APP_API_BASE_URL: http://127.0.0.1:8080
+        REACT_APP_API_BASE_URL: http://127.0.0.1:3000
     ports:
-      - "9090:80"
+      - "3000:3000"
     restart: always
     depends_on:
       - app-server
