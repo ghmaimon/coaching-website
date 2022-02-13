@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -132,10 +131,25 @@ public class UserController {
     }
 
     @PutMapping(path = "/changePassword")
-    public ResponseEntity<User> changePassword(@RequestBody JwtChangePassword jwtChangePassword,
+    public ResponseEntity<Void> changePassword(@RequestBody JwtChangePassword jwtChangePassword,
                                                @RequestHeader("Authorization") String jwtToken) {
         return new ResponseEntity<>(
-                userService.changePassword(jwtToken, jwtChangePassword)
+                userService.changePasswordFromToken(jwtToken, jwtChangePassword)
+        );
+    }
+
+    @PutMapping(path = "/changePassword/{id}")
+    public ResponseEntity<Void> changePasswordById(@RequestBody JwtChangePassword jwtChangePassword,
+                                                   @PathVariable long id) {
+        return new ResponseEntity<>(
+                userService.changePasswordById(id, jwtChangePassword)
+        );
+    }
+
+    @GetMapping(path = "/forgotPassword")
+    public ResponseEntity<Void> forgotPassword(@RequestBody String email) {
+        return new ResponseEntity<>(
+                userService.forgotPassword(email)
         );
     }
 }

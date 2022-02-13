@@ -2,10 +2,7 @@ package com.coaching.backend.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.coaching.backend.exception.PasswordsUnmatchedException;
-import com.coaching.backend.exception.UserAlreadyExistsException;
-import com.coaching.backend.exception.UserNotFoundException;
-import com.coaching.backend.exception.WrongPasswordException;
+import com.coaching.backend.exception.*;
 import com.coaching.backend.model.User;
 import com.coaching.backend.repository.UserRepository;
 import com.coaching.backend.security.JwtChangePassword;
@@ -74,15 +71,29 @@ public class UserService<T extends User> {
         userRepository.deleteById(user.getId());
     }
 
-    public HttpStatus changePassword(String jwtToken, JwtChangePassword jwtChangePassword) {
+    public HttpStatus changePasswordFromToken(String jwtToken, JwtChangePassword jwtChangePassword) {
         String email = getEmailFromJwtToken(jwtToken);
         T user = getUserWithEmail(email);
         if (!passwordEncoder.matches(jwtChangePassword.getOldPass(), user.getPassword()))
             throw new WrongPasswordException(jwtChangePassword.getOldPass());
+        return changePassword(jwtChangePassword, user);
+    }
+
+    public HttpStatus changePasswordById(long id, JwtChangePassword jwtChangePassword) {
+        T user = getUserWithId(id);
+        return changePassword(jwtChangePassword, user);
+    }
+
+    private HttpStatus changePassword(JwtChangePassword jwtChangePassword, T user) {
         if (!jwtChangePassword.getNewPass1().equals(jwtChangePassword.getNewPass2()))
             throw new PasswordsUnmatchedException(jwtChangePassword.getNewPass1(), jwtChangePassword.getNewPass2());
         user.setPassword(passwordEncoder.encode(jwtChangePassword.getNewPass1()));
         userRepository.save(user);
         return HttpStatus.OK;
+    }
+
+    public HttpStatus forgotPassword(String email) {
+        // this function will send an email with the link to create new password
+        return  HttpStatus.OK;
     }
 }
