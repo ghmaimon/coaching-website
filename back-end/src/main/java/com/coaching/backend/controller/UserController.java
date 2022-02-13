@@ -1,16 +1,10 @@
 package com.coaching.backend.controller;
 
 import com.coaching.backend.enumeration.Role;
-import com.coaching.backend.model.Client;
-import com.coaching.backend.model.Coach;
-import com.coaching.backend.model.SuperUser;
-import com.coaching.backend.model.User;
+import com.coaching.backend.model.*;
 import com.coaching.backend.security.JwtChangePassword;
 import com.coaching.backend.security.JwtProperties;
-import com.coaching.backend.service.ClientService;
-import com.coaching.backend.service.CoachService;
-import com.coaching.backend.service.SuperUserService;
-import com.coaching.backend.service.UserService;
+import com.coaching.backend.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -30,6 +24,10 @@ public class UserController {
     ClientService clientService;
     SuperUserService superUserService;
     UserService userService;
+    ContractService contractService;
+    TrainingContractService trainingContractService;
+    MealContractService mealContractService;
+
     private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 
     public UserController(CoachService coachService, ClientService clientService,
@@ -150,6 +148,22 @@ public class UserController {
     public ResponseEntity<Void> forgotPassword(@RequestBody String email) {
         return new ResponseEntity<>(
                 userService.forgotPassword(email)
+        );
+    }
+
+    @PostMapping(path = "/Contract/createTrainingContract")
+    public ResponseEntity<TrainingContract> createTrainingContract(@RequestBody TrainingContract contract) {
+        return new ResponseEntity<>(
+                trainingContractService.createContract(contract),
+                HttpStatus.OK
+        );
+    }
+
+    @PostMapping(path = "/Contract/createMealContract")
+    public ResponseEntity<MealContract> createMealContract(@RequestBody MealContract contract) {
+        return new ResponseEntity<>(
+                mealContractService.createContract(contract),
+                HttpStatus.OK
         );
     }
 }
