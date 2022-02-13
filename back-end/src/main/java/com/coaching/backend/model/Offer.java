@@ -26,21 +26,24 @@ public class Offer {
     @NotNull(message = "Description is required")
     private String description;
 
-    private long price;
+    private long minPrice;
+
+    private long maxPrice;
 
     @NotNull(message = "Creation date is required")
-    private Date creation_date;
+    private Date creationDate;
 
-    public Offer(Coach coach, List<String> tags, String title, String description, long price, Date creation_date) {
+    public Offer() {}
+
+    public Offer(Coach coach, List<String> tags, String title, String description, long minPrice, long maxPrice, Date creationDate) {
         this.coach = coach;
         this.tags = tags;
         this.title = title;
         this.description = description;
-        this.price = price;
-        this.creation_date = creation_date;
+        this.minPrice = minPrice;
+        this.maxPrice = maxPrice;
+        this.creationDate = creationDate;
     }
-
-    public Offer() {}
 
     public Coach getCoach() {
         return coach;
@@ -74,20 +77,28 @@ public class Offer {
         this.description = description;
     }
 
-    public long getPrice() {
-        return price;
+    public long getMinPrice() {
+        return minPrice;
     }
 
-    public void setPrice(long price) {
-        this.price = price;
+    public void setMinPrice(long minPrice) {
+        this.minPrice = minPrice;
     }
 
-    public Date getCreation_date() {
-        return creation_date;
+    public long getMaxPrice() {
+        return maxPrice;
     }
 
-    public void setCreation_date(Date creation_date) {
-        this.creation_date = creation_date;
+    public void setMaxPrice(long maxPrice) {
+        this.maxPrice = maxPrice;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public Long getId() {
