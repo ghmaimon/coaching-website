@@ -32,6 +32,13 @@ public class Contract {
         this.AcceptanceDate = acceptanceDate;
     }
 
+    public Contract(Client client, long price, Date acceptanceDate, boolean paid) {
+        this.client = client;
+        this.price = price;
+        AcceptanceDate = acceptanceDate;
+        this.paid = paid;
+    }
+
     private boolean paid;
 
     public boolean isPaid() {
