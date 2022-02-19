@@ -9,4 +9,8 @@ public class CoachService extends UserService<Coach>{
     public CoachService(CoachRepository coachRepository) {
         super(coachRepository);
     }
+
+    public boolean exists(Coach coach) {
+        return userRepository.existsByEmail(coach.getEmail());
+    }
 }

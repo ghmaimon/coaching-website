@@ -2,9 +2,10 @@ package com.coaching.backend.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
-
+@SuppressWarnings("unused")
 @Entity
 public class Offer {
 
@@ -30,7 +31,8 @@ public class Offer {
 
     private long maxPrice;
 
-    @NotNull(message = "Creation date is required")
+    // I removed the notNull condition when i added the second constructor
+    // @NotNull(message = "Creation date is required")
     private Date creationDate;
 
     public Offer() {}
@@ -43,6 +45,25 @@ public class Offer {
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
         this.creationDate = creationDate;
+    }
+
+    /**
+     * doesnt require the creation date attribute, as it will be set automatically to today's date
+     * @param coach coach
+     * @param tags offer's tags
+     * @param title offer's title
+     * @param description offer's description
+     * @param minPrice offer's minPrice
+     * @param maxPrice offer's maxPrice
+     */
+    public Offer(Coach coach, List<String> tags, String title, String description, long minPrice, long maxPrice) {
+        this.coach = coach;
+        this.tags = tags;
+        this.title = title;
+        this.description = description;
+        this.minPrice = minPrice;
+        this.maxPrice = maxPrice;
+        this.creationDate = Date.from(Instant.now());
     }
 
     public Coach getCoach() {

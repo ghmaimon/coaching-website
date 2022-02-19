@@ -44,6 +44,7 @@ public class UserController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Coach> createCoach(@Valid @RequestBody Coach coach) throws Throwable {
+        LOG.debug("new /create/coach request : "+coach.getEmail());
         coach.setRole(Role.COACH);
         return new ResponseEntity<>(
                 coachService.createUser(coach),
