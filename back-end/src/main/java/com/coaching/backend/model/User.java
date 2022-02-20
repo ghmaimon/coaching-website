@@ -115,4 +115,8 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

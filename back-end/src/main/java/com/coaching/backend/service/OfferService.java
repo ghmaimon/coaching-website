@@ -12,6 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static com.coaching.backend.utils.OfferUtils.getCoachWithoutPersonalDetails;
+
 @Service
 @AllArgsConstructor
 public class OfferService {
@@ -38,5 +44,17 @@ public class OfferService {
         }
         offerRepository.save(offer);
         LOG.debug("new offer created");
+    }
+
+    public List<Offer> getOffersByTags(List<String> tags) {
+        LOG.debug("searching offers by tags");
+        Optional<List<Offer>> offers = offerRepository.findAllByTagsIn(tags);
+        if (offers.isPresent()){
+            for (Offer offer : offers.get()){
+                offer.setCoach(getCoachWithoutPersonalDetails(offer.getCoach()));
+            }
+            return offers.get();
+        }
+        return new ArrayList<>();
     }
 }

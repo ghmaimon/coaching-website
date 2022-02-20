@@ -5,8 +5,10 @@ import com.coaching.backend.model.Offer;
 import com.coaching.backend.model.User;
 import com.coaching.backend.service.*;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -40,6 +43,19 @@ public class OfferController {
                 HttpStatus.CREATED
         );
     }
+    @PostMapping(path = "/search/byTags",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Offer>> addOffer(@Valid @RequestBody @NonNull List<String> tags){
+        LOG.debug("adding new offer");
+        List<Offer> offers = offerService.getOffersByTags(tags);
+        return new ResponseEntity<>(
+                offers,
+                HttpStatus.OK
+        );
+    }
+
+
 
 
 }
