@@ -5,6 +5,7 @@ import com.coaching.backend.exception.CoachIsNotVerifiedException;
 import com.coaching.backend.exception.CoachNotFoundException;
 import com.coaching.backend.exception.UserException;
 import com.coaching.backend.exception.UserNotFoundException;
+import com.coaching.backend.model.Coach;
 import com.coaching.backend.model.Offer;
 import com.coaching.backend.repository.OfferRepository;
 import lombok.AllArgsConstructor;
@@ -45,6 +46,11 @@ public class OfferService {
         LOG.debug("new offer created");
     }
 
+    /**
+     * get all offers having any of the tags
+     * @param tags list of tags to search in
+     * @return list of offers
+     */
     public List<Offer> getOffersByTags(List<String> tags) {
         LOG.debug("searching offers by tags");
         Optional<List<Offer>> offers = offerRepository.findAllByTagsIn(tags);
@@ -55,5 +61,20 @@ public class OfferService {
             return offers.get();
         }
         return new ArrayList<>();
+    }
+
+    public List<Offer> getOffersByCoach(Coach coach) {
+
+        if (coach == null){
+            return List.of();
+        }
+        if (coach.getId()!=0){ // equivalent to id != null i guess
+            return coachService.findAllOffersByCoachId(coach.getId());
+        }
+        // this will generate an error -- logical error -- when two coaches have the same full name
+        if (coach.getFirstName() != null && coach.getLastName()!=null){
+            return coachService.findAllOffersByCoachFirstAndLastName(coach.getFirstName(), coach.getLastName());
+        }
+        return List.of();
     }
 }

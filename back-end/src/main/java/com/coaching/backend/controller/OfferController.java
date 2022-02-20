@@ -12,9 +12,13 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @AllArgsConstructor
@@ -50,15 +54,26 @@ public class OfferController {
     @PostMapping(path = "/search/byTags",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Offer>> addOffer(@Valid @RequestBody @NonNull List<String> tags){
-        LOG.debug("adding new offer");
+    public ResponseEntity<List<Offer>> getOffersByTags(@Valid @RequestBody @NonNull List<String> tags){
+        LOG.debug("getting offers by tags");
         List<Offer> offers = offerService.getOffersByTags(tags);
         return new ResponseEntity<>(
                 offers,
                 HttpStatus.OK
         );
     }
-
+    @PostMapping(path = "/search/byCoach",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Offer>> getOffersByCoach(@Valid @RequestBody Coach coach){
+        LOG.debug("getting offers by coach");
+        LOG.debug("{}", coach.toString());
+        List<Offer> offers = offerService.getOffersByCoach(coach);
+        return new ResponseEntity<>(
+                offers,
+                HttpStatus.OK
+        );
+    }
 
 
 

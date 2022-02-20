@@ -1,5 +1,6 @@
 package com.coaching.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Offer {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "coach_id")
     @NotNull(message = "Coach is required")
+    @JsonBackReference
     private Coach coach;
 
     @ElementCollection

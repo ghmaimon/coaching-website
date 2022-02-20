@@ -3,6 +3,7 @@ package com.coaching.backend.model;
 import com.coaching.backend.enumeration.Level;
 import com.coaching.backend.enumeration.Role;
 import com.coaching.backend.enumeration.Speciality;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,9 @@ import java.util.List;
 public class Coach extends User{
 
     private boolean verified = false;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "coach")
+    @JsonManagedReference
+    private List<Offer> offers;
 
     @ElementCollection(targetClass = Speciality.class)
     @JoinTable(name = "specialities", joinColumns = @JoinColumn(name = "ID"))
@@ -34,6 +38,10 @@ public class Coach extends User{
     }
 
     public Coach() {}
+
+    public List<Offer> getOffers() {
+        return offers;
+    }
 
     public boolean isVerified() {
         return verified;
