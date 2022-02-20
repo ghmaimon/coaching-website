@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/account/delete").authenticated()
                 .antMatchers("/api/account/changePassword").authenticated()
                 .antMatchers("/api/account/delete/**/**").hasRole("SUPERUSER")
-//                .antMatchers("/api/offer/**/**").hasAnyRole("SUPERUSER", "COACH");
+                .antMatchers("/api/offer/add").hasAnyRole("SUPERUSER", "COACH");
         ;
                 /*.antMatchers("/api/services/hello").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/services/teacher/**").hasAuthority("auth1")

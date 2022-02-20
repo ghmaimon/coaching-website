@@ -18,6 +18,9 @@ public class CoachService extends UserService<Coach>{
         }
         return userRepository.existsById(coach.getId());
     }
+    public Coach findByEmail(String email) {
+        return userRepository.findByEmail(email).orElse(null);
+    }
 
     public Coach findById(long id) {
         return userRepository.findById(id).orElse(null);

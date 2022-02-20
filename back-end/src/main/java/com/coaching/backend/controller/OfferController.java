@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -35,7 +32,8 @@ public class OfferController {
     @PostMapping(path = "/add",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Offer> addOffer(@Valid @RequestBody Offer offer){
+
+    public ResponseEntity<Offer> addOffer(@Valid @RequestBody Offer offer ){
         LOG.debug("adding new offer");
         offerService.addOffer(offer);
         return new ResponseEntity<>(
@@ -43,6 +41,12 @@ public class OfferController {
                 HttpStatus.CREATED
         );
     }
+
+    /**
+     * search offers by tags
+     * @param tags list of tags
+     * @return list of offers
+     */
     @PostMapping(path = "/search/byTags",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

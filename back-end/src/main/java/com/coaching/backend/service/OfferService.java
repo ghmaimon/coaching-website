@@ -10,6 +10,8 @@ import com.coaching.backend.repository.OfferRepository;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,13 +33,10 @@ public class OfferService {
      * @param offer the offer to be added
      */
     public void addOffer(Offer offer){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        LOG.debug("the current user : {}", userDetails.getUsername());
         LOG.debug("creating new offer");
-        if (offer.getCoach() == null) throw new UserException("UserNotFoundException"," the coach is not found");
-        if (!coachService.exists(offer.getCoach())){
-            LOG.debug("the coach is not found");
-            throw new CoachNotFoundException(offer.getCoach().getEmail());
-        }
-        offer.setCoach(coachService.findById(offer.getCoach().getId()));
+        offer.setCoach(coachService.findByEmail(userDetails.getUsername()));
         if (!offer.getCoach().isVerified()){
             LOG.debug("the coach is not verified + email : {}", offer.getCoach());
             throw new CoachIsNotVerifiedException(offer.getCoach().getEmail());
