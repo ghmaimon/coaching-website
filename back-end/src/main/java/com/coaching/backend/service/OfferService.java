@@ -1,10 +1,8 @@
 package com.coaching.backend.service;
 
 import com.coaching.backend.controller.OfferController;
-import com.coaching.backend.exception.CoachIsNotVerifiedException;
-import com.coaching.backend.exception.CoachNotFoundException;
-import com.coaching.backend.exception.UserException;
-import com.coaching.backend.exception.UserNotFoundException;
+import com.coaching.backend.enumeration.Role;
+import com.coaching.backend.exception.*;
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.model.Offer;
 import com.coaching.backend.repository.OfferRepository;
@@ -63,18 +61,23 @@ public class OfferService {
         return new ArrayList<>();
     }
 
+    /**
+     * get all offers of a coach by his id, or his full name
+     * @param coach the coach - must contain either id or full name
+     * @return list of offers
+     */
     public List<Offer> getOffersByCoach(Coach coach) {
 
         if (coach == null){
-            return List.of();
+            throw new UserNullException(Role.COACH);
         }
         if (coach.getId()!=0){ // equivalent to id != null i guess
-            return coachService.findAllOffersByCoachId(coach.getId());
+            return offerRepository.findAllByCoachId(coach.getId()).orElseGet(ArrayList::new);
         }
         // this will generate an error -- logical error -- when two coaches have the same full name
         if (coach.getFirstName() != null && coach.getLastName()!=null){
-            return coachService.findAllOffersByCoachFirstAndLastName(coach.getFirstName(), coach.getLastName());
+            return offerRepository.findAllOffersByCoachFirstNameAndCoachLastName(coach.getFirstName(), coach.getLastName()).orElseGet(ArrayList::new);
         }
-        return List.of();
+        throw new UserIncompleteDataException("coach's id or full_name");
     }
 }

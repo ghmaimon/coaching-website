@@ -9,5 +9,7 @@ import java.util.Optional;
 public interface OfferRepository extends JpaRepository<Offer, Long> {
     Optional<List<Offer>> findAllByTagsIn(List<String> tags);
 
-    List<Offer> findAllByCoach(long id);
+    Optional<List<Offer>> findAllByCoachId(long id);
+
+    Optional<List<Offer>> findAllOffersByCoachFirstNameAndCoachLastName(String firstName, String lastName);
 }

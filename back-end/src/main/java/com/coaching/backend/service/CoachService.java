@@ -29,13 +29,5 @@ public class CoachService extends UserService<Coach>{
         return userRepository.findById(id).orElse(null);
     }
 
-    public List<Offer> findAllOffersByCoachId(long id) {
-        Coach coach = userRepository.findById(id).orElse(null);
-        if (coach == null) throw new CoachNotFoundException(id);
-        return coach.getOffers();
-    }
 
-    public List<Offer> findAllOffersByCoachFirstAndLastName(String firstName, String lastName) {
-        return null;
-    }
 }
