@@ -1,20 +1,26 @@
 package com.coaching.backend.service;
 
-import com.coaching.backend.controller.OfferController;
 import com.coaching.backend.enumeration.Role;
-import com.coaching.backend.exception.*;
+import com.coaching.backend.exception.CoachIsNotVerifiedException;
+import com.coaching.backend.exception.UserIncompleteDataException;
+import com.coaching.backend.exception.UserNullException;
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.model.Offer;
 import com.coaching.backend.repository.OfferRepository;
-import lombok.AllArgsConstructor;
+import org.apache.lucene.search.Query;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.Transient;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,12 +29,19 @@ import static com.coaching.backend.utils.OfferUtils.getCoachWithoutPersonalDetai
 
 @Service
 @Transactional
-@AllArgsConstructor
 public class OfferService {
 
-    private OfferRepository offerRepository;
-    private CoachService coachService;
+    private final OfferRepository offerRepository;
+    private final CoachService coachService;
+    @PersistenceContext()
+    EntityManager entityManager;
     private static final Logger LOG = LoggerFactory.getLogger(OfferService.class);
+
+    public OfferService(OfferRepository offerRepository, CoachService coachService, EntityManager entityManager) {
+        this.offerRepository = offerRepository;
+        this.coachService = coachService;
+        this.entityManager = entityManager;
+    }
 
     /**
      * add new offer -- sets the coach in offer by finding it in the db
@@ -82,5 +95,42 @@ public class OfferService {
             return offerRepository.findAllOffersByCoachFirstNameAndCoachLastName(coach.getFirstName(), coach.getLastName()).orElseGet(ArrayList::new);
         }
         throw new UserIncompleteDataException("coach's id or full_name");
+    }
+
+    /**
+     * search for offers by title
+     * -- uses fuzzy search to match the title even if up to 3 letters are different --
+     * @param title the title to search for
+     * @return the list of offers matching the title
+     */
+    public List<Offer> getOffersByTitle(String title) {
+
+        LOG.debug("searching offers by title : {}", title);
+        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+        fullTextEntityManager.flushToIndexes();
+        fullTextEntityManager.clear();
+        QueryBuilder queryBuilder = fullTextEntityManager
+                .getSearchFactory()
+                .buildQueryBuilder()
+                .forEntity(Offer.class)
+                .get();
+
+//        Query query = queryBuilder
+//                .phrase()
+//                .withSlop(3)
+//                .onField("title")
+//                .sentence(title)
+//                .createQuery();
+        Query query = queryBuilder
+                .keyword()
+                .onField("title")
+                .matching("offer2")
+                .createQuery();
+
+        LOG.debug("expected : {}", offerRepository.findAllByTitle("offer2").get().size());
+
+        List<Offer> res = fullTextEntityManager.createFullTextQuery(query, Offer.class).getResultList();
+
+        return res;
     }
 }

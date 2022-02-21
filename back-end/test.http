@@ -29,3 +29,9 @@ Content-Type: application/json
 [
   "nutrition"
 ]
+#####
+# new request
+POST http://localhost:8000/api/offer/search/byTitle
+Content-Type: text/plain
+
+offer2

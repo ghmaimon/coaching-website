@@ -12,4 +12,6 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
     Optional<List<Offer>> findAllByCoachId(long id);
 
     Optional<List<Offer>> findAllOffersByCoachFirstNameAndCoachLastName(String firstName, String lastName);
+
+    Optional<List<Offer>> findAllByTitle(String title);
 }

@@ -74,6 +74,18 @@ public class OfferController {
                 HttpStatus.OK
         );
     }
+    @PostMapping(path = "/search/byTitle",
+            consumes = MediaType.TEXT_PLAIN_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Offer>> getOffersByTitle(@RequestBody String title){
+        LOG.debug("getting offers by title");
+        LOG.debug("{}", title);
+        List<Offer> offers = offerService.getOffersByTitle(title);
+        return new ResponseEntity<>(
+                offers,
+                HttpStatus.OK
+        );
+    }
 
 
 
