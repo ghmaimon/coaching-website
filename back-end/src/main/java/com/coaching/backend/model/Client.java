@@ -22,6 +22,25 @@ public class Client extends User{
         this.interests = interests;
     }
 
+    @ElementCollection(targetClass = DietPlan.class)
+    @Column(name = "diet_plans")
+    private List<DietPlan> dietPlans;
+
+    public List<DietPlan> getDietPlans() {
+        return dietPlans;
+    }
+
+    public void setDietPlans(List<DietPlan> dietPlans) {
+        this.dietPlans = dietPlans;
+    }
+
+    public Client(String firstName, String lastName, Date birth_date, Role role, String email, String password, List<Speciality> interests, List<DietPlan> dietPlans) {
+        super(firstName, lastName, birth_date, role, email, password);
+        this.interests = interests;
+        this.dietPlans = dietPlans;
+    }
+
+    //    List<DietPlan> dietPlans;
     public Client() {}
 
     public List<Speciality> getInterests() {
