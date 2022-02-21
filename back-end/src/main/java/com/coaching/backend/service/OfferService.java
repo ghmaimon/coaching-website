@@ -7,6 +7,7 @@ import com.coaching.backend.exception.UserNullException;
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.model.Offer;
 import com.coaching.backend.repository.OfferRepository;
+import lombok.AllArgsConstructor;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
@@ -29,19 +30,15 @@ import static com.coaching.backend.utils.OfferUtils.getCoachWithoutPersonalDetai
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class OfferService {
 
-    private final OfferRepository offerRepository;
-    private final CoachService coachService;
-    @PersistenceContext()
-    EntityManager entityManager;
+    private OfferRepository offerRepository;
+    private CoachService coachService;
+    @PersistenceContext
+    private EntityManager entityManager;
     private static final Logger LOG = LoggerFactory.getLogger(OfferService.class);
 
-    public OfferService(OfferRepository offerRepository, CoachService coachService, EntityManager entityManager) {
-        this.offerRepository = offerRepository;
-        this.coachService = coachService;
-        this.entityManager = entityManager;
-    }
 
     /**
      * add new offer -- sets the coach in offer by finding it in the db
@@ -103,31 +100,24 @@ public class OfferService {
      * @param title the title to search for
      * @return the list of offers matching the title
      */
-    public List<Offer> getOffersByTitle(String title) {
+    public List<Offer> getOffersByTitle(String title) throws InterruptedException {
 
         LOG.debug("searching offers by title : {}", title);
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
-        fullTextEntityManager.flushToIndexes();
-        fullTextEntityManager.clear();
+        fullTextEntityManager.createIndexer().startAndWait();
         QueryBuilder queryBuilder = fullTextEntityManager
                 .getSearchFactory()
                 .buildQueryBuilder()
                 .forEntity(Offer.class)
                 .get();
 
-//        Query query = queryBuilder
-//                .phrase()
-//                .withSlop(3)
-//                .onField("title")
-//                .sentence(title)
-//                .createQuery();
         Query query = queryBuilder
-                .keyword()
+                .simpleQueryString()
+//                .withSlop(3)
                 .onField("title")
-                .matching("offer2")
+                .matching(title+"~3")
                 .createQuery();
 
-        LOG.debug("expected : {}", offerRepository.findAllByTitle("offer2").get().size());
 
         List<Offer> res = fullTextEntityManager.createFullTextQuery(query, Offer.class).getResultList();
 

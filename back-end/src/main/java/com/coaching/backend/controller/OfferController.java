@@ -77,7 +77,7 @@ public class OfferController {
     @PostMapping(path = "/search/byTitle",
             consumes = MediaType.TEXT_PLAIN_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Offer>> getOffersByTitle(@RequestBody String title){
+    public ResponseEntity<List<Offer>> getOffersByTitle(@RequestBody String title) throws InterruptedException {
         LOG.debug("getting offers by title");
         LOG.debug("{}", title);
         List<Offer> offers = offerService.getOffersByTitle(title);
