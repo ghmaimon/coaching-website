@@ -11,10 +11,13 @@ import com.coaching.backend.security.SecurityConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
+
 public class UserService<T extends User> {
     protected UserRepository<T> userRepository;
     protected PasswordEncoder passwordEncoder;
