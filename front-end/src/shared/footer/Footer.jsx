@@ -8,7 +8,7 @@ function Footer() {
 
     return (
         <footer>
-        <Grid container className="footer_component">
+        <Grid container >
             <Grid item md={5} xs={5}/>
             <Grid item md={3} xs={3}><Copyright title="MEET FITNESS"/></Grid>
             <Grid item md={4} xs={4}/>

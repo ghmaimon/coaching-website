@@ -29,11 +29,12 @@ body{
     margin : 70px 0 80px 0;
     background-color:transparent;
     height:150vh;
+    
 }
 
-footer,.footer_component {
+footer {
     position: absolute;
-    bottom : -14%;
+    bottom : -50%;
    width: 100%;
    margin: 0;
    background-color:rgb(231, 231, 231);
@@ -41,6 +42,8 @@ footer,.footer_component {
    padding : 10px;
    vertical-align: middle;
    box-shadow: 0 0 10px 0 rgba(145, 145, 145, 0.3);
+   margin-top: -200px;
+   margin-bottom: "20%";
 }
 .img{
     position: absolute;

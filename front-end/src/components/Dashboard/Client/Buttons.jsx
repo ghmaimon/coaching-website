@@ -1,5 +1,6 @@
 import React from "react";
 import MyButton from "../../../shared/MyButton";
+import ButtonLogin from "../../../shared/ButtonLogin";
 import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles({
     root: {
@@ -26,24 +27,20 @@ const useStyles = makeStyles({
 function TrainingSessions(){
     let style = useStyles();
     return (
-        <MyButton
-            bgColor="#FBEEC1"
-            fgColor="black"
-            className={style.root}
-            value="My Training Sessions"
-            url="/training_sessions"
+        <ButtonLogin
+           
+            name="My Training Sessions"
+            href="/training_sessions"
         />
     );
 }
 function MealPlans(){
     let style = useStyles();
     return (
-        <MyButton
-            bgColor="#FBEEC1"
-            fgColor="black"
-            className={style.root}
-            value="My Meal Plans"
-            url="/meal_plans"
+        <ButtonLogin
+        
+        name="My Meal Plans"
+        href="/meal_plans"
         />
     );
 }
