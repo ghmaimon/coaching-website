@@ -22,7 +22,8 @@ public class ClientService extends UserService<Client>{
     }
 
     public List<DietPlan> getDietPlans() {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return clientRepository.findByEmail(userDetails.getUsername()).get().getDietPlans();
+//        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return clientRepository.findByEmail(email).get().getDietPlans();
     }
 }
