@@ -13,8 +13,8 @@ public class TrainingContract extends Contract{
 
     private long hoursInDay;
 
-    public TrainingContract(Long id, Client client, long price, Date acceptanceDate, boolean paid, Duration duration, long daysInWeek, long hoursInDay) {
-        super(id, client, price, acceptanceDate, paid);
+    public TrainingContract(Long id, Client client, Offer offer, long price, boolean paid, Duration duration, long daysInWeek, long hoursInDay) {
+        super(id, client, price, new Date(), offer, paid);
         this.duration = duration;
         this.daysInWeek = daysInWeek;
         this.hoursInDay = hoursInDay;

@@ -1,5 +1,8 @@
 package com.coaching.backend.model;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -11,7 +14,7 @@ public class Contract {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "client_id")
     @NotNull(message = "Client is required")
     private Client client;
@@ -22,24 +25,36 @@ public class Contract {
     @NotNull(message = "Acceptance date is required")
     private Date AcceptanceDate;
 
+    @NotNull(message = "Offer is required")
+    @ManyToOne
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "offer_id")
+    private Offer offer;
+
     public Contract() {}
 
-    public Contract(Long id, Client client, long price, Date acceptanceDate, boolean paid) {
+    public Contract(Long id, Client client, long price, Date acceptanceDate, Offer offer, boolean paid) {
         this.id = id;
         this.client = client;
         this.price = price;
+        this.offer = offer;
         this.paid = paid;
         this.AcceptanceDate = acceptanceDate;
     }
 
-    public Contract(Client client, long price, Date acceptanceDate, boolean paid) {
+    public Contract(Client client, long price, Date acceptanceDate, Offer offer, boolean paid) {
         this.client = client;
         this.price = price;
         AcceptanceDate = acceptanceDate;
+        this.offer = offer;
         this.paid = paid;
     }
 
     private boolean paid;
+
+    public Offer getOffer() {
+        return offer;
+    }
 
     public boolean isPaid() {
         return paid;
@@ -75,5 +90,9 @@ public class Contract {
 
     public void setAcceptanceDate(Date acceptanceDate) {
         AcceptanceDate = acceptanceDate;
+    }
+
+    public void setOffer(Offer offer) {
+        this.offer = offer;
     }
 }

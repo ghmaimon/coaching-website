@@ -47,17 +47,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/account/create/**").permitAll()
                 .antMatchers("/api/account/list/**").hasRole("SUPERUSER")
                 .antMatchers("/api/account/delete").authenticated()
-                .antMatchers("/api/account/changePassword").authenticated()
+                .antMatchers("/api/account/changePassword").hasRole("SUPERUSER")
+                .antMatchers("/api/account/changePassword/**").authenticated()
                 .antMatchers("/api/account/delete/**/**").hasRole("SUPERUSER")
                 .antMatchers("/api/offer/add").hasAnyRole("SUPERUSER", "COACH")
                 .antMatchers("/api/offer/**/**").permitAll()
+                .antMatchers("/api/contract/**").hasRole("CLIENT");
         ;
-                /*.antMatchers("/api/services/hello").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/api/services/teacher/**").hasAuthority("auth1")
-                .antMatchers("/api/services/hellos").hasRole("MANAGER")
-                .antMatchers("/api/user/all").hasRole("ADMIN")
-                .antMatchers("/api/user/withEmail").hasAnyRole("ADMIN MANAGER")
-                .antMatchers("/api/user/withUserName").hasAnyRole("ADMIN MANAGER");*/
     }
 
     @Bean

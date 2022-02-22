@@ -1,4 +1,4 @@
-package com.coaching.backend.controller;
+package com.coaching.backend.controller.controllerAdvice;
 
 import com.coaching.backend.errors.UserError;
 import com.coaching.backend.exception.UserException;
@@ -11,8 +11,7 @@ import java.time.Instant;
 
 import static com.coaching.backend.errors.ExceptionJsonFormatter.convertExceptionToJson;
 
-public interface MyControllerAdvice {
-    Logger LOG = LoggerFactory.getLogger(MyControllerAdvice.class);
+public interface UserControllerAdvice extends ControllerAdvice{
     default <E extends UserException> ResponseEntity<UserError> handleUserException(
             int statusCode, E exception) {
 

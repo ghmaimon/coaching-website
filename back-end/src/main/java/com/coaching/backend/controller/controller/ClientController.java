@@ -1,4 +1,4 @@
-package com.coaching.backend.controller;
+package com.coaching.backend.controller.controller;
 
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.model.DietPlan;

@@ -1,24 +1,18 @@
-package com.coaching.backend.controller;
+package com.coaching.backend.controller.controller;
 
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.model.Offer;
-import com.coaching.backend.model.User;
 import com.coaching.backend.service.*;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @AllArgsConstructor

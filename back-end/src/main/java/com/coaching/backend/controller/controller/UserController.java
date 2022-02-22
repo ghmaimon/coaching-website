@@ -1,4 +1,4 @@
-package com.coaching.backend.controller;
+package com.coaching.backend.controller.controller;
 
 import com.coaching.backend.enumeration.Role;
 import com.coaching.backend.model.*;
@@ -24,9 +24,6 @@ public class UserController {
     ClientService clientService;
     SuperUserService superUserService;
     UserService userService;
-    ContractService contractService;
-    TrainingContractService trainingContractService;
-    MealContractService mealContractService;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 
@@ -149,22 +146,6 @@ public class UserController {
     public ResponseEntity<Void> forgotPassword(@RequestBody String email) {
         return new ResponseEntity<>(
                 userService.forgotPassword(email)
-        );
-    }
-
-    @PostMapping(path = "/Contract/createTrainingContract")
-    public ResponseEntity<TrainingContract> createTrainingContract(@RequestBody TrainingContract contract) {
-        return new ResponseEntity<>(
-                trainingContractService.createContract(contract),
-                HttpStatus.OK
-        );
-    }
-
-    @PostMapping(path = "/Contract/createMealContract")
-    public ResponseEntity<MealContract> createMealContract(@RequestBody MealContract contract) {
-        return new ResponseEntity<>(
-                mealContractService.createContract(contract),
-                HttpStatus.OK
         );
     }
 }
