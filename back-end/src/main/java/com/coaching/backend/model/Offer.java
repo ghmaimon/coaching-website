@@ -7,6 +7,7 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.TermVector;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Date;
@@ -30,6 +31,7 @@ public class Offer {
 
     @Field(termVector = TermVector.YES)
     @NotNull(message = "Title is required")
+    @NotEmpty(message = "Title should not be empty")
     private String title;
 
     @NotNull(message = "Description is required")

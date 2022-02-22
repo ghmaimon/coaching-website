@@ -45,10 +45,13 @@ public class OfferService {
      * @param offer the offer to be added
      */
     public void addOffer(Offer offer){
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        LOG.debug("the current user : {}", userDetails.getUsername());
+//        UserDetails userName = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        LOG.debug("the current user : {}", userDetails.getUsername());
+        LOG.debug("the current user : {}", email);
         LOG.debug("creating new offer");
-        offer.setCoach(coachService.findByEmail(userDetails.getUsername()));
+//        offer.setCoach(coachService.findByEmail(userDetails.getUsername()));
+        offer.setCoach(coachService.findByEmail(email));
         if (!offer.getCoach().isVerified()){
             LOG.debug("the coach is not verified + email : {}", offer.getCoach());
             throw new CoachIsNotVerifiedException(offer.getCoach().getEmail());
@@ -99,8 +102,11 @@ public class OfferService {
      * -- uses fuzzy search to match the title even if up to 3 letters are different --
      * @param title the title to search for
      * @return the list of offers matching the title
+     * TODO add the option to search by "contains" besides this fuzzy search
      */
+
     public List<Offer> getOffersByTitle(String title) throws InterruptedException {
+
 
         LOG.debug("searching offers by title : {}", title);
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
@@ -115,7 +121,7 @@ public class OfferService {
                 .simpleQueryString()
 //                .withSlop(3)
                 .onField("title")
-                .matching(title+"~3")
+                .matching(title+" ~3")
                 .createQuery();
 
 
