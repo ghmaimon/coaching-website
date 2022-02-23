@@ -10,7 +10,6 @@ import Profil from "./components/Dashboard/Client/profil"
 import CoachProfil from "./components/Dashboard/Coach/profil"
 import AdminProfil from "./components/Dashboard/Admin/profil"
 import {useEffect, useState} from "react";
-import PageNotFound from "./components/errors/404";
 import {Helmet} from "react-helmet";
 import {BrowserRouter as Router, Route, Routes, useRoutes} from "react-router-dom";
 import Forgot from "./components/Forgot/Forgot"

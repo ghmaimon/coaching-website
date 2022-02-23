@@ -1,6 +1,7 @@
 import React from "react";
 import MyButton from "../../../shared/MyButton";
 import { makeStyles } from "@mui/styles";
+import ButtonLogin from "../../../shared/ButtonLogin"
 const useStyles = makeStyles({
     root: {
         float: "left",
@@ -26,36 +27,32 @@ const useStyles = makeStyles({
 function AddOffer(){
     let style = useStyles();
     return (
-        <MyButton
-            bgColor="#FBEEC1"
-            fgColor="black"
-            className={style.root}
-            value="Add Offer"
-            url="/add_offer"
+        <ButtonLogin
+            style={{
+             
+            }}
+        name="Add Offer"
+        href="/add_offer"
         />
     );
 }
 function ConsultClients(){
     let style = useStyles();
     return (
-        <MyButton
-            bgColor="#FBEEC1"
-            fgColor="black"
-            className={style.root}
-            value="Consult My Clients"
-            url="/clients"
+        <ButtonLogin
+       
+        name="Consult My Clients"
+        href="/clients"
         />
     );
 }
 function ConsultOffers(){
     let style = useStyles();
     return (
-        <MyButton
-            bgColor="#FBEEC1"
-            fgColor="black"
-            className={style.root}
-            value="Consult My Offers"
-            url="/offers"
+        <ButtonLogin
+           
+        name="Consult My Offers"
+            href="/offers"
         />
     );
 }
