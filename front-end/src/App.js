@@ -111,4 +111,5 @@ function App() {
 }
 
 export default App;
+export {isGuest}
 /*I didn't start router...*/
