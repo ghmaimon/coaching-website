@@ -79,6 +79,7 @@ public class UserService<T extends User> {
     }
 
     public HttpStatus changePasswordFromToken(String jwtToken, JwtChangePassword jwtChangePassword) {
+
         String email = getEmailFromJwtToken(jwtToken);
         T user = getUserWithEmail(email);
         if (!passwordEncoder.matches(jwtChangePassword.getOldPass(), user.getPassword()))

@@ -25,7 +25,7 @@ public class ClientController{
 
     @GetMapping(path = "/diet_plans")
     public ResponseEntity<List<DietPlan>> getMyDietPlans(){
-        return new ResponseEntity<List<DietPlan>>(
+        return new ResponseEntity<>(
                 clientService.getDietPlans(),
                 HttpStatus.OK
         );
