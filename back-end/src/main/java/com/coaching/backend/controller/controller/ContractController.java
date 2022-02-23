@@ -7,10 +7,7 @@ import com.coaching.backend.service.MealContractService;
 import com.coaching.backend.service.TrainingContractService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -28,17 +25,19 @@ public class ContractController {
     }
 
     @PostMapping(path = "/acceptTrainingContract")
-    public ResponseEntity<TrainingContract> acceptTrainingContract(@RequestBody TrainingContract contract) {
+    public ResponseEntity<TrainingContract> acceptTrainingContract(@RequestBody TrainingContract contract,
+                                                                   @RequestHeader("Authorization") String jwtToken) {
         return new ResponseEntity<>(
-                trainingContractService.createContract(contract),
+                trainingContractService.createContract(contract, jwtToken),
                 HttpStatus.OK
         );
     }
 
     @PostMapping(path = "/createMealContract")
-    public ResponseEntity<MealContract> acceptMealContract(@RequestBody MealContract contract) {
+    public ResponseEntity<MealContract> acceptMealContract(@RequestBody MealContract contract,
+                                                           @RequestHeader("Authorization") String jwtToken) {
         return new ResponseEntity<>(
-                mealContractService.createContract(contract),
+                mealContractService.createContract(contract, jwtToken),
                 HttpStatus.OK
         );
     }

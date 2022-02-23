@@ -74,6 +74,19 @@ public class Offer {
         this.creationDate = Date.from(Instant.now());
     }
 
+    /**
+     * path to image of offer
+     */
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public Coach getCoach() {
         return coach;
     }

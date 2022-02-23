@@ -30,7 +30,6 @@ public class OfferController {
     @PostMapping(path = "/add",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-
     public ResponseEntity<Offer> addOffer(@Valid @RequestBody Offer offer ){
         LOG.debug("adding new offer");
         offerService.addOffer(offer);

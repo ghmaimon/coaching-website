@@ -1,7 +1,6 @@
 package com.coaching.backend.model;
 
 import com.coaching.backend.enumeration.Role;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

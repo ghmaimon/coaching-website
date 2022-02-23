@@ -26,6 +26,19 @@ public class Client extends User{
     @Column(name = "diet_plans")
     private List<DietPlan> dietPlans;
 
+    /**
+     * path to image of client
+     */
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public List<DietPlan> getDietPlans() {
         return dietPlans;
     }

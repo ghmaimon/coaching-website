@@ -6,6 +6,7 @@ import com.coaching.backend.exception.*;
 import com.coaching.backend.model.User;
 import com.coaching.backend.repository.UserRepository;
 import com.coaching.backend.security.JwtChangePassword;
+import com.coaching.backend.security.JwtLogin;
 import com.coaching.backend.security.JwtProperties;
 import com.coaching.backend.security.SecurityConfiguration;
 import org.springframework.http.HttpStatus;
@@ -55,18 +56,9 @@ public class UserService<T extends User> {
     }
 
     public HttpStatus deleteUserWithToken(String jwtToken) {
-        String email = getEmailFromJwtToken(jwtToken);
+        String email = JwtLogin.getEmailFromJwtToken(jwtToken);
         deleteUserWithEmail(email);
         return HttpStatus.OK;
-    }
-
-    public String getEmailFromJwtToken(String jwtToken) {
-        jwtToken = jwtToken.replace(JwtProperties.TOKEN_PREFIX, "");
-        String email = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET.getBytes()))
-                .build()
-                .verify(jwtToken)
-                .getSubject();
-        return email;
     }
 
     public void deleteUserWithId(long id) {
@@ -79,7 +71,7 @@ public class UserService<T extends User> {
     }
 
     public HttpStatus changePasswordFromToken(String jwtToken, JwtChangePassword jwtChangePassword) {
-        String email = getEmailFromJwtToken(jwtToken);
+        String email = JwtLogin.getEmailFromJwtToken(jwtToken);
         T user = getUserWithEmail(email);
         if (!passwordEncoder.matches(jwtChangePassword.getOldPass(), user.getPassword()))
             throw new WrongPasswordException(jwtChangePassword.getOldPass());
