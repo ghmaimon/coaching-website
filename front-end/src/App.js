@@ -14,23 +14,9 @@ import PageNotFound from "./components/errors/404";
 import {Helmet} from "react-helmet";
 import {BrowserRouter as Router, Route, Routes, useRoutes} from "react-router-dom";
 import Forgot from "./components/Forgot/Forgot"
+import {isAdmin, isGuest, isMentee, isMentor} from "./service/authentication";
 
 
-function isMentee() {
-    return localStorage.getItem("isMentee") === "true";
-}
-
-function isMentor() {
-    return localStorage.getItem("isMentee") === "false";
-}
-
-function isAdmin() {
-    return localStorage.getItem("isAdmin") === "true";
-}
-
-function isGuest() {
-    return localStorage.getItem("currentUser") === null || localStorage.getItem("currentUser") === undefined;
-}
 
 
 const MenteeRoutes = () => useRoutes([
@@ -111,5 +97,4 @@ function App() {
 }
 
 export default App;
-export {isGuest}
 /*I didn't start router...*/

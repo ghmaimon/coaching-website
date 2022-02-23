@@ -28,7 +28,7 @@ public class User {
     private Date birth_date;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Rol e role;
 
     @NotNull(message = "Email must not be null")
     @Column(name = "email", unique = true)

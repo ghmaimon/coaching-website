@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import LoginIcon from '@mui/icons-material/Login';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
-import {isGuest} from "../../App";
+import {isGuest, logOut} from "../../service/authentication";
 
 function Profile() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -45,20 +45,22 @@ function Profile() {
         },
     }}
     >
+        {isGuest() &&
       <MenuItem onClick={handleMenuClose} >
       <IconButton
     href="/Signin"
             >
       <AssignmentIndIcon color="success" 
     /></IconButton>
-        Sign In </MenuItem>
+        Sign In </MenuItem>}
+        {!isGuest() &&
         <MenuItem onClick={handleMenuClose} >
             <IconButton
-                onClick={(e)=>{alert("hh")}}
+                onClick={logOut}
             >
                 <AssignmentIndIcon color="success"
                 /></IconButton>
-            Sign Out </MenuItem>
+            Sign Out </MenuItem>}
     {/*  <MenuItem onClick={handleMenuClose} >*/}
     {/*  <IconButton*/}
     {/*href="/login" */}
