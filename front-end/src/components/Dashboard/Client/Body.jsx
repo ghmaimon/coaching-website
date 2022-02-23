@@ -6,7 +6,10 @@ import {TrainingSessions, MealPlans} from "./Buttons";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { makeStyles  } from "@mui/styles";
-
+import Search from "./Search";
+import  AlLCards from "./Trainers/AlLCards";
+import ChooseOffer from "./ChooseOffer";
+       
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -54,6 +57,7 @@ function Body(props) {
 
   return (
     <div >
+   
       <div className={style.root} onMouseOver={props.onMouseOver}>
         <ol className={style.list}>
           <li className={style.li}>
@@ -61,31 +65,29 @@ function Body(props) {
               <Grid item xs={6} className={style.marginAll}>
                 <Paper className={style.paper}>
                   <li className={style.li} >
-                    <Title />
+                    <Title  title=" Welcome back  !"/>
+               
+        
                   </li>
                   <ol className={style.list}>
+                  <ChooseOffer/>
                     <li className={style.li}>
-                      <Description />
+                   < AlLCards/>
+                  
+               
                     </li>
-                    <li className={style.li}>
-                      <TrainingSessions />
-                    </li>
-                    <li className={style.li} style={{ marginTop: "100px" }}>
-                      <MealPlans />
-                    </li>
+                 
                   </ol>
                 </Paper>
               </Grid>
               <Grid item xs={5} style={{marginTop:"5%",position:"absolute", right:"30%"}}>
-                <Paper className={style.paper}>
-                  <Img />
-                </Paper>
+              
               </Grid>
             </Grid>
           </li>
         </ol>
       </div>
-      <QuoteImage/>
+    
     </div>
   );
 }
