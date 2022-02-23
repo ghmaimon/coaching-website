@@ -56,8 +56,8 @@ export default function SignUp() {
             password: data.get('password'),
         });
     };
-    const handleFileUpload = event => {
-      console.log(event.target.files[0].name);
+    const handleFileUpload = e => {
+      console.log(e.target.files[0].name);
     };
     
     return ( <
@@ -179,12 +179,28 @@ export default function SignUp() {
         {isCoach && 
         <div>
         <input
-        // ref="fileInput"
-        onChange={handleFileUpload}
-        type="file"
-        style={{ display: "none"  }}
-        // multiple={false}
-      />
+                          className={classes.input}
+                          type="file"
+                          accept={
+                            type === "video" ? "video/*" : "application/pdf"
+                          }
+                          placeholder="insérer l'image svp"
+                          alt={"file" + item}
+                          name={"file" + item}
+                          id={"file" + item}
+                          onInput={(e) => {
+                            setSelectedFiles([
+                              ...selectedFiles,
+                              e.target.files[0],
+                            ]);
+                            console.log("hellolllll");
+                            console.log(e.target.files[0]);
+                          }}
+                          enctype="multipart/form-data"
+                          {...register(`file ${item}`, {
+                            required: true,
+                          })}
+                        />
       <button onClick={() => this.refs.fileInput.click()}>Veuillez télécharger une piece justificative</button></div>}
         <
         /Grid> 
