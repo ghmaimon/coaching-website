@@ -13,6 +13,7 @@ import {useEffect, useState} from "react";
 import PageNotFound from "./components/errors/404";
 import {Helmet} from "react-helmet";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import Forgot from "./components/Forgot/Forgot"
 
 function AdminRoute(props) {
     let temp = localStorage.getItem("isAdmin");
@@ -47,18 +48,23 @@ function CoachRoute(props) {
         <Route element={<PageNotFound/>} path={props.path}/>
     );
 }
-function isMentee(){
+
+function isMentee() {
     return localStorage.getItem("isMentee") === "true";
 }
-function isMentor(){
+
+function isMentor() {
     return localStorage.getItem("isMentee") === "false";
 }
-function isAdmin(){
+
+function isAdmin() {
     return localStorage.getItem("isAdmin") === "true";
 }
-function isGuest(){
+
+function isGuest() {
     return localStorage.getItem("currentUser") === null || localStorage.getItem("currentUser") === undefined;
 }
+
 function MenteeRoute(props) {
     // if (localStorage.getItem("isMentee") === "true") {
     //     return (
@@ -75,8 +81,6 @@ function MenteeRoute(props) {
         <Route element={<PageNotFound/>} path={`${props.path}`}/>
     );
 }
-import profil from  "./components/Dashboard/Coach/profil"
-import Forgot from "./components/Forgot/Forgot"
 
 function App() {
     console.log(Home);
@@ -145,14 +149,24 @@ function App() {
 
                     <Routes>
                         {/*this is for the mentee*/}
-                        { !isMentee() && <Route element={<Home/>} path="/"/>}
+                        {isMentee() && <Route element={<Profil/>} path={["/", "/profil"]}/>}
 
                         {/*this is for the mentor*/}
+                        {isMentor() && <Route element={<CoachProfil/>} path="/"/>}
 
                         {/*this is for the admin*/}
+                        {isAdmin() && <Route element={<AdminProfil/>} path="/"/>}
 
                         {/*guest*/}
-                        { isGuest() && <Route element={<Home/>} path="/"/>}
+                        {isGuest() &&
+                        <>
+                            <Route element={<Home/>} path="/"/>
+                            <Route element={<SignIn/>} path="/signin"/>
+                            <Route element={<SignUp/>} path="/signup"/>
+                            <Route element={<Forgot/>} path="/forgotPassword"/>
+
+                        </>
+                        }
                     </Routes>
                     <Footer/>
                 </div>
