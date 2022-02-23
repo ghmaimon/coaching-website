@@ -75,6 +75,8 @@ function MenteeRoute(props) {
         <Route element={<PageNotFound/>} path={`${props.path}`}/>
     );
 }
+import profil from  "./components/Dashboard/Coach/profil"
+import Forgot from "./components/Forgot/Forgot"
 
 function App() {
     console.log(Home);
