@@ -6,6 +6,8 @@ import Footer from "./shared/footer/Footer";
 import Profil from "./components/Dashboard/Client/profil";
 import SignUp from "./components/signup/SignUp"
 import SignIn from "./components/Signin/SignIn"
+import profil from  "./components/Dashboard/Coach/profil"
+import Forgot from "./components/Forgot/Forgot"
 
 function App() {
     console.log(Home);
@@ -15,7 +17,7 @@ function App() {
         div className = "body" >
         <
         Header / > { /*<Home/>*/ } { /* <Profil /> */ } <
-        SignIn / >
+        Forgot / >
         <
         Footer / >
         <

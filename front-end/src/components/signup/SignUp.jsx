@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  React,{useState,Component} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +12,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { display } from '@mui/system';
+import { Hidden, useIsFocusVisible } from '@mui/material';
+import { visuallyHidden } from '@mui/utils';
 
 
 function Copyright(props) {
@@ -21,7 +27,7 @@ function Copyright(props) {
         align = "center" {...props } > { 'Copyright © ' } <
         Link color = "inherit"
         href = "https://mui.com/" >
-        Your Website <
+       MEET FITNESS <
         /Link>{' '} { new Date().getFullYear() } { '.' } < /
         Typography >
     );
@@ -29,7 +35,18 @@ function Copyright(props) {
 
 const theme = createTheme();
 
+
 export default function SignUp() {
+  
+    const  [value,setValue]=useState("");
+    const  [isCoach,setIsCoach]=useState(false);
+    const handleChange= e => {
+      setValue(e.target.value);
+      if (e.target.value == "coach")
+      setIsCoach(true);
+      else setIsCoach(false);
+    };
+    
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -39,7 +56,10 @@ export default function SignUp() {
             password: data.get('password'),
         });
     };
-
+    const handleFileUpload = event => {
+      console.log(event.target.files[0].name);
+    };
+    
     return ( <
         ThemeProvider theme = { theme } >
         <
@@ -80,8 +100,42 @@ export default function SignUp() {
         Grid container spacing = { 2 } >
         <
         Grid item xs = { 12 }
-        sm = { 6 } >
-        <
+        sm = { 12 } >
+        <TextField
+        id="id"
+        name="name"
+        select onChange={handleChange}
+        
+        native="true"
+        color = "success"
+        required
+        
+        
+     
+     
+        label="Choissez votre profil"
+        style={{ width: 400 }}
+        
+        //margin="normal"
+        //variant="outlined"
+       // color = "success"
+        
+       // inputRef={register({ required: "Choose one option" })}
+      
+      >
+      
+        <MenuItem value="">Choisissez une option</MenuItem>
+        <MenuItem value="coach">coach</MenuItem>
+        <MenuItem value="client">client</MenuItem>
+        
+      </TextField>
+      
+      <
+      /Grid> <
+      Grid item xs = { 12 }
+      sm = { 12 } >
+      <
+        
         TextField autoComplete = "given-name"
         name = "firstName"
         required fullWidth id = "firstName"
@@ -93,7 +147,7 @@ export default function SignUp() {
         <
         /Grid> <
         Grid item xs = { 12 }
-        sm = { 6 } >
+        sm = { 12 } >
         <
         TextField required fullWidth id = "lastName"
         label = "Last Name"
@@ -122,8 +176,19 @@ export default function SignUp() {
         autoComplete = "new-password"
         color = "success" /
         >
+        {isCoach && 
+        <div>
+        <input
+        // ref="fileInput"
+        onChange={handleFileUpload}
+        type="file"
+        style={{ display: "none"  }}
+        // multiple={false}
+      />
+      <button onClick={() => this.refs.fileInput.click()}>Veuillez télécharger une piece justificative</button></div>}
         <
-        /Grid> <
+        /Grid> 
+        <
         Grid item xs = { 12 } >
         <
         FormControlLabel control = { < Checkbox value = "allowExtraEmails"

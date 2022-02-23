@@ -66,7 +66,7 @@ export default function SignIn() {
         Typography component = "h1"
         variant = "h5"
         color = "#2e7d32" >
-        Sign in
+        Forgot password
         <
         /Typography> <
         Box component = "form"
@@ -83,21 +83,8 @@ export default function SignIn() {
         color = "success"
         autoFocus /
         >
-        <
-        TextField margin = "normal"
-        required fullWidth name = "password"
-        label = "Password"
-        type = "password"
-        color = "success"
-        id = "password"
-        autoComplete = "current-password" /
-        >
-        <
-        FormControlLabel control = { < Checkbox value = "remember"
-            color = "success" / >
-        }
-        label = "Remember me" /
-        >
+       
+        
         <
         Button type = "submit"
         fullWidth variant = "contained"
@@ -105,19 +92,10 @@ export default function SignIn() {
         sx = {
             { mt: 3, mb: 2 }
         } >
-        Sign In <
+        Envoyer <
         /Button> <
         Grid container >
         <
-        Grid item xs >
-        <
-        Link href = "#"
-        color = "#2e7d32"
-        variant = "body2" >
-        Forgot password ?
-        <
-        /Link> < /
-        Grid > <
         Grid item >
         <
         Link href = "#"
