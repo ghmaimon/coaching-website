@@ -12,42 +12,9 @@ import AdminProfil from "./components/Dashboard/Admin/profil"
 import {useEffect, useState} from "react";
 import PageNotFound from "./components/errors/404";
 import {Helmet} from "react-helmet";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes, useRoutes} from "react-router-dom";
 import Forgot from "./components/Forgot/Forgot"
 
-function AdminRoute(props) {
-    let temp = localStorage.getItem("isAdmin");
-    if (props.inverse) {
-        temp === "true" ? (temp = null) : (temp = "true");
-    }
-    if (temp === "true") {
-        return (
-            <Route
-                element={props.element}
-
-                path={props.path}
-            />
-        );
-    }
-    return (
-        <Route element={<PageNotFound/>} path={props.path}/>
-    );
-}
-
-function CoachRoute(props) {
-    if (localStorage.getItem("isMentee") === "false") {
-        return (
-            <Route
-                element={props.element}
-
-                path={props.path}
-            />
-        );
-    }
-    return (
-        <Route element={<PageNotFound/>} path={props.path}/>
-    );
-}
 
 function isMentee() {
     return localStorage.getItem("isMentee") === "true";
@@ -65,22 +32,27 @@ function isGuest() {
     return localStorage.getItem("currentUser") === null || localStorage.getItem("currentUser") === undefined;
 }
 
-function MenteeRoute(props) {
-    // if (localStorage.getItem("isMentee") === "true") {
-    //     return (
-    //         <Route
-    //             element={props.element}
-    //
-    //             path={props.path}
-    //         />
-    //     );
-    // }
-    return <Route element={<PageNotFound/>} path="/"/>;
-    return (
 
-        <Route element={<PageNotFound/>} path={`${props.path}`}/>
-    );
-}
+const MenteeRoutes = () => useRoutes([
+    {path: "/", element: <Profil/>},
+    {path: "/profil", element: <Profil/>}
+]);
+const MentorRoutes = () => useRoutes([
+    {path: "/", element: <CoachProfil/>},
+    {path: "/profil", element: <CoachProfil/>}
+]);
+const AdminRoutes = () => useRoutes([
+    {path: "/", element: <AdminProfil/>},
+    {path: "/profil", element: <AdminProfil/>}
+]);
+const GuestRoutes = () => useRoutes([
+    {path: "/", element: <Home/>},
+    {path: "/profil", element: <Home/>},
+    {path: "/signin", element: <SignIn/>},
+    {path: "/signup", element: <SignUp/>},
+    {path: "/forgotPassword", element: <Forgot/>}
+
+]);
 
 function App() {
     console.log(Home);
@@ -94,48 +66,6 @@ function App() {
             setLogedIn(true);
         console.log(logedIn);
     });
-
-    function CondRoute(props) {
-        //conditionnal 404
-        if (props.inverse === true) {
-            if (localStorage.getItem("isMentee") === "true")
-                return (
-                    <Route
-                        element={!logedIn ? props.element : <Profil/>}
-
-                        path={props.path}
-                    />
-                );
-            else if (
-                localStorage.getItem("isAdmin") === null ||
-                localStorage.getItem("isAdmin") === undefined
-            ) {
-                return (
-                    <Route
-                        element={!logedIn ? props.element : <AddOffer/>}
-
-                        path={props.path}
-                    />
-                );
-            } else {
-                return (
-                    <Route
-                        element={!logedIn ? props.element : <AdminProfil/>}
-
-                        path={props.path}
-                    />
-                );
-            }
-        }
-        return (
-            <Route
-                element={logedIn ? props.element : <PageNotFound/>}
-
-                path={props.path}
-            />
-        );
-    }
-
     return (
         <>
             <Helmet>
@@ -145,30 +75,34 @@ function App() {
             <Router>
                 <div className="body">
                     <Header/>
-                    {/*<MenteeRoute path="/"/>*/}
-
-                    <Routes>
-                        {/*this is for the mentee*/}
-                        {isMentee() && <Route element={<Profil/>} path={["/", "/profil"]}/>}
-
-                        {/*this is for the mentor*/}
-                        {isMentor() && <Route element={<CoachProfil/>} path="/"/>}
-
-                        {/*this is for the admin*/}
-                        {isAdmin() && <Route element={<AdminProfil/>} path="/"/>}
-
-                        {/*guest*/}
-                        {isGuest() &&
-                        <>
-                            <Route element={<Home/>} path="/"/>
-                            <Route element={<SignIn/>} path="/signin"/>
-                            <Route element={<SignUp/>} path="/signup"/>
-                            <Route element={<Forgot/>} path="/forgotPassword"/>
-
-                        </>
-                        }
-                    </Routes>
+                    {isMentee() &&  <MenteeRoutes/>}
+                    {isMentor() && <MentorRoutes/>}
+                    {isAdmin() && <AdminRoutes/>}
+                    {isGuest() && <GuestRoutes/>}
                     <Footer/>
+                    {/*<MenteeRoute path="/"/>*/}
+                    {/*<Routes>*/}
+                    {/*    /!*this is for the mentee*!/*/}
+                    {/*    {isMentee() && <Route element={<Profil/>} path={["/", "/profil"]}/>}*/}
+
+                    {/*    /!*this is for the mentor*!/*/}
+                    {/*    {isMentor() && <Route element={<CoachProfil/>} path="/"/>}*/}
+
+                    {/*    /!*this is for the admin*!/*/}
+                    {/*    {isAdmin() && <Route element={<AdminProfil/>} path="/"/>}*/}
+
+                    {/*    /!*guest*!/*/}
+                    {/*    {isGuest() &&*/}
+                    {/*    <>*/}
+                    {/*        <Route element={<Home/>} path="/"/>*/}
+                    {/*        <Route element={<SignIn/>} path="/signin"/>*/}
+                    {/*        <Route element={<SignUp/>} path="/signup"/>*/}
+                    {/*        <Route element={<Forgot/>} path="/forgotPassword"/>*/}
+
+                    {/*    </>*/}
+                    {/*    }*/}
+                    {/*</Routes>*/}
+
                 </div>
             </Router>
 

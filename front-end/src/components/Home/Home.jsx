@@ -64,14 +64,14 @@ function Home() {
  <ButtonLogin
 
 name="Sign in  as a player"
-href="/playersSignin"
+href="/Signin"
  
 /> </Grid>
 <Grid item md={4} xs={4}>
  <ButtonLogin
 
 name="Sign in  as a coach"
-href="/CoachSignin"
+href="/Signin"
  
 /> </Grid>
 

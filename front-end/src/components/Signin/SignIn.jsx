@@ -11,18 +11,19 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import axios from "axios";
 
 function Copyright(props) {
-    return ( <
-        Typography variant = "body2"
-        color = "text.secondary"
-        align = "center" {...props } > { 'Copyright © ' } <
-        Link color = "inherit"
-        href = "" >
-        MEET FITNESS<
-        /Link>{' '} { new Date().getFullYear() } { '.' } < /
-        Typography >
+    return (<
+            Typography variant="body2"
+                       color="text.secondary"
+                       align="center" {...props} > {'Copyright © '} <
+            Link color="inherit"
+                 href="">
+            MEET FITNESS<
+        /Link>{' '} {new Date().getFullYear()} {'.'} < /
+            Typography>
     );
 }
 
@@ -31,108 +32,126 @@ const theme = createTheme();
 export default function SignIn() {
     const handleSubmit = (event) => {
         event.preventDefault();
+        // alert(event.currentTarget)
+        console.log(event.currentTarget)
         const data = new FormData(event.currentTarget);
         // eslint-disable-next-line no-console
         console.log({
             email: data.get('email'),
             password: data.get('password'),
         });
+        const dataToSend = {
+            email: data.get('email'),
+            password: data.get('password')
+
+        }
+
+        axios.post(`http://localhost:8000/login`, dataToSend, {headers: {
+                'Content-Type': 'application/json',
+            }}).then(
+            (res)=>{alert("res");alert(res);
+                console.log(res)},
+            (err)=>{
+                // alert("err");
+                // alert(err);
+                console.error("err");
+                console.error(err);
+                console.error("hh");
+            }
+        );
+
     };
 
-    return ( <
-        ThemeProvider theme = { theme } >
+    return (<
+        ThemeProvider theme={theme}>
         <
-        Container component = "main"
-        maxWidth = "xs" >
-        <
-        CssBaseline / >
-        <
-        Box sx = {
-            {
-                marginTop: 12,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }
-        } >
-        <
-        Avatar sx = {
-            { m: 1, bgcolor: '#2e7d32' }
-        } >
-        <
-        LockOutlinedIcon / >
-        <
+            Container component="main"
+                      maxWidth="xs">
+            <
+                CssBaseline / >
+                <
+                    Box sx={
+                    {
+                        marginTop: 12,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }
+                }>
+                    <
+                        Avatar sx={
+                        {m: 1, bgcolor: '#2e7d32'}
+                    }>
+                        < LockOutlinedIcon/>
+                    <
         /Avatar> <
-        Typography component = "h1"
-        variant = "h5"
-        color = "#2e7d32" >
-        Sign in
-        <
+                    Typography component="h1"
+                               variant="h5"
+                               color="#2e7d32">
+                    Sign in
+                <
         /Typography> <
-        Box component = "form"
-        onSubmit = { handleSubmit }
-        noValidate sx = {
-            { mt: 1 }
-        } >
-        <
-        TextField margin = "normal"
-        required fullWidth id = "email"
-        label = "Email Address"
-        name = "email"
-        autoComplete = "email"
-        color = "success"
-        autoFocus /
-        >
-        <
-        TextField margin = "normal"
-        required fullWidth name = "password"
-        label = "Password"
-        type = "password"
-        color = "success"
-        id = "password"
-        autoComplete = "current-password" /
-        >
-        <
-        FormControlLabel control = { < Checkbox value = "remember"
-            color = "success" / >
-        }
-        label = "Remember me" /
-        >
-        <
-        Button type = "submit"
-        fullWidth variant = "contained"
-        color = "success"
-        sx = {
-            { mt: 3, mb: 2 }
-        } >
-        Sign In <
+                    Box component="form"
+                        onSubmit={handleSubmit}
+                        noValidate sx={
+                    {mt: 1}
+                }>
+                    <
+                        TextField margin="normal"
+                                  required fullWidth id="email"
+                                  label="Email Address"
+                                  name="email"
+                                  autoComplete="email"
+                                  color="success"
+                                  autoFocus /
+                    >
+                        <
+                            TextField margin="normal"
+                                      required fullWidth name="password"
+                                      label="Password"
+                                      type="password"
+                                      color="success"
+                                      id="password"
+                                      autoComplete="current-password" /
+                        >
+                            <
+                                FormControlLabel control={< Checkbox value="remember"
+                                                                     color="success" / >
+                                }
+                                label = "Remember me" /
+                                >
+                                <
+                                    Button type="submit"
+                                           fullWidth variant="contained"
+                                           color="success"
+                                           sx={
+                                               {mt: 3, mb: 2}
+                                           }>
+                                    Sign In <
         /Button> <
-        Grid container >
-        <
-        Grid item xs >
-        <
-        Link href = "#"
-        color = "#2e7d32"
-        variant = "body2" >
-        Forgot password ?
-        <
+                                Grid container>
+                                <
+                                    Grid item xs>
+                                    <
+                                        Link href="#"
+                                             color="#2e7d32"
+                                             variant="body2">
+                                        Forgot password ?
+                                    <
         /Link> < /
-        Grid > <
-        Grid item >
-        <
-        Link href = "#"
-        color = "#2e7d32"
-        variant = "body2" > { "Don't have an account? Sign Up" } <
-        /Link> < /
-        Grid > <
-        /Grid> < /
-        Box > <
+                                    Grid> <
+                                Grid item>
+                                <
+                                    Link href="#"
+                                         color="#2e7d32"
+                                         variant="body2"> {"Don't have an account? Sign Up"} <
+        /Link> < /Grid> </Grid> </  Box> <
         /Box> <
-        Copyright sx = {
-            { mt: 8, mb: 4 }
-        }
-        /> < /
-        Container > <
+                                Copyright sx = {
+                            {mt: 8, mb: 4}
+                            }
+                                /> < /
+                                Container > <
         /ThemeProvider>
-    );
-}
+                                );
+                            }
