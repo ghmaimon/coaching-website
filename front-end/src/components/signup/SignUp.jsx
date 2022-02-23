@@ -177,41 +177,24 @@ export default function SignUp() {
         color = "success" /
         >
         {isCoach && 
+           
+            
         <div>
-        <input
-                          className={classes.input}
-                          type="file"
-                          accept={
-                            type === "video" ? "video/*" : "application/pdf"
-                          }
-                          placeholder="insérer l'image svp"
-                          alt={"file" + item}
-                          name={"file" + item}
-                          id={"file" + item}
-                          onInput={(e) => {
-                            setSelectedFiles([
-                              ...selectedFiles,
-                              e.target.files[0],
-                            ]);
-                            console.log("hellolllll");
-                            console.log(e.target.files[0]);
-                          }}
-                          enctype="multipart/form-data"
-                          {...register(`file ${item}`, {
-                            required: true,
-                          })}
-                        />
-      <button onClick={() => this.refs.fileInput.click()}>Veuillez télécharger une piece justificative</button></div>}
+        <div style={{fontWeight:40}}>Inserez la carte nationale d'identité  </div>
+        <input class="form-control" type="file"  id="formFile" name="image" accept="image/*"/>
+        <div>Inserez votre certificat de coaching</div>
+        <input class="form-control" type="file" id="formFile" name="image" accept="image/*"/>
+        <div>Inserez votre Image</div>
+        <input class="form-control" type="file" id="formFile" name="image" accept="image/*"/>
+
+        </div>
+       
+    }
         <
         /Grid> 
         <
         Grid item xs = { 12 } >
-        <
-        FormControlLabel control = { < Checkbox value = "allowExtraEmails"
-            color = "success" / >
-        }
-        label = "I want to receive inspiration, marketing promotions and updates via email." /
-        >
+       
         <
         /Grid> < /
         Grid > <
