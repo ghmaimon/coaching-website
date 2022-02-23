@@ -180,12 +180,12 @@ export default function SignUp() {
            
             
         <div>
-        <div style={{fontWeight:40}}>Inserez la carte nationale d'identité  </div>
-        <input class="form-control" type="file"  id="formFile" name="image" accept="image/*"/>
+        <div>Inserez la carte nationale d'identité  </div>
+        <input class="form-control" type="file"  id="formFile" name="image" accept="image/*,application/pdf"/>
         <div>Inserez votre certificat de coaching</div>
-        <input class="form-control" type="file" id="formFile" name="image" accept="image/*"/>
+        <input class="form-control" type="file" id="formFile" name="image" accept="image/*,application/pdf"/>
         <div>Inserez votre Image</div>
-        <input class="form-control" type="file" id="formFile" name="image" accept="image/*"/>
+        <input class="form-control" type="file" id="formFile" name="image" accept="image/*,application/pdf"/>
 
         </div>
        
