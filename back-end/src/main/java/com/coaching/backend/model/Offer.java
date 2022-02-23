@@ -1,7 +1,5 @@
 package com.coaching.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.hibernate.annotations.Fetch;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.TermVector;
@@ -12,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
-@SuppressWarnings("unused")
+
 @Entity
 @Indexed
 public class Offer {

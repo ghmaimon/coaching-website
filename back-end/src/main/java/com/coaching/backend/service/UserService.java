@@ -9,11 +9,13 @@ import com.coaching.backend.security.JwtChangePassword;
 import com.coaching.backend.security.JwtProperties;
 import com.coaching.backend.security.SecurityConfiguration;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -21,10 +23,12 @@ import java.util.List;
 public class UserService<T extends User> {
     protected UserRepository<T> userRepository;
     protected PasswordEncoder passwordEncoder;
+    protected EmailSenderService emailSenderService;
 
-    public UserService(UserRepository<T> userRepository) {
+    public UserService(UserRepository<T> userRepository, EmailSenderService emailSenderService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        passwordEncoder = SecurityConfiguration.passwordEncoder();
+        this.emailSenderService = emailSenderService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<T> getAllUsers(){
@@ -97,6 +101,15 @@ public class UserService<T extends User> {
 
     public HttpStatus forgotPassword(String email) {
         // this function will send an email with the link to create new password
+        Optional<T> userOpt =  userRepository.findByEmail(email);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            emailSenderService.sendSimpleEmail(
+                    user.getEmail(),
+                    "you are a little shit",
+                    "forgot your password you little shit"
+            );
+        }
         return  HttpStatus.OK;
     }
 }

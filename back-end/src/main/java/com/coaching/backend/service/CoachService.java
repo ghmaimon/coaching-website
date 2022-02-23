@@ -6,6 +6,7 @@ import com.coaching.backend.exception.UserNotFoundException;
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.model.Offer;
 import com.coaching.backend.repository.CoachRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +19,8 @@ import java.util.Objects;
 @Transactional
 
 public class CoachService extends UserService<Coach>{
-    public CoachService(CoachRepository coachRepository) {
-        super(coachRepository);
+    public CoachService(CoachRepository coachRepository, EmailSenderService emailSenderService, PasswordEncoder passwordEncoder) {
+        super(coachRepository, emailSenderService, passwordEncoder);
     }
 
     public boolean exists(Coach coach) {

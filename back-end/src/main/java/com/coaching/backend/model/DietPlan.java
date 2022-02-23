@@ -5,11 +5,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import java.util.Objects;
 
-/**
- * @author oubaydos
- * @assigned mimoun
- * @todo handle storing the files in the database
- */
+
 @Embeddable
 public class DietPlan {
 

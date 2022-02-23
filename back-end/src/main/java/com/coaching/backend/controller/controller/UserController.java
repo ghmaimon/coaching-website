@@ -142,8 +142,8 @@ public class UserController {
         );
     }
 
-    @GetMapping(path = "/forgotPassword")
-    public ResponseEntity<Void> forgotPassword(@RequestBody String email) {
+    @PostMapping(path = "/forgotPassword")
+    public ResponseEntity<Void> forgotPassword(@RequestHeader String email) {
         return new ResponseEntity<>(
                 userService.forgotPassword(email)
         );

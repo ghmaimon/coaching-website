@@ -4,7 +4,7 @@ import com.coaching.backend.model.Client;
 import com.coaching.backend.model.DietPlan;
 import com.coaching.backend.repository.ClientRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +16,8 @@ public class ClientService extends UserService<Client>{
 
     ClientRepository clientRepository;
 
-    public ClientService(ClientRepository clientRepository) {
-        super(clientRepository);
+    public ClientService(ClientRepository clientRepository, EmailSenderService emailSenderService, PasswordEncoder passwordEncoder) {
+        super(clientRepository, emailSenderService, passwordEncoder);
         this.clientRepository = clientRepository;
     }
 
