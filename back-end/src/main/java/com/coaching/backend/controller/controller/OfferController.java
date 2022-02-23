@@ -27,6 +27,7 @@ public class OfferController {
      * @param offer the offer to add
      * @return the offer created with a https status of 201 in case of success
      */
+
     @PostMapping(path = "/add",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

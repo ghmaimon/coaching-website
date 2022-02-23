@@ -1,5 +1,4 @@
 package com.coaching.backend.service;
-
 import com.coaching.backend.exception.UserNullException;
 import com.coaching.backend.model.Feedback;
 import com.coaching.backend.model.User;

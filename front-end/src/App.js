@@ -7,16 +7,106 @@ import SignUp from "./components/signup/SignUp"
 import SignIn from "./components/Signin/SignIn"
 import AddOffer from './components/Offer/AddOffer/AddOffer';
 import Profil from "./components/Dashboard/Client/profil"
+import CoachProfil from "./components/Dashboard/Coach/profil"
+import AdminProfil from "./components/Dashboard/Admin/profil"
+import {useEffect, useState} from "react";
+import PageNotFound from "./components/errors/404";
+import {Helmet} from "react-helmet";
+import {BrowserRouter as Router, Route, Routes, useRoutes} from "react-router-dom";
+import Forgot from "./components/Forgot/Forgot"
+
+
+function isMentee() {
+    return localStorage.getItem("isMentee") === "true";
+}
+
+function isMentor() {
+    return localStorage.getItem("isMentee") === "false";
+}
+
+function isAdmin() {
+    return localStorage.getItem("isAdmin") === "true";
+}
+
+function isGuest() {
+    return localStorage.getItem("currentUser") === null || localStorage.getItem("currentUser") === undefined;
+}
+
+
+const MenteeRoutes = () => useRoutes([
+    {path: "/", element: <Profil/>},
+    {path: "/profil", element: <Profil/>}
+]);
+const MentorRoutes = () => useRoutes([
+    {path: "/", element: <CoachProfil/>},
+    {path: "/profil", element: <CoachProfil/>}
+]);
+const AdminRoutes = () => useRoutes([
+    {path: "/", element: <AdminProfil/>},
+    {path: "/profil", element: <AdminProfil/>}
+]);
+const GuestRoutes = () => useRoutes([
+    {path: "/", element: <Home/>},
+    {path: "/profil", element: <Home/>},
+    {path: "/signin", element: <SignIn/>},
+    {path: "/signup", element: <SignUp/>},
+    {path: "/forgotPassword", element: <Forgot/>}
+
+]);
 
 function App() {
     console.log(Home);
+    const [logedIn, setLogedIn] = useState(false);
+    const [bottom, setBottom] = useState(false);
+    useEffect(() => {
+        if (
+            localStorage.getItem("currentUser") !== undefined &&
+            localStorage.getItem("currentUser") !== null
+        )
+            setLogedIn(true);
+        console.log(logedIn);
+    });
     return (
+        <>
+            <Helmet>
+                <title>Gestion de cours</title>
+            </Helmet>
 
-        <div className = "body" >
-        <Header /> { /*<Home/>*/ } { /* <Profil /> */ } 
-        <Profil />
-        <Footer />
-        </div>
+            <Router>
+                <div className="body">
+                    <Header/>
+                    {isMentee() &&  <MenteeRoutes/>}
+                    {isMentor() && <MentorRoutes/>}
+                    {isAdmin() && <AdminRoutes/>}
+                    {isGuest() && <GuestRoutes/>}
+                    <Footer/>
+                    {/*<MenteeRoute path="/"/>*/}
+                    {/*<Routes>*/}
+                    {/*    /!*this is for the mentee*!/*/}
+                    {/*    {isMentee() && <Route element={<Profil/>} path={["/", "/profil"]}/>}*/}
+
+                    {/*    /!*this is for the mentor*!/*/}
+                    {/*    {isMentor() && <Route element={<CoachProfil/>} path="/"/>}*/}
+
+                    {/*    /!*this is for the admin*!/*/}
+                    {/*    {isAdmin() && <Route element={<AdminProfil/>} path="/"/>}*/}
+
+                    {/*    /!*guest*!/*/}
+                    {/*    {isGuest() &&*/}
+                    {/*    <>*/}
+                    {/*        <Route element={<Home/>} path="/"/>*/}
+                    {/*        <Route element={<SignIn/>} path="/signin"/>*/}
+                    {/*        <Route element={<SignUp/>} path="/signup"/>*/}
+                    {/*        <Route element={<Forgot/>} path="/forgotPassword"/>*/}
+
+                    {/*    </>*/}
+                    {/*    }*/}
+                    {/*</Routes>*/}
+
+                </div>
+            </Router>
+
+        </>
     );
 }
 
