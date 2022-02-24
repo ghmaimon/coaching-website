@@ -1,7 +1,9 @@
 package com.coaching.backend.service;
 
 import com.coaching.backend.DTO.dataDTO.ClientDTO;
+import com.coaching.backend.DTO.dataDTO.CoachDTO;
 import com.coaching.backend.enumeration.CoachDocuments;
+import com.coaching.backend.enumeration.Role;
 import com.coaching.backend.model.Client;
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.repository.CoachRepository;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,11 +24,13 @@ import java.util.Objects;
 public class CoachService extends UserService<Coach>{
 
     CoachRepository coachRepository;
+    private FileService fileService;
 
     public CoachService(CoachRepository coachRepository, EmailSenderService emailSenderService,
-                        PasswordEncoder passwordEncoder) {
+                        PasswordEncoder passwordEncoder, FileService fileService) {
         super(coachRepository, emailSenderService, passwordEncoder);
         this.coachRepository = coachRepository;
+        this.fileService = fileService;
     }
 
     public boolean exists(Coach coach) {
@@ -65,5 +71,26 @@ public class CoachService extends UserService<Coach>{
                     );
                 }
         ).toList();
+    }
+
+    public Coach createCoach(CoachDTO coachDto) throws IOException, NoSuchAlgorithmException {
+        Coach coach = new Coach(
+                coachDto.firstName(),
+                coachDto.lastName(),
+                coachDto.birth_date(),
+                Role.COACH,
+                coachDto.email(),
+                coachDto.password(),
+                false,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+        createUser(coach);
+        fileService.uploadCoachDocuments(coach,coachDto.coachingCertificate(),CoachDocuments.COACHING_CERTIFICATE);
+        fileService.uploadCoachDocuments(coach,coachDto.identityDocument(),CoachDocuments.IDENTITY_DOCUMENT);
+        fileService.uploadCoachDocuments(coach,coachDto.image(),CoachDocuments.IMAGE);
     }
 }
