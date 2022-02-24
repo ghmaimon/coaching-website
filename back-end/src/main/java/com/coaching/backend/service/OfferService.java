@@ -1,5 +1,6 @@
 package com.coaching.backend.service;
 
+import com.coaching.backend.DTO.dataDTO.OfferDTO;
 import com.coaching.backend.enumeration.Role;
 import com.coaching.backend.exception.CoachIsNotVerifiedException;
 import com.coaching.backend.exception.OfferNotFoundException;
@@ -16,19 +17,14 @@ import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static com.coaching.backend.utils.OfferUtils.getCoachWithoutPersonalDetails;
 
 @Service
 @Transactional
@@ -67,14 +63,15 @@ public class OfferService {
      * @param tags list of tags to search in
      * @return list of offers
      */
-    public List<Offer> getOffersByTags(List<String> tags) {
+    public List<OfferDTO> getOffersByTags(List<String> tags) {
         LOG.debug("searching offers by tags");
         Optional<List<Offer>> offers = offerRepository.findAllByTagsIn(tags);
         if (offers.isPresent()){
+            List<OfferDTO> offerDTOS = new ArrayList<>();
             for (Offer offer : offers.get()){
-                offer.setCoach(getCoachWithoutPersonalDetails(offer.getCoach()));
+                offerDTOS.add(new OfferDTO(offer));
             }
-            return offers.get();
+            return offerDTOS;
         }
         return new ArrayList<>();
     }
@@ -84,17 +81,25 @@ public class OfferService {
      * @param coach the coach - must contain either id or full name
      * @return list of offers
      */
-    public List<Offer> getOffersByCoach(Coach coach) {
+    public List<OfferDTO> getOffersByCoach(Coach coach) {
 
         if (coach == null){
             throw new UserNullException(Role.COACH);
         }
         if (coach.getId()!=0){ // equivalent to id != null i guess
-            return offerRepository.findAllByCoachId(coach.getId()).orElseGet(ArrayList::new);
+            Optional<List<Offer>> offers = offerRepository.findAllByCoachId(coach.getId());
+            if (offers.isPresent()){
+                return offers.get().stream().map(OfferDTO::new).toList();
+            }
+            return List.of();
         }
         // this will generate an error -- logical error -- when two coaches have the same full name
         if (coach.getFirstName() != null && coach.getLastName()!=null){
-            return offerRepository.findAllOffersByCoachFirstNameAndCoachLastName(coach.getFirstName(), coach.getLastName()).orElseGet(ArrayList::new);
+            Optional<List<Offer>> offers =  offerRepository.findAllOffersByCoachFirstNameAndCoachLastName(coach.getFirstName(), coach.getLastName());
+            if (offers.isPresent()){
+                return offers.get().stream().map(OfferDTO::new).toList();
+            }
+            return List.of();
         }
         throw new UserIncompleteDataException("coach's id or full_name");
     }
@@ -107,7 +112,7 @@ public class OfferService {
      * TODO add the option to search by "contains" besides this fuzzy search
      */
 
-    public List<Offer> getOffersByTitle(String title) throws InterruptedException {
+    public List<OfferDTO> getOffersByTitle(String title) throws InterruptedException {
 
 
         LOG.debug("searching offers by title : {}", title);
@@ -129,7 +134,7 @@ public class OfferService {
 
         List<Offer> res = fullTextEntityManager.createFullTextQuery(query, Offer.class).getResultList();
 
-        return res;
+        return res.stream().map(OfferDTO::new).toList();
     }
 
     public void deleteOffer(long id) {
