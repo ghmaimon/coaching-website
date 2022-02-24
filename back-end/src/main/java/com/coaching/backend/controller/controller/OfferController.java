@@ -1,5 +1,6 @@
 package com.coaching.backend.controller.controller;
 
+import com.coaching.backend.DTO.dataDTO.OfferDTO;
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.model.Offer;
 import com.coaching.backend.service.*;
@@ -58,9 +59,9 @@ public class OfferController {
     @PostMapping(path = "/search/byTags",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Offer>> getOffersByTags(@Valid @RequestBody @NonNull List<String> tags){
+    public ResponseEntity<List<OfferDTO>> getOffersByTags(@Valid @RequestBody @NonNull List<String> tags){
         LOG.debug("getting offers by tags");
-        List<Offer> offers = offerService.getOffersByTags(tags);
+        List<OfferDTO> offers = offerService.getOffersByTags(tags);
         return new ResponseEntity<>(
                 offers,
                 HttpStatus.OK
@@ -69,10 +70,10 @@ public class OfferController {
     @PostMapping(path = "/search/byCoach",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Offer>> getOffersByCoach(@Valid @RequestBody Coach coach){
+    public ResponseEntity<List<OfferDTO>> getOffersByCoach(@Valid @RequestBody Coach coach){
         LOG.debug("getting offers by coach");
         LOG.debug("{}", coach.toString());
-        List<Offer> offers = offerService.getOffersByCoach(coach);
+        List<OfferDTO> offers = offerService.getOffersByCoach(coach);
         return new ResponseEntity<>(
                 offers,
                 HttpStatus.OK
@@ -81,10 +82,10 @@ public class OfferController {
     @PostMapping(path = "/search/byTitle",
             consumes = MediaType.TEXT_PLAIN_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Offer>> getOffersByTitle(@RequestBody String title) throws InterruptedException {
+    public ResponseEntity<List<OfferDTO>> getOffersByTitle(@RequestBody String title) throws InterruptedException {
         LOG.debug("getting offers by title");
         LOG.debug("{}", title);
-        List<Offer> offers = offerService.getOffersByTitle(title);
+        List<OfferDTO> offers = offerService.getOffersByTitle(title);
         return new ResponseEntity<>(
                 offers,
                 HttpStatus.OK

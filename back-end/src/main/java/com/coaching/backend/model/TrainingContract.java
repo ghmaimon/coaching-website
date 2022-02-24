@@ -7,13 +7,16 @@ import java.util.Date;
 @Entity
 public class TrainingContract extends Contract{
 
-    private Duration duration;
+    /**
+     * duration in hours
+     */
+    private long duration;
 
     private long daysInWeek;
 
     private long hoursInDay;
 
-    public TrainingContract(Long id, Client client, Offer offer, long price, boolean paid, Duration duration, long daysInWeek, long hoursInDay) {
+    public TrainingContract(Long id, Client client, Offer offer, long price, boolean paid, long duration, long daysInWeek, long hoursInDay) {
         super(id, client, price, new Date(), offer, paid);
         this.duration = duration;
         this.daysInWeek = daysInWeek;
@@ -22,11 +25,11 @@ public class TrainingContract extends Contract{
 
     public TrainingContract() {}
 
-    public Duration getDuration() {
+    public long getDuration() {
         return duration;
     }
 
-    public void setDuration(Duration duration) {
+    public void setDuration(long duration) {
         this.duration = duration;
     }
 
