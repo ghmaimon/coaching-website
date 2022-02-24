@@ -1,11 +1,14 @@
 package com.coaching.backend.service;
 
+import com.coaching.backend.DTO.data.ClientDTO;
 import com.coaching.backend.enumeration.CoachDocuments;
 import com.coaching.backend.exception.CoachNotFoundException;
 import com.coaching.backend.exception.UserNotFoundException;
+import com.coaching.backend.model.Client;
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.model.Offer;
 import com.coaching.backend.repository.CoachRepository;
+import com.coaching.backend.security.JwtLogin;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +22,13 @@ import java.util.Objects;
 @Transactional
 
 public class CoachService extends UserService<Coach>{
-    public CoachService(CoachRepository coachRepository, EmailSenderService emailSenderService, PasswordEncoder passwordEncoder) {
+
+    CoachRepository coachRepository;
+
+    public CoachService(CoachRepository coachRepository, EmailSenderService emailSenderService,
+                        PasswordEncoder passwordEncoder) {
         super(coachRepository, emailSenderService, passwordEncoder);
+        this.coachRepository = coachRepository;
     }
 
     public boolean exists(Coach coach) {
@@ -48,5 +56,18 @@ public class CoachService extends UserService<Coach>{
             throw new IllegalArgumentException("Invalid document type");
         }
         userRepository.save(coach);
+    }
+
+    public List<ClientDTO> getCoachsClients(String jwtToken) {
+        String email = JwtLogin.getEmailFromJwtToken(jwtToken);
+        Coach coach = getUserWithEmail(email);
+        return coachRepository.findClientByCoach(coach.getId()).stream().map(
+                (Client c) -> {
+                    return new ClientDTO(
+                            c.getId(),
+                            c.getFirstName() + " " + c.getLastName()
+                    );
+                }
+        ).toList();
     }
 }

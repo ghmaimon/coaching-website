@@ -10,12 +10,12 @@ public class Feedback {
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "rater_id")
     @NotNull(message = "Rater is required")
     private User rater;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "rated_id")
     @NotNull(message = "Rated is required")
     private User rated;
 
@@ -44,9 +44,7 @@ public class Feedback {
         this.rated = rated;
     }
 
-    public int getStars() {
-        return stars;
-    }
+    public int getStars() { return stars; }
 
     public void setStars(int stars) {
         this.stars = stars;

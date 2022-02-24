@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 
 public class TrainingContractService extends ContractService<TrainingContract> {
-    public TrainingContractService(ContractRepository<TrainingContract> contractRepository) {
-        super(contractRepository);
+    public TrainingContractService(ContractRepository<TrainingContract> contractRepository, ClientService clientService) {
+        super(contractRepository, clientService );
     }
 }
