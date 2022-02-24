@@ -2,6 +2,7 @@ package com.coaching.backend.service;
 
 import com.coaching.backend.enumeration.Role;
 import com.coaching.backend.exception.CoachIsNotVerifiedException;
+import com.coaching.backend.exception.OfferNotFoundException;
 import com.coaching.backend.exception.UserIncompleteDataException;
 import com.coaching.backend.exception.UserNullException;
 import com.coaching.backend.model.Coach;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -128,5 +130,11 @@ public class OfferService {
         List<Offer> res = fullTextEntityManager.createFullTextQuery(query, Offer.class).getResultList();
 
         return res;
+    }
+
+    public void deleteOffer(long id) {
+        if (id == 0 || !offerRepository.existsById(id))// i guess 0 <==> null
+            throw new OfferNotFoundException(id);
+        offerRepository.deleteById(id);
     }
 }

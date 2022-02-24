@@ -1,7 +1,6 @@
 package com.coaching.backend.controller.controller;
 
 import com.coaching.backend.model.Coach;
-import com.coaching.backend.model.DietPlan;
 import com.coaching.backend.model.Offer;
 import com.coaching.backend.service.*;
 import lombok.AllArgsConstructor;
@@ -42,6 +41,16 @@ public class OfferController {
     }
 
     /**
+     * delete existent offer endpoint
+     * @param id the id of the offer
+     */
+
+    @DeleteMapping(path = "/delete/{id}")
+    public void deleteOffer(@PathVariable long id){
+        LOG.debug("deleting offer : {}",id);
+        offerService.deleteOffer(id);
+    }
+    /**
      * search offers by tags
      * @param tags list of tags
      * @return list of offers
@@ -81,14 +90,5 @@ public class OfferController {
                 HttpStatus.OK
         );
     }
-    @GetMapping(path = "/hajar")
-    public ResponseEntity<String > getMyDietPlans(){
-        return new ResponseEntity<>(
-                "hajar",
-                HttpStatus.OK
-        );
-    }
-
-
 
 }

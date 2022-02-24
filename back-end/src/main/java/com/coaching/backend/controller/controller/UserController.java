@@ -1,5 +1,6 @@
 package com.coaching.backend.controller.controller;
 
+import com.coaching.backend.DTO.dataDTO.CoachDTO;
 import com.coaching.backend.enumeration.Role;
 import com.coaching.backend.model.*;
 import com.coaching.backend.security.JwtChangePassword;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -39,13 +42,12 @@ public class UserController {
     // create users:
 
     @PostMapping(path = "/create/coach",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
+            consumes="multipart/form-data",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Coach> createCoach(@Valid @RequestBody Coach coach) throws Throwable {
-        LOG.debug("new /create/coach request : "+coach.getEmail());
-        coach.setRole(Role.COACH);
+    public ResponseEntity<Coach> createCoach(@ModelAttribute @Valid  CoachDTO coach) throws Throwable {
+        LOG.debug("new /create/coach request : "+coach.email());
         return new ResponseEntity<>(
-                coachService.createUser(coach),
+                coachService.createCoach(coach),
                 HttpStatus.CREATED
         );
     }

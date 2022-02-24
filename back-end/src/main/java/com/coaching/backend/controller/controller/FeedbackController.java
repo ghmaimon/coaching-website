@@ -1,7 +1,6 @@
 package com.coaching.backend.controller.controller;
 
-import com.coaching.backend.DTO.data.FeedbackDTO;
-import com.coaching.backend.model.Feedback;
+import com.coaching.backend.DTO.dataDTO.FeedbackDTO;
 import com.coaching.backend.service.FeedbackService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

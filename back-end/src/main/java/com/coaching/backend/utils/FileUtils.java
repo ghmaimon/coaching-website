@@ -1,11 +1,14 @@
 package com.coaching.backend.utils;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
-
+@Controller
 public class FileUtils {
     public static void saveFile(MultipartFile file, String documentPath, String documentName) throws IOException {
         if (!file.isEmpty()) {
@@ -14,7 +17,8 @@ public class FileUtils {
             }
             String filePath = documentPath + documentName;
             File dest = new File(filePath);
-            file.transferTo(dest);
+//            File dest = new File(documentPath + "temp.pdf");
+            file.transferTo(Paths.get(dest.getAbsolutePath()));
         }
     }
 

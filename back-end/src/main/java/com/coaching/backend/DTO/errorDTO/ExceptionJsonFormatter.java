@@ -1,4 +1,4 @@
-package com.coaching.backend.DTO.errors;
+package com.coaching.backend.DTO.errorDTO;
 
 
 import com.coaching.backend.exception.GeneralException;

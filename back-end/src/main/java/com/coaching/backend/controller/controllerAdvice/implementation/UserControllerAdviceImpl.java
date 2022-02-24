@@ -1,11 +1,8 @@
 package com.coaching.backend.controller.controllerAdvice.implementation;
 
+import com.coaching.backend.DTO.errorDTO.UserError;
 import com.coaching.backend.controller.controller.UserController;
 import com.coaching.backend.controller.controllerAdvice.UserControllerAdvice;
-import com.coaching.backend.errors.OfferError;
-import com.coaching.backend.errors.UserError;
-import com.coaching.backend.exception.CoachIsNotVerifiedException;
-import com.coaching.backend.exception.OfferNotFoundException;
 import com.coaching.backend.exception.UserException;
 import org.hibernate.HibernateException;
 import org.slf4j.Logger;

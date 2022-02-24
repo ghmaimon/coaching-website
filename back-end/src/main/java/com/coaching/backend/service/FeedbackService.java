@@ -1,6 +1,5 @@
 package com.coaching.backend.service;
-import com.coaching.backend.DTO.data.FeedbackDTO;
-import com.coaching.backend.exception.UserNullException;
+import com.coaching.backend.DTO.dataDTO.FeedbackDTO;
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.model.Feedback;
 import com.coaching.backend.model.User;
