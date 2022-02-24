@@ -1,7 +1,6 @@
 package com.coaching.backend.controller.controller;
 
 import com.coaching.backend.model.Coach;
-import com.coaching.backend.model.DietPlan;
 import com.coaching.backend.model.Offer;
 import com.coaching.backend.service.*;
 import lombok.AllArgsConstructor;
