@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Indexed
+//@Indexed
 public class Offer {
 
     @Id
@@ -27,7 +27,7 @@ public class Offer {
     @ElementCollection
     private List<String> tags;
 
-    @Field(termVector = TermVector.YES)
+//    @Field(termVector = TermVector.YES)
     @NotNull(message = "Title is required")
     @NotEmpty(message = "Title should not be empty")
     private String title;

@@ -46,7 +46,7 @@ public class OfferService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public OfferService(OfferRepository offerRepository, CoachService coachService, @Lazy FileService fileService, EntityManager entityManager) {
+    public OfferService(OfferRepository offerRepository, CoachService coachService, @Lazy FileService fileService,@Lazy EntityManager entityManager) {
         this.offerRepository = offerRepository;
         this.coachService = coachService;
         this.fileService = fileService;
@@ -81,10 +81,12 @@ public class OfferService {
             LOG.debug("the coach is not verified + email : {}", offer.getCoach());
             throw new CoachIsNotVerifiedException(offer.getCoach().getEmail());
         }
-        offerRepository.save(offer);
+
         LOG.debug("new offer created");
-        LOG.debug("tag1 {}",offer.getTags().get(0));
-        fileService.uploadOfferImage(offer,offerDTO.image());
+        String img = fileService.uploadOfferImage(offer,offerDTO.image());
+        LOG.debug("image : {}",img);
+        offer.setImage(img);
+        offerRepository.save(offer);
         return offer;
     }
 

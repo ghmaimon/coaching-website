@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Objects;
 
 
 @Service
@@ -36,7 +35,7 @@ public class FileService {
         FileUtils.saveFile(file,documentPath, documentName);
         coachService.setCoachDocument(coach,type,documentName);
     }
-    public void uploadOfferImage(Offer offer, MultipartFile file) throws IOException, NoSuchAlgorithmException {
+    public String uploadOfferImage(Offer offer, MultipartFile file) throws IOException, NoSuchAlgorithmException {
         if (file == null || file.getContentType() == null) throw new FileNullException();
         if(!file.getContentType().startsWith("image") && !file.getContentType().startsWith("application/pdf")){
             throw new FileTypeInappropriateException(file.getContentType().toLowerCase(),"image","pdf");
@@ -44,6 +43,7 @@ public class FileService {
         String documentName = MD5.getMD5Hash(offer.getTitle() )+ "." + FileUtils.getExtension(file);
         String documentPath = fileConfig.getDirectory();
         FileUtils.saveFile(file,documentPath, documentName);
-        offerService.setOfferImage(offer,documentName);
+        return documentName;
+
     }
 }
