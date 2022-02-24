@@ -17,4 +17,8 @@ public class OfferNotFoundException extends OfferException{
     public OfferNotFoundException(Exception exception) {
         super(exception);
     }
+
+    public OfferNotFoundException(long id) {
+        super(OfferNotFoundException.class.getSimpleName(),"the offer : "+id+" does not exist");
+    }
 }

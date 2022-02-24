@@ -26,7 +26,8 @@ const MenteeRoutes = () => useRoutes([
 ]);
 const MentorRoutes = () => useRoutes([
     {path: "/", element: <CoachProfil/>},
-    {path: "/profil", element: <CoachProfil/>}
+    {path: "/profil", element: <CoachProfil/>},
+    {path:"/add_offer",element:<AddOffer/>}
 ]);
 const AdminRoutes = () => useRoutes([
     {path: "/", element: <AdminProfil/>},
@@ -37,7 +38,8 @@ const GuestRoutes = () => useRoutes([
     {path: "/profil", element: <Home/>},
     {path: "/signin", element: <SignIn/>},
     {path: "/signup", element: <SignUp/>},
-    {path: "/forgotPassword", element: <Forgot/>}
+    {path: "/forgotPassword", element: <Forgot/>},
+   
    
 
 ]);
