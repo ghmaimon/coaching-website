@@ -14,13 +14,15 @@ import {Helmet} from "react-helmet";
 import {BrowserRouter as Router, Route, Routes, useRoutes} from "react-router-dom";
 import Forgot from "./components/Forgot/Forgot"
 import {isAdmin, isGuest, isMentee, isMentor} from "./service/authentication";
+import Details from './components/Offer/ClientConsultOffer/Details';
 
 
 
 
 const MenteeRoutes = () => useRoutes([
-    {path: "/", element: <Profil/>},
-    {path: "/profil", element: <Profil/>}
+     {path: "/", element: <Profil/>},
+    {path: "/profil", element: <Profil/>},
+    {path:"/details", element: <Details/>}
 ]);
 const MentorRoutes = () => useRoutes([
     {path: "/", element: <CoachProfil/>},
@@ -36,6 +38,7 @@ const GuestRoutes = () => useRoutes([
     {path: "/signin", element: <SignIn/>},
     {path: "/signup", element: <SignUp/>},
     {path: "/forgotPassword", element: <Forgot/>}
+   
 
 ]);
 
