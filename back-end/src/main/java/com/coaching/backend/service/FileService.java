@@ -31,6 +31,6 @@ public class FileService {
         String documentName = MD5.getMD5Hash(coach.getEmail() + type.value()) + "." + FileUtils.getExtension(file);
         String documentPath = fileConfig.getDirectory();
         FileUtils.saveFile(file,documentPath, documentName);
-        coachService.setCoachDocument(coach,type,documentPath);
+        coachService.setCoachDocument(coach,type,documentName);
     }
 }
