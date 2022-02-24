@@ -31,6 +31,8 @@ public class Contract {
     @JoinColumn(name = "offer_id")
     private Offer offer;
 
+    private boolean paid;
+
     public Contract() {}
 
     public Contract(Long id, Client client, long price, Date acceptanceDate, Offer offer, boolean paid) {
@@ -50,7 +52,6 @@ public class Contract {
         this.paid = paid;
     }
 
-    private boolean paid;
 
     public Offer getOffer() {
         return offer;

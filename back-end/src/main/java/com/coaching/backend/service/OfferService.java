@@ -2,6 +2,7 @@ package com.coaching.backend.service;
 
 import com.coaching.backend.enumeration.Role;
 import com.coaching.backend.exception.CoachIsNotVerifiedException;
+import com.coaching.backend.exception.OfferNotFoundException;
 import com.coaching.backend.exception.UserIncompleteDataException;
 import com.coaching.backend.exception.UserNullException;
 import com.coaching.backend.model.Coach;
@@ -14,6 +15,7 @@ import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -128,5 +130,9 @@ public class OfferService {
         List<Offer> res = fullTextEntityManager.createFullTextQuery(query, Offer.class).getResultList();
 
         return res;
+    }
+
+    public Offer getOfferById(long id) {
+        return this.offerRepository.findById(id).orElseThrow(() -> new OfferNotFoundException("422", "offer not found"));
     }
 }
