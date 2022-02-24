@@ -1,6 +1,7 @@
 package com.coaching.backend.controller.controller;
 
 import com.coaching.backend.DTO.dataDTO.OfferDTO;
+import com.coaching.backend.DTO.dataDTO.OfferRequestDTO;
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.model.Offer;
 import com.coaching.backend.service.*;
@@ -18,27 +19,28 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
+@CrossOrigin(origins="http://localhost:3000")
 @RequestMapping("/api/offer")
 public class OfferController {
     private OfferService offerService;
     private static final Logger LOG = LoggerFactory.getLogger(OfferController.class);
 
     /**
-     * add new offer endpoint
+         * add new offer endpoint
      * @param offer the offer to add
      * @return the offer created with a https status of 201 in case of success
      */
 
     @PostMapping(path = "/add",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
+            consumes="multipart/form-data",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Offer> addOffer(@Valid @RequestBody Offer offer ){
+    public ResponseEntity<Offer> addOffer(@ModelAttribute OfferRequestDTO offer ){
         LOG.debug("adding new offer");
-        offerService.addOffer(offer);
-        return new ResponseEntity<>(
-                offer,
-                HttpStatus.CREATED
-        );
+//        return new ResponseEntity<>(
+//                offerService.addOffer(offer),
+//                HttpStatus.CREATED
+//        );
+        return null;
     }
 
     /**
