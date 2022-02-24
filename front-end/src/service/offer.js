@@ -3,11 +3,22 @@ import {goto} from "./utils";
 
 export function addOfferService(event, setSuccessful, tags) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    data.append('tags', tags);
-    axios.post(`http://localhost:8000/api/account/create/coach`, data, {
+    const tempData = new FormData(event.currentTarget);
+    for (let i of tempData.entries())
+        console.log(i);
+    let data =  new FormData();
+    data.append('title', tempData.get('title'));
+    data.append('description', tempData.get('description'));
+    data.append('minPrice', tempData.get('minPrice'));
+    data.append('maxPrice', tempData.get('minPrice'));
+    data.append('image', tempData.get('image'));
+    data.append('tags', JSON.stringify(tags));
+
+
+    axios.post(`http://localhost:8000/api/offer/add`, data
+        , {
             headers: {
-                Authorization: localStorage.getItem("currentUser")
+                "Authorization": `${localStorage.getItem("currentUser")}`
             }
         }
     ).then(

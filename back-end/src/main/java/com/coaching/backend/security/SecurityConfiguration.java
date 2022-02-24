@@ -67,7 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/account/changePassword").authenticated()
                 .antMatchers("/api/account/changePassword/**").permitAll()
                 .antMatchers("/api/account/delete/**/**").hasRole("SUPERUSER")
-                .antMatchers("/api/offer/add").hasAnyRole("SUPERUSER", "COACH")
+//                .antMatchers("/api/offer/add").hasAnyRole("SUPERUSER", "COACH")
                 .antMatchers("/api/offer/**/**").permitAll()
                 .antMatchers("/api/contract/**").hasRole("CLIENT");
 
@@ -91,7 +91,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
 
         final CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:3000", "**"));
+        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
         configuration.setAllowedMethods(List.of("HEAD",
                 "GET", "POST", "PUT", "DELETE", "PATCH"));
         // setAllowCredentials(true) is important, otherwise:
