@@ -1,6 +1,7 @@
 package com.coaching.backend.controller.controller;
 
 import com.coaching.backend.model.Coach;
+import com.coaching.backend.model.DietPlan;
 import com.coaching.backend.model.Offer;
 import com.coaching.backend.service.*;
 import lombok.AllArgsConstructor;
@@ -78,6 +79,13 @@ public class OfferController {
         List<Offer> offers = offerService.getOffersByTitle(title);
         return new ResponseEntity<>(
                 offers,
+                HttpStatus.OK
+        );
+    }
+    @GetMapping(path = "/hajar")
+    public ResponseEntity<String > getMyDietPlans(){
+        return new ResponseEntity<>(
+                "hajar",
                 HttpStatus.OK
         );
     }

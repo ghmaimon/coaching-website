@@ -32,7 +32,7 @@ public class User {
 
     @NotNull(message = "Email must not be null")
     @Column(name = "email", unique = true)
-    @javax.validation.constraints.Email
+    @javax.validation.constraints.Email(message = "not an email")
     private String email;
 
     @NotNull(message = "password must not be null")

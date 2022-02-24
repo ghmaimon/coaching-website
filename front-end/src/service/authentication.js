@@ -22,4 +22,5 @@ function logOut(){
     goto("/");
 }
 
+
 export {isMentee,isMentor,isGuest,isAdmin,logOut}
