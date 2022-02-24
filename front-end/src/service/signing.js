@@ -1,13 +1,14 @@
 import axios from "axios";
 import {goto} from "./utils";
 
-const signUpService = (event) => {
+const signUpService = (event,setSuccessful,isCoach) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // createClient(data);
-    createCoach(data);
+    if (isCoach)
+        createCoach(data,setSuccessful);
+    else createClient(data,setSuccessful);
 }
-const createClient = (data) => {
+const createClient = (data,setSuccessful) => {
     const dataToSend = {
         firstName: data.get('firstName'),
         lastName: data.get('lastName'),
@@ -24,9 +25,9 @@ const createClient = (data) => {
     }).then(
         (res) => {
 
-            // setSuccessful(true);
+            setSuccessful(true);
             console.log(res);
-            // goto("/");
+            goto("/signin");
         }
         ,
         (err) => {
@@ -37,18 +38,8 @@ const createClient = (data) => {
 
 };
 
-const createCoach = (data) => {
+const createCoach = (data,setSuccessful) => {
     let tempData = new FormData();
-    // const dataToSend = {
-    //     firstName: data.get('firstName'),
-    //     lastName: data.get('lastName'),
-    //     email: data.get('email'),
-    //     password: data.get('password'),
-    //     birth_date : data.get("date"),
-    //     image: data.get("image"),
-    //     coachingCertificate : data.get("certificate"),
-    //     identityDocument: data.get("cin")
-    // }
     tempData.append("firstName", data.get('firstName'));
     tempData.append("lastName", data.get('lastName'));
     tempData.append("email", data.get('email'));
@@ -61,9 +52,9 @@ const createCoach = (data) => {
     ).then(
         (res) => {
 
-            // setSuccessful(true);
+            setSuccessful(true);
             console.log(res);
-            // goto("/");
+            goto("/signin");
         }
         ,
         (err) => {
