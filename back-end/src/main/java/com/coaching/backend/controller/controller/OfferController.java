@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @AllArgsConstructor
@@ -34,7 +36,7 @@ public class OfferController {
     @PostMapping(path = "/add",
             consumes="multipart/form-data",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Offer> addOffer(@ModelAttribute OfferRequestDTO offer ){
+    public ResponseEntity<Offer> addOffer(@ModelAttribute OfferRequestDTO offer ) throws IOException, NoSuchAlgorithmException {
         return new ResponseEntity<>(
                 offerService.addOffer(offer),
                 HttpStatus.CREATED

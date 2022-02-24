@@ -4,6 +4,7 @@ import com.coaching.backend.enumeration.CoachDocuments;
 import com.coaching.backend.exception.FileNullException;
 import com.coaching.backend.exception.FileTypeInappropriateException;
 import com.coaching.backend.model.Coach;
+import com.coaching.backend.model.Offer;
 import com.coaching.backend.utils.FileConfig;
 import com.coaching.backend.utils.FileUtils;
 import com.coaching.backend.utils.MD5;
@@ -23,6 +24,8 @@ import java.util.Objects;
 public class FileService {
     private final CoachService coachService;
     private final FileConfig fileConfig;
+    private OfferService offerService;
+
     public void uploadCoachDocuments(Coach coach, MultipartFile file, CoachDocuments type) throws IOException, NoSuchAlgorithmException {
         if (file == null || file.getContentType() == null) throw new FileNullException();
         if(!file.getContentType().startsWith("image") && !file.getContentType().startsWith("application/pdf")){
@@ -32,5 +35,15 @@ public class FileService {
         String documentPath = fileConfig.getDirectory();
         FileUtils.saveFile(file,documentPath, documentName);
         coachService.setCoachDocument(coach,type,documentName);
+    }
+    public void uploadOfferImage(Offer offer, MultipartFile file) throws IOException, NoSuchAlgorithmException {
+        if (file == null || file.getContentType() == null) throw new FileNullException();
+        if(!file.getContentType().startsWith("image") && !file.getContentType().startsWith("application/pdf")){
+            throw new FileTypeInappropriateException(file.getContentType().toLowerCase(),"image","pdf");
+        }
+        String documentName = MD5.getMD5Hash(offer.getTitle() )+ "." + FileUtils.getExtension(file);
+        String documentPath = fileConfig.getDirectory();
+        FileUtils.saveFile(file,documentPath, documentName);
+        offerService.setOfferImage(offer,documentName);
     }
 }

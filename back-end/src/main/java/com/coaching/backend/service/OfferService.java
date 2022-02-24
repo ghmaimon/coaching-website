@@ -18,6 +18,7 @@ import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,13 +36,23 @@ import static com.coaching.backend.utils.MyConverter.convertToDatabaseColumn;
 
 @Service
 @Transactional
-@AllArgsConstructor
 public class OfferService {
 
     private OfferRepository offerRepository;
     private CoachService coachService;
+
+    private FileService fileService;
+
     @PersistenceContext
     private EntityManager entityManager;
+
+    public OfferService(OfferRepository offerRepository, CoachService coachService, @Lazy FileService fileService, EntityManager entityManager) {
+        this.offerRepository = offerRepository;
+        this.coachService = coachService;
+        this.fileService = fileService;
+        this.entityManager = entityManager;
+    }
+
     private static final Logger LOG = LoggerFactory.getLogger(OfferService.class);
 
 
@@ -47,7 +60,7 @@ public class OfferService {
      * add new offer -- sets the coach in offer by finding it in the db
      * @param offerDTO the offer to be added
      */
-    public Offer addOffer(OfferRequestDTO offerDTO){
+    public Offer addOffer(OfferRequestDTO offerDTO) throws IOException, NoSuchAlgorithmException {
 
 //        UserDetails userName = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -71,6 +84,7 @@ public class OfferService {
         offerRepository.save(offer);
         LOG.debug("new offer created");
         LOG.debug("tag1 {}",offer.getTags().get(0));
+        fileService.uploadOfferImage(offer,offerDTO.image());
         return offer;
     }
 
@@ -161,5 +175,10 @@ public class OfferService {
 
     public Offer getOfferById(long id) {
         return this.offerRepository.findById(id).orElseThrow(() -> new OfferNotFoundException("422", "offer not found"));
+    }
+
+    public void setOfferImage(Offer offer, String documentName) {
+        offer.setImage(documentName);
+        offerRepository.save(offer);
     }
 }
