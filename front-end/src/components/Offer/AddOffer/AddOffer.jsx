@@ -11,6 +11,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Title from "../Title"
 import {Chip, Input} from "@mui/material";
 import {useEffect, useState} from "react";
+import {addOfferService} from "../../../service/offer";
 // import MultipleTextField from "../../../shared/MultipleTextField"
 function Copyright(props) {
     return (<Typography variant="body2" color="text.secondary"
@@ -28,13 +29,13 @@ export default function AddOffer() {
     const [date, setDate] = React.useState(Date.now());
     const [values, setValues] = useState([]);
     const [currValue, setCurrValue] = useState("");
-
+    const [successful, setSuccessful] = useState(false);
     const handleChange = (newValue) => {
         setDate(newValue);
     };
     const handleSubmit = (event) => {
-        //traitement
 
+        addOfferService(event,setSuccessful,values);
     };
     const handleKeyUp = (e) => {
         console.log(e.keyCode);
@@ -129,6 +130,7 @@ export default function AddOffer() {
                                 value={currValue}
                                 onChange={handleChangee}
                                 onKeyDown={handleKeyUp}
+
                             />
                         </Grid>
                         <Grid item xs={12}>
