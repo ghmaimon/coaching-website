@@ -10,6 +10,7 @@ import com.coaching.backend.repository.CoachRepository;
 import com.coaching.backend.security.JwtLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -100,5 +101,12 @@ public class CoachService extends UserService<Coach>{
         fileService.uploadCoachDocuments(coach,coachDto.identityDocument(),CoachDocuments.IDENTITY_DOCUMENT);
         fileService.uploadCoachDocuments(coach,coachDto.image(),CoachDocuments.IMAGE);
         return coach;
+    }
+
+    public HttpStatus verifyCoach(long coach_id) {
+        Coach coach = getUserWithId(coach_id);
+        coach.setVerified(true);
+        coachRepository.save(coach);
+        return HttpStatus.OK;
     }
 }

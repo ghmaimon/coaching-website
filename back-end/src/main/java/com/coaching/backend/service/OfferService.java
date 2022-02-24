@@ -16,6 +16,7 @@ import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -141,5 +142,9 @@ public class OfferService {
         if (id == 0 || !offerRepository.existsById(id))// i guess 0 <==> null
             throw new OfferNotFoundException(id);
         offerRepository.deleteById(id);
+    }
+
+    public Offer getOfferById(long id) {
+        return this.offerRepository.findById(id).orElseThrow(() -> new OfferNotFoundException("422", "offer not found"));
     }
 }
