@@ -1,5 +1,6 @@
 package com.coaching.backend.service;
 
+import com.coaching.backend.DTO.dataDTO.TrainingContractDTO;
 import com.coaching.backend.exception.OfferNotFoundException;
 import com.coaching.backend.model.Client;
 import com.coaching.backend.model.Contract;
