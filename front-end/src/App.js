@@ -24,20 +24,24 @@ const MenteeRoutes = () => useRoutes([
     {path:"/details", element: <Details/>}
 ]);
 const MentorRoutes = () => useRoutes([
+
     {path: "/", element: <CoachProfil/>},
     {path: "/profil", element: <CoachProfil/>},
-    {path:"/add_offer",element:<AddOffer/>}
+    {path:"/add_offer",element:<AddOffer/>},
+    {path:"/offers",element:<ConsultOffer/>},
+    {path:"/offers/clients",element:<MyClient/>}
+
 ]);
 const AdminRoutes = () => useRoutes([
     {path: "/", element: <AdminProfil/>},
     {path: "/profil", element: <AdminProfil/>}
 ]);
 const GuestRoutes = () => useRoutes([
-    {path: "/", element: <CoachProfil/>},
-    {path: "/profil", element: <CoachProfil/>},
-    {path:"/add_offer",element:<AddOffer/>},
-    {path:"/offers",element:<ConsultOffer/>},
-    {path:"/offers/clients",element:<MyClient/>}
+    {path: "/", element: <Home/>},
+    {path: "/profil", element: <Home/>},
+    {path: "/signin", element: <SignIn/>},
+    {path: "/signup", element: <SignUp/>},
+    {path: "/forgotPassword", element: <Forgot/>},
 
    
    
