@@ -4,6 +4,7 @@ import com.coaching.backend.DTO.dataDTO.ClientDTO;
 import com.coaching.backend.DTO.dataDTO.CoachDTO;
 import com.coaching.backend.enumeration.CoachDocuments;
 import com.coaching.backend.enumeration.Role;
+import com.coaching.backend.exception.CoachNotFoundException;
 import com.coaching.backend.model.Client;
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.repository.CoachRepository;
@@ -11,6 +12,7 @@ import com.coaching.backend.security.JwtLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -108,5 +111,13 @@ public class CoachService extends UserService<Coach>{
         coach.setVerified(true);
         coachRepository.save(coach);
         return HttpStatus.OK;
+    }
+
+    public Coach findCurrentCoach() {
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<Coach> coach = coachRepository.findByEmail(email);
+        if (coach.isPresent())
+            return coach.get();
+        throw new CoachNotFoundException(email);
     }
 }
