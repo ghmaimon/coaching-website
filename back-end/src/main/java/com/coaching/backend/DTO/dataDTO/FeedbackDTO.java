@@ -7,4 +7,5 @@ public record FeedbackDTO (
     String rater,
     int stars,
     String comment
+
 ){}
