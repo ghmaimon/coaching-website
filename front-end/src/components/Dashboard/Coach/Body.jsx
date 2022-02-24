@@ -80,34 +80,21 @@ function Body(props) {
 
 </Grid>
 <Grid item container xs={6}>
-<Grid item>
+<Grid  xs={12} item>
 
 <Description />
 </Grid>
 
-<Grid container spacing={12}><Grid item> </Grid>
-<Grid item>     <AddOffer />
+<Grid container xs={12}>
+<Grid item xs={2}></Grid>
+  <Grid item xs={4}>  <AddOffer /> </Grid>
+
+<Grid xs={4} item>   
+<ConsultOffers/>
+</Grid>
+  </Grid>
 
 </Grid>
-
-<Grid item xs={12}>     <p style={{
-                    fontFamily: "Comfortaa",
-                    lineHeight: "1,4",
-        fontSize: "20px",
-        fontWeight: "100",
-   color:"black"
-
-      }}> Your client are waiting for new session !
-      Contact them now !</p></Grid>
-
-
-</Grid>
-</Grid>
-<Grid item xs={12}>
-<Table/>
-</Grid>
-
-
          </Grid>
       </div>
   );

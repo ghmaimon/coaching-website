@@ -16,6 +16,7 @@ function TextButton(props) {
       className={props.className}
       size={props.size || "small"}
       href={props.url}
+      onClick={props.onClick}
     >
       {props.value}
     </Button>
