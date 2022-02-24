@@ -1,6 +1,7 @@
 package com.coaching.backend.service;
 
 import com.coaching.backend.DTO.dataDTO.OfferDTO;
+import com.coaching.backend.DTO.dataDTO.OfferRequestDTO;
 import com.coaching.backend.enumeration.Role;
 import com.coaching.backend.exception.CoachIsNotVerifiedException;
 import com.coaching.backend.exception.OfferNotFoundException;
@@ -9,6 +10,7 @@ import com.coaching.backend.exception.UserNullException;
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.model.Offer;
 import com.coaching.backend.repository.OfferRepository;
+import com.coaching.backend.utils.MyConverter;
 import lombok.AllArgsConstructor;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
@@ -27,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.coaching.backend.utils.MyConverter.convertToDatabaseColumn;
+
 @Service
 @Transactional
 @AllArgsConstructor
@@ -41,14 +45,23 @@ public class OfferService {
 
     /**
      * add new offer -- sets the coach in offer by finding it in the db
-     * @param offer the offer to be added
+     * @param offerDTO the offer to be added
      */
-    public void addOffer(Offer offer){
+    public Offer addOffer(OfferRequestDTO offerDTO){
+
 //        UserDetails userName = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        LOG.debug("the current user : {}", userDetails.getUsername());
         LOG.debug("the current user : {}", email);
         LOG.debug("creating new offer");
+        Offer offer = new Offer(
+                coachService.findByEmail(email),
+                convertToDatabaseColumn(offerDTO.tags()),
+                offerDTO.title(),
+                offerDTO.description(),
+                offerDTO.minPrice(),
+                offerDTO.maxPrice()
+                );
 //        offer.setCoach(coachService.findByEmail(userDetails.getUsername()));
         offer.setCoach(coachService.findByEmail(email));
         if (!offer.getCoach().isVerified()){
@@ -57,6 +70,8 @@ public class OfferService {
         }
         offerRepository.save(offer);
         LOG.debug("new offer created");
+        LOG.debug("tag1 {}",offer.getTags().get(0));
+        return offer;
     }
 
     /**

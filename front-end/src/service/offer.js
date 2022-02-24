@@ -10,7 +10,7 @@ export function addOfferService(event, setSuccessful, tags) {
     data.append('title', tempData.get('title'));
     data.append('description', tempData.get('description'));
     data.append('minPrice', tempData.get('minPrice'));
-    data.append('maxPrice', tempData.get('minPrice'));
+    data.append('maxPrice', tempData.get('maxPrice'));
     data.append('image', tempData.get('image'));
     data.append('tags', JSON.stringify(tags));
 
@@ -26,7 +26,7 @@ export function addOfferService(event, setSuccessful, tags) {
 
             setSuccessful(true);
             console.log(res);
-            goto("/this_link_is_not_yet_defined");
+            // goto("/this_link_is_not_yet_defined");
         }
         ,
         (err) => {

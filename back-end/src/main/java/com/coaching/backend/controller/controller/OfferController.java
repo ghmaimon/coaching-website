@@ -35,12 +35,10 @@ public class OfferController {
             consumes="multipart/form-data",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Offer> addOffer(@ModelAttribute OfferRequestDTO offer ){
-        LOG.debug("adding new offer");
-//        return new ResponseEntity<>(
-//                offerService.addOffer(offer),
-//                HttpStatus.CREATED
-//        );
-        return null;
+        return new ResponseEntity<>(
+                offerService.addOffer(offer),
+                HttpStatus.CREATED
+        );
     }
 
     /**
