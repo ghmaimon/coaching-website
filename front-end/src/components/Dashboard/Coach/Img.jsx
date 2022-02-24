@@ -1,13 +1,13 @@
 import React from "react";
 import {Hidden} from "@mui/material";
-import man_training from "../../../css/fitness_stuff.png";
+import tarinning_wom from "../../../css/tarinning_wom.png";
 
 function Img() {
     return (
         <>
             <Hidden mdDown>
                 <img
-                    src={man_training}
+                    src={tarinning_wom}
                     alt="smile"
                     style={{
                         position: "absolute",

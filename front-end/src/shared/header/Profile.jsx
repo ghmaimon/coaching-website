@@ -7,6 +7,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import LoginIcon from '@mui/icons-material/Login';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import {isGuest, logOut} from "../../service/authentication";
+
 function Profile() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -28,7 +30,6 @@ function Profile() {
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-    
       id="fade-menu"
     
       open={isMenuOpen}
@@ -40,24 +41,35 @@ function Profile() {
       PaperProps={{
         style: {
         Height: "20%",
-        width: "100px",
+        width: "10%",
         },
     }}
     >
+        {isGuest() &&
       <MenuItem onClick={handleMenuClose} >
       <IconButton
     href="/Signin"
             >
       <AssignmentIndIcon color="success" 
     /></IconButton>
-        Sign In </MenuItem>
-      <MenuItem onClick={handleMenuClose} >
-      <IconButton
-    href="/login" 
+        Sign In </MenuItem>}
+        {!isGuest() &&
+        <MenuItem onClick={handleMenuClose} >
+            <IconButton
+                onClick={logOut}
             >
-      <LoginIcon color="success"  
-     /></IconButton>
-        Login</MenuItem>
+                <AssignmentIndIcon color="success"
+                /></IconButton>
+            Sign Out </MenuItem>}
+    {/*  <MenuItem onClick={handleMenuClose} >*/}
+    {/*  <IconButton*/}
+    {/*href="/login" */}
+    {/*        >*/}
+    {/*  <LoginIcon color="success"  */}
+    {/* />*/}
+    {/*       </IconButton>*/}
+    {/*          Sign Out</MenuItem>*/}
+
     </Menu>
   );
   return (

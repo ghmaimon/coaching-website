@@ -13,6 +13,27 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import axios from "axios";
+import {useState} from "react";
+import {goto} from "../../service/utils";
+
+function getRole(key) {
+    return key.substring(1, key.length - 1);
+}
+
+function getJWT(value) {
+    return value.authorization;
+}
+
+function extractRoleAndJWT(data) {
+    let tempRole = undefined;
+    let tempAuth = undefined;
+    Object.entries(data).forEach(([key, value]) => {
+        tempRole = getRole(key);
+        tempAuth = getJWT(value);
+        return;
+    });
+    return [tempRole, tempAuth];
+}
 
 function Copyright(props) {
     return (<
@@ -30,6 +51,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+    const [successful, setSuccessful] = useState(false);
     const handleSubmit = (event) => {
         event.preventDefault();
         // alert(event.currentTarget)
@@ -46,17 +68,29 @@ export default function SignIn() {
 
         }
 
-        axios.post(`http://localhost:8000/login`, dataToSend, {headers: {
+        axios.post(`http://localhost:8000/login`, dataToSend, {
+            headers: {
                 'Content-Type': 'application/json',
-            }}).then(
-            (res)=>{alert("res");alert(res);
-                console.log(res)},
-            (err)=>{
-                // alert("err");
-                // alert(err);
-                console.error("err");
+            }
+        }).then(
+            (res) => {
+                let resData = extractRoleAndJWT(res.data);
+                localStorage.setItem("currentUser", resData[1]);
+                if (resData[0] === "ROLE_COACH") {
+                    localStorage.setItem("isMentee", "false");
+                } else if (resData[0] === "ROLE_CLIENT") {
+                    localStorage.setItem("isMentee", "true");
+                } else if (resData[0] === "ROLE_SUPERUSER") {
+                    localStorage.setItem("isAdmin", "true");
+                }
+                setSuccessful(true);
+                console.log(resData);
+                goto("/");
+            }
+            ,
+            (err) => {
+                alert("erreur lors de l'authentification, veuillez reentrer vos données, en cas de besoin contacter l'admin");
                 console.error(err);
-                console.error("hh");
             }
         );
 
@@ -133,25 +167,45 @@ export default function SignIn() {
                                 <
                                     Grid item xs>
                                     <
-                                        Link href="#"
+                                        Link href="/forgotPassword"
                                              color="#2e7d32"
                                              variant="body2">
-                                        Forgot password ?
+                                        Mot de passe oublié ?
                                     <
-        /Link> < /
-                                    Grid> <
-                                Grid item>
-                                <
-                                    Link href="#"
-                                         color="#2e7d32"
-                                         variant="body2"> {"Don't have an account? Sign Up"} <
-        /Link> < /Grid> </Grid> </  Box> <
-        /Box> <
+        /Link>
+                                </Grid>
+                                <Grid item>
+                                    <
+                                        Link href="#"
+                                             color="#2e7d32"
+                                             variant="body2"> {"Don't have an account? Sign Up"}
+                                    </Link>
+                                < /Grid>
+                            </Grid>
+                            </Box>
+                                </Box> <
                                 Copyright sx = {
                             {mt: 8, mb: 4}
                             }
                                 /> < /
-                                Container > <
-        /ThemeProvider>
+                                Container >
+                            {successful && (
+                                <Box mt={5}>
+                                <div
+                                style={{
+                                padding: "10px",
+                                marginBottom: "-20px",
+                                borderRadius: "3px 3px 3px 3px",
+                                color: "#270",
+                                backgroundColor: "#DFF2BF",
+                            }}
+                                >
+                                Vous êtes connectés
+                                </div>
+                                </Box>
+                                )}
+                                <
+                /ThemeProvider>
+
                                 );
                             }
