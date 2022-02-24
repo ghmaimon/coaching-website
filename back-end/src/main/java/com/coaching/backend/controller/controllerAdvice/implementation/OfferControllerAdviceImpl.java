@@ -2,7 +2,7 @@ package com.coaching.backend.controller.controllerAdvice.implementation;
 
 import com.coaching.backend.controller.controller.OfferController;
 import com.coaching.backend.controller.controllerAdvice.OfferControllerAdvice;
-import com.coaching.backend.DTO.errors.OfferError;
+import com.coaching.backend.DTO.errorDTO.OfferError;
 import com.coaching.backend.exception.CoachIsNotVerifiedException;
 import com.coaching.backend.exception.OfferNotFoundException;
 import org.springframework.core.Ordered;

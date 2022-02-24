@@ -1,7 +1,6 @@
 package com.coaching.backend.controller.controller;
 
-import com.coaching.backend.DTO.data.ClientDTO;
-import com.coaching.backend.model.Client;
+import com.coaching.backend.DTO.dataDTO.ClientDTO;
 import com.coaching.backend.service.CoachService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
