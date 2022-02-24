@@ -8,6 +8,8 @@ import com.coaching.backend.model.Client;
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.repository.CoachRepository;
 import com.coaching.backend.security.JwtLogin;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,11 +29,16 @@ public class CoachService extends UserService<Coach>{
     private FileService fileService;
 
     public CoachService(CoachRepository coachRepository, EmailSenderService emailSenderService,
-                        PasswordEncoder passwordEncoder, FileService fileService) {
+                        PasswordEncoder passwordEncoder, @Lazy FileService fileService) {
         super(coachRepository, emailSenderService, passwordEncoder);
         this.coachRepository = coachRepository;
         this.fileService = fileService;
     }
+
+//    @Autowired
+//    public void setFileService(FileService fileService) {
+//        this.fileService = fileService;
+//    }
 
     public boolean exists(Coach coach) {
         if (Objects.isNull(coach)) {
@@ -92,5 +99,6 @@ public class CoachService extends UserService<Coach>{
         fileService.uploadCoachDocuments(coach,coachDto.coachingCertificate(),CoachDocuments.COACHING_CERTIFICATE);
         fileService.uploadCoachDocuments(coach,coachDto.identityDocument(),CoachDocuments.IDENTITY_DOCUMENT);
         fileService.uploadCoachDocuments(coach,coachDto.image(),CoachDocuments.IMAGE);
+        return coach;
     }
 }

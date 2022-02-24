@@ -38,23 +38,27 @@ const createClient = (data) => {
 };
 
 const createCoach = (data) => {
-    const dataToSend = {
-        firstName: data.get('firstName'),
-        lastName: data.get('lastName'),
-        email: data.get('email'),
-        password: data.get('password'),
-        birth_date : data.get("date"),
-        image: data.get("image"),
-        coachingCertificate : data.get("certificate"),
-        identityDocument: data.get("cin")
-    }
-    console.log("data");
-    console.log(dataToSend);
-    axios.post(`http://localhost:8000/api/account/create/coach`, dataToSend, {
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    }).then(
+    let tempData = new FormData();
+    // const dataToSend = {
+    //     firstName: data.get('firstName'),
+    //     lastName: data.get('lastName'),
+    //     email: data.get('email'),
+    //     password: data.get('password'),
+    //     birth_date : data.get("date"),
+    //     image: data.get("image"),
+    //     coachingCertificate : data.get("certificate"),
+    //     identityDocument: data.get("cin")
+    // }
+    tempData.append("firstName", data.get('firstName'));
+    tempData.append("lastName", data.get('lastName'));
+    tempData.append("email", data.get('email'));
+    tempData.append("password", data.get('password'));
+    tempData.append("birth_date", data.get('date'));
+    tempData.append("image", data.get('image'));
+    tempData.append("coachingCertificate", data.get('certificate'));
+    tempData.append("identityDocument", data.get('cin'));
+    axios.post(`http://localhost:8000/api/account/create/coach`, tempData
+    ).then(
         (res) => {
 
             // setSuccessful(true);
