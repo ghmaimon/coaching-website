@@ -15,9 +15,8 @@ import {BrowserRouter as Router, Route, Routes, useRoutes} from "react-router-do
 import Forgot from "./components/Forgot/Forgot"
 import {isAdmin, isGuest, isMentee, isMentor} from "./service/authentication";
 import Details from './components/Offer/ClientConsultOffer/Details';
-
-
-
+import ConsultOffer from "./components/Offer/CoachConsultOffer/ConsultOffer"
+import MyClient from "./components/Offer/ConsultClient/MyClient"
 
 const MenteeRoutes = () => useRoutes([
      {path: "/", element: <Profil/>},
@@ -25,9 +24,13 @@ const MenteeRoutes = () => useRoutes([
     {path:"/details", element: <Details/>}
 ]);
 const MentorRoutes = () => useRoutes([
+
     {path: "/", element: <CoachProfil/>},
     {path: "/profil", element: <CoachProfil/>},
-    {path:"/add_offer",element:<AddOffer/>}
+    {path:"/add_offer",element:<AddOffer/>},
+    {path:"/offers",element:<ConsultOffer/>},
+    {path:"/offers/clients",element:<MyClient/>}
+
 ]);
 const AdminRoutes = () => useRoutes([
     {path: "/", element: <AdminProfil/>},
@@ -39,6 +42,7 @@ const GuestRoutes = () => useRoutes([
     {path: "/signin", element: <SignIn/>},
     {path: "/signup", element: <SignUp/>},
     {path: "/forgotPassword", element: <Forgot/>},
+
    
    
 
