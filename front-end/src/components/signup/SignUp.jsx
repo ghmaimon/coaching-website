@@ -38,7 +38,7 @@ const theme = createTheme();
 
 
 export default function SignUp() {
-
+    const [successful, setSuccessful] = useState(false);
     const [value, setValue] = useState("");
     const [isCoach, setIsCoach] = useState(false);
     const handleChange = e => {
@@ -49,14 +49,9 @@ export default function SignUp() {
     };
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        signUpService(event,setSuccessful,isCoach);
     };
+
     const handleFileUpload = e => {
         console.log(e.target.files[0].name);
     };
@@ -93,7 +88,7 @@ export default function SignUp() {
                     Sign up <
         /Typography> <
                     Box component="form"
-                        noValidate onSubmit={signUpService}
+                        noValidate onSubmit={handleSubmit}
                         sx={
                             {mt: 3}
                         }>
@@ -245,7 +240,21 @@ export default function SignUp() {
                 {mt: 5}
             }
             /> < /
-            Container> <
+            Container>{successful && (
+        <Box mt={5}>
+            <div
+                style={{
+                    padding: "10px",
+                    marginBottom: "-20px",
+                    borderRadius: "3px 3px 3px 3px",
+                    color: "#270",
+                    backgroundColor: "#DFF2BF",
+                }}
+            >
+                Succès
+            </div>
+        </Box>
+    )} <
         /ThemeProvider>
 );
 }
