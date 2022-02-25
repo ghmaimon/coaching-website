@@ -43,8 +43,6 @@ const GuestRoutes = () => useRoutes([
     {path: "/signup", element: <SignUp/>},
     {path: "/forgotPassword", element: <Forgot/>},
 
-   
-   
 
 ]);
 

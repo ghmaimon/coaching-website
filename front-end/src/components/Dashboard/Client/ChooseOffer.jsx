@@ -47,7 +47,7 @@ return(
             marginTop: "10%",
             color:"rgba(15, 103, 8, 1)"
 
-          }}>It's time to Choose new offer </p>
+          }}>Contact your preffered coach </p>
           </Grid>
           <Grid item md={1} xs={1} > <img src={feuille} alt="feuille" height="30px" className={style.feuille} /></Grid>
           <Grid item container md={3} xs={3}></Grid>

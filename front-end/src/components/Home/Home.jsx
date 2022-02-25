@@ -39,7 +39,7 @@ function Home() {
     you the opportunity to program online
   training sessions with the highly qualified coaches around the world." txt2="MEET FITNESS" txt3="afford for you a  multiplicity of coaching offers ! Sign in, Choose the coach of your dream  and start now ! "/></Grid>
       <Grid  item md={1} xs={1} />
-<Grid item md={5} xs={5} >   <Image image={img}/></Grid>
+<Grid item md={5} xs={5} container ><Image image={img}/> </Grid>
 
       
 </Grid>

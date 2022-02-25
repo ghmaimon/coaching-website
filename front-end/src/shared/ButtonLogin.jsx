@@ -19,8 +19,8 @@ let useStyle = makeStyles({
 function ButtonLogin(props) {
   let style = useStyle();
   return (
-    <Button disableRipple className={style.root} size="small" href={props.href}>
-      {props.name}
+    <Button disableRipple className={style.root} size="small" href={props.href} onClick={props.onClick}>
+      {props.name} 
     </Button>
   );
 }
