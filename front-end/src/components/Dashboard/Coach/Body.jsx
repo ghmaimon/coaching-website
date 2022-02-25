@@ -60,9 +60,11 @@ function Body(props) {
     let [gotResult, setGotResult] = useState(false);
     let [fullName, setFullName] = useState("");
     let [image, setImage] = useState("");
+    let [email, setEmail] = useState("");
+    let [speciality, setSpeciality] = useState([]);
 
     if (gotResult !== true)
-        getCoachData(setGotResult, setFullName, setImage);
+        getCoachData(setGotResult, setFullName, setImage, setEmail, setSpeciality);
     // useEffect(
     //     ()=>{
     //         if (gotResult !== true || results !== undefined){
@@ -72,7 +74,7 @@ function Body(props) {
     // )
 
     return (<>
-            {fullName === "" || image === "" ? <div>Loading</div> :
+            {fullName === "" || image === ""  || email === ""  ? <div>Loading</div> :
                 <div className={style.root} onMouseOver={props.onMouseOver}>
                     <Grid container spacing={4}>
                         <Grid item xs={12}></Grid>
@@ -82,10 +84,9 @@ function Body(props) {
 
                                 name={fullName}
                                 photo={"http://localhost:8000/api/document/"+image}
-                                email="hajar.dami.14@gmail.com"
-                                speciality="athlete"
-                                level="3"
-
+                                email={email}
+                                speciality={speciality}
+                                level="1"
                             />
 
 
