@@ -18,6 +18,8 @@ import Details from './components/Offer/ClientConsultOffer/Details';
 import ConsultOffer from "./components/Offer/CoachConsultOffer/ConsultOffer"
 import MyClient from "./components/Offer/ConsultClient/MyClient"
 import CoachList from "./components/coachesList/Coaches"
+import EmailSent from "./components/emailSent/EmailSent"
+
 const MenteeRoutes = () => useRoutes([
      {path: "/", element: <Profil/>},
     {path: "/profil", element: <Profil/>},
@@ -44,7 +46,7 @@ const GuestRoutes = () => useRoutes([
     {path: "/signin", element: <SignIn/>},
     {path: "/signup", element: <SignUp/>},
     {path: "/forgotPassword", element: <Forgot/>},
-
+    {path: "/EmailSent", element: <EmailSent/>},
 
 ]);
 
