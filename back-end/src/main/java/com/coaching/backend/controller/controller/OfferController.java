@@ -27,6 +27,15 @@ public class OfferController {
     private OfferService offerService;
     private static final Logger LOG = LoggerFactory.getLogger(OfferController.class);
 
+    @GetMapping(path = "/all",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<OfferDTO>> getAllOffers(){
+        LOG.debug("get all offers");
+        return new ResponseEntity<>(
+                offerService.getAllOffers(),
+                HttpStatus.OK
+        );
+    }
     /**
          * add new offer endpoint
      * @param offer the offer to add

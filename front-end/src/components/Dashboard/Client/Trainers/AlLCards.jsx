@@ -4,87 +4,46 @@ import styled from "styled-components";
 import Grid from "@mui/material/Grid";
 
 import TrainerCard from "./TrainerCard"
+import {getAllOffers, getMyOffers} from "../../../../service/offer";
  function AlLCards(props){
 /*data from back normallly*/
-    let [courses, setcourses] = useState({ data: [{
-        price:"20$",
-        name:"Coach name",
-        image:photo,
-     url:"/details",
-        desc:"offer description offer description offer description offer description offer description offer description  offer description "
-      }, {
-        image:photo,
-        url:"/details",
-        price:"20$",
-        name:"Coach name",
-        desc:"offer description offer description offer description offer description offer description offer description  offer description "
-      },
-      {          image:photo,
-
-      url:"/details",
-        price:"20$",
-        name:"Coach name",
-        desc:"offer description offer description offer description offer description offer description offer description  offer description "
-      },
-      {           image:photo,
-
-      url:"/details",
-        price:"20$",
-        name:"Coach name",
-        desc:"offer description offer description offer description offer description offer description offer description  offer description "
-      },
-      {          image:photo,
-
-      url:"/details",
-        price:"20$",
-        name:"Coach name",
-        desc:"offer description offer description offer description offer description offer description offer description  offer description "
-      },
-      {           image:photo,
-
-      url:"/details",
-        price:"20$",
-        name:"Coach name",
-        desc:"offer description offer description offer description offer description offer description offer description  offer description "
-      },
-      {           image:photo,
-
-      url:"/details",
-        price:"20$",
-        name:"Coach name",
-        desc:"offer description offer description offer description offer description offer description offer description  offer description "
-      },
-      {          image:photo,
-
-      url:"/details",
-        price:"20$",
-        name:"Coach name",
-        desc:"offer description offer description offer description offer description offer description offer description  offer description "
-      },
-    ] });
+     let [courses, setCourses] = useState({data : ""});
+     useEffect(() => {
+         return () => {
+             if (courses.data === "")
+                 getAllOffers(setCourses);
+         };
+     },[courses.data]);
 
      return( <Grid    container
         direction="row"
         justifyContent="center"
         alignItems="center" spacing={4}>
 
-{
+         {courses.data === "" ? <>
+             <div style={{display: "none"}}>{getAllOffers(setCourses)} </div>
+             <h1>loading</h1> </> : <>
+         {
 courses.data.map((card) => (
     <Grid item xs={3}>
         <TrainerCard
-                price={card.price}
-                name={card.name}
-                desc={card.desc}
-                image={card.image} 
-                url={card.url}/> 
-                  
-        
-        </Grid>))}
+            id={card.id}
+            price={card.minPrice}
+            name={card.coachBasicDTO.firstName + " " + card.coachBasicDTO.lastName}
+            desc={card.description}
+            image={"http://localhost:8000/api/document/" + card.image}
+            title={card.title}
+            client={card.client}
+        />
+
+
+        </Grid>))}</>
+         }
 
         <Grid item xs={3}>
-       
+
         </Grid>
-        
+
         </Grid>)
 
 
