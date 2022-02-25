@@ -37,10 +37,12 @@ const AdminRoutes = () => useRoutes([
     {path: "/profil", element: <AdminProfil/>}
 ]);
 const GuestRoutes = () => useRoutes([
-    {path: "/", element: <Profil/>},
-    {path: "/profil", element: <Profil/>},
-    {path:"/details", element: <Details/>}
- 
+    
+    {path: "/", element: <Home/>},
+    {path: "/profil", element: <Home/>},
+    {path: "/signin", element: <SignIn/>},
+    {path: "/signup", element: <SignUp/>},
+    {path: "/forgotPassword", element: <Forgot/>},
 
 
 ]);
