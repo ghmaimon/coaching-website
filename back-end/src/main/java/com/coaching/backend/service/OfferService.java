@@ -137,6 +137,14 @@ public class OfferService {
     }
 
     /**
+     * get my Offers
+     * @return
+     */
+    public List<OfferDTO> getOffersByCoach() {
+        return getOffersByCoach(coachService.findCurrentCoach());
+    }
+
+    /**
      * search for offers by title
      * -- uses fuzzy search to match the title even if up to 3 letters are different --
      * @param title the title to search for

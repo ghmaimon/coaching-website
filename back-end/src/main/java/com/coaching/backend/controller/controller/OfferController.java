@@ -81,6 +81,14 @@ public class OfferController {
                 HttpStatus.OK
         );
     }
+    @GetMapping(path = "/search/byCoach",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<OfferDTO>> getMyOffers(){
+        return new ResponseEntity<>(
+                offerService.getOffersByCoach(),
+                HttpStatus.OK
+        );
+    }
     @PostMapping(path = "/search/byTitle",
             consumes = MediaType.TEXT_PLAIN_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

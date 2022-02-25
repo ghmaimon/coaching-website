@@ -4,52 +4,30 @@ import styled from "styled-components";
 import Grid from "@mui/material/Grid";
 
 import OfferCard from "./OfferCard"
+import {getMyOffers} from "../../../../service/offer";
  function AlLCards(props){
    function test()
    { alert('delete');}
 /*data from back normallly*/
-    let [courses, setcourses] = useState({ data: [{
-      title:"Offer title" ,
-      name:"coah name",
-       image:photo ,
-       desc:"The following demo doesn't follow the Material Design guidelines, but illustrates how the grid can be used to build complex layouts.Standard license",
-       delete: test,
-       client:"/client",
-      price:"79$" }, {
-        title:"Offer title" ,
-        name:"coah name",
-         image:photo ,
-         desc:"The following demo doesn't follow the Material Design guidelines, but illustrates how the grid can be used to build complex layouts.Standard license",
-  
-        price:"79$"},
-      {            title:"Offer title" ,
-      name:"coah name",
-       image:photo ,
-       desc:"The following demo doesn't follow the Material Design guidelines, but illustrates how the grid can be used to build complex layouts.Standard license",
 
-      price:"79$"  },
-      {           title:"Offer title" ,
-      name:"coah name",
-       image:photo ,
-       desc:"The following demo doesn't follow the Material Design guidelines, but illustrates how the grid can be used to build complex layouts.Standard license",
-
-      price:"79$"   },
-      {          title:"Offer title" ,
-      name:"coah name",
-       image:photo ,
-       desc:"The following demo doesn't follow the Material Design guidelines, but illustrates how the grid can be used to build complex layouts.Standard license",
-
-      price:"79$"   },
-      
-    ] });
-
+    let [courses, setCourses] = useState({data : ""});
+     useEffect(() => {
+         return () => {
+             if (courses.data === "")
+                getMyOffers(setCourses);
+         };
+     },[courses.data]);
+     
      return( <Grid    container
         direction="row"
         justifyContent="center"
         alignItems="center" justifyContent="space-between" spacing={4}>
-
+         { courses.data === "" ?  <><div style={{display: "none"}}>{getMyOffers(setCourses)} </div><h1>loading</h1> </>:<>
 {
-courses.data.map((card) => (
+
+courses.data.map((card) => {
+    console.log("card"+ card);
+    return (
     <div>
         
           <Grid item  container  spacing={12} xs={12}>
@@ -57,15 +35,19 @@ courses.data.map((card) => (
       <Grid item xs={2}></Grid>
     <Grid item xs={10}>
         <OfferCard
-                price={card.price}
-                name={card.name}
-                desc={card.desc}
-                image={card.image} 
+                id = {card.id}
+                price={card.minPrice}
+                name={card.coachBasicDTO.firstName + " " + card.coachBasicDTO.lastName}
+                desc={card.description}
+                image={"http://localhost:8000/api/document/"+card.image}
                 title={card.title}
-                delete={card.delete}    client={card.client}/> 
+                client={card.client}
+        />
             
         
-        </Grid>  </Grid></div>))}
+        </Grid>  </Grid></div>)})}
+             </>
+         }
 
         <Grid item xs={3}>
        
