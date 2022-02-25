@@ -10,8 +10,6 @@ import com.coaching.backend.exception.UserNullException;
 import com.coaching.backend.model.Coach;
 import com.coaching.backend.model.Offer;
 import com.coaching.backend.repository.OfferRepository;
-import com.coaching.backend.utils.MyConverter;
-import lombok.AllArgsConstructor;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
@@ -19,7 +17,6 @@ import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -190,5 +187,10 @@ public class OfferService {
     public void setOfferImage(Offer offer, String documentName) {
         offer.setImage(documentName);
         offerRepository.save(offer);
+    }
+
+    public List<OfferDTO> getAllOffers() {
+        List<Offer> offers =  offerRepository.findAll();
+        return offers.stream().map(OfferDTO::new).toList();
     }
 }
