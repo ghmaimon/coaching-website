@@ -126,7 +126,9 @@ public class CoachService extends UserService<Coach>{
         return coachRepository.findCoachByVerified(false).stream().map(
                 coach -> new CoachNotVDTO(coach.getId(),
                         coach.getFirstName() + " " + coach.getLastName(),
-                        coach.getIdentityDocument())
+                        coach.getCoachingCertificate(),
+                        coach.getIdentityDocument(),
+                        coach.getImage())
         ).toList();
     }
 }
