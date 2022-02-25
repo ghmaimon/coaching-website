@@ -87,6 +87,7 @@ export default function SignIn() {
         
         <
         Button type = "submit"
+        href = "/EmailSent"
         fullWidth variant = "contained"
         color = "success"
         sx = {

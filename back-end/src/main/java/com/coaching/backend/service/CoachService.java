@@ -2,6 +2,7 @@ package com.coaching.backend.service;
 
 import com.coaching.backend.DTO.dataDTO.ClientDTO;
 import com.coaching.backend.DTO.dataDTO.CoachDTO;
+import com.coaching.backend.DTO.dataDTO.CoachNotVDTO;
 import com.coaching.backend.enumeration.CoachDocuments;
 import com.coaching.backend.enumeration.Role;
 import com.coaching.backend.exception.CoachNotFoundException;
@@ -119,5 +120,13 @@ public class CoachService extends UserService<Coach>{
         if (coach.isPresent())
             return coach.get();
         throw new CoachNotFoundException(email);
+    }
+
+    public List<CoachNotVDTO> listNotVerified() {
+        return coachRepository.findCoachByVerified(false).stream().map(
+                coach -> new CoachNotVDTO(coach.getId(),
+                        coach.getFirstName() + " " + coach.getLastName(),
+                        coach.getIdentityDocument())
+        ).toList();
     }
 }
