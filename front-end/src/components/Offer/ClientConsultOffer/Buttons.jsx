@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     },
 });
 
-function ContactCoach(){
+function ContactCoach(props){
     let style = useStyles();
     return (
         <ButtonLogin
@@ -32,7 +32,8 @@ function ContactCoach(){
              
             }}
         name="Contact Coach"
-        href="/ContactCoach"
+     
+        onClick={() => window.open("mailto:"+props.email)}
         />
     );
 }

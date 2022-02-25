@@ -69,12 +69,7 @@ function Title(props) {
      marginLeft:"40%"
    }}>because you health is our priority we afford for you multiple coaching offer</p>
 </Grid>
-<Grid container  
-  direction="column-reverse"
-  justifyContent="center"  justifyContent="space-between"
-  alignItems="center" item xs={6 }> <Grid item ><TrainingSessions/> </Grid>
-<Grid item> <MealPlans/></Grid>
-</Grid>
+
 <Grid item  xs={12}>
 <p
     style={{

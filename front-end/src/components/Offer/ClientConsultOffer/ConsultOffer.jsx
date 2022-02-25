@@ -14,7 +14,14 @@ import coach from "../../../css/coach.jpg"
 import OfferTitle from "./OfferTitle"
 import Description from "./Description"
 import {JoinOffer, Payment, ContactCoach} from "./Buttons";
-import MoreInfo from "./MoreInfo"
+import MoreInfo from "./MoreInfo";
+
+function sendEmail() 
+{
+    window.location = "mailto:xyz@yourapplicationdomain.com";
+}
+
+
 export default function ConsultOffer(props) {
     return( <div>
 <Grid container >
@@ -122,7 +129,7 @@ export default function ConsultOffer(props) {
       fontWeight: "300",
     
      
-     }}>Join the offer</p>
+     }}>Contact the coach</p>
      <Grid item xs={2}></Grid>
 </Grid>
 <Grid container item xs={12}>
@@ -130,9 +137,8 @@ export default function ConsultOffer(props) {
  
 
 
-     <Grid item xs={3} > <JoinOffer/></Grid>
-     <Grid item xs={2} >  <Payment/></Grid>
-     <Grid item xs={3} > <ContactCoach/></Grid>
+     <Grid item xs={4} > </Grid>
+     <Grid item xs={4} >  <ContactCoach email ="hajar.dami.14.gmail.com"/></Grid>
      <Grid item xs={4} ></Grid>
 
 </Grid>
