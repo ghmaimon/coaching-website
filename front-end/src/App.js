@@ -20,11 +20,14 @@ import MyClient from "./components/Offer/ConsultClient/MyClient"
 import CoachList from "./components/coachesList/Coaches"
 import EmailSent from "./components/emailSent/EmailSent"
 import NewPassword from "./components/NewEmail/NewPassword"
+import ChangePassword from './components/ChangePassword/ChangePassword';
 
 const MenteeRoutes = () => useRoutes([
      {path: "/", element: <Profil/>},
     {path: "/profil", element: <Profil/>},
-    {path:"/details", element: <Details/>}
+    {path:"/details", element: <Details/>},
+    {path: "/changePassword", element: <ChangePassword/>}
+
 ]);
 const MentorRoutes = () => useRoutes([
 
@@ -32,12 +35,15 @@ const MentorRoutes = () => useRoutes([
     {path: "/profil", element: <CoachProfil/>},
     {path:"/add_offer",element:<AddOffer/>},
     {path:"/offers",element:<ConsultOffer/>},
-    {path:"/offers/clients",element:<MyClient/>}
+    {path:"/offers/clients",element:<MyClient/>},
+    {path: "/changePassword", element: <ChangePassword/>}
+
 
 ]);
 const AdminRoutes = () => useRoutes([
     {path: "/", element: <AdminProfil/>},
     {path: "/profil", element: <AdminProfil/>},
+    {path: "/changePassword", element: <ChangePassword/>},
     {path: "/admin/coaches_documents", element: <CoachList/>}
 ]);
 const GuestRoutes = () => useRoutes([
