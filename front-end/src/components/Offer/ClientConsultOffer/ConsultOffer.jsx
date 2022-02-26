@@ -104,7 +104,7 @@ export default function ConsultOffer(props) {
       fontWeight: "300",
     
      
-     }}>More informations !!</p>
+     }}>More information !!</p>
      <Grid item xs={4}></Grid>
 
     
@@ -138,7 +138,7 @@ export default function ConsultOffer(props) {
 
 
      <Grid item xs={4} > </Grid>
-     <Grid item xs={4} >  <ContactCoach email ="hajar.dami.14.gmail.com"/></Grid>
+     <Grid item xs={4} >  <ContactCoach email ={props.email}/></Grid>
      <Grid item xs={4} ></Grid>
 
 </Grid>

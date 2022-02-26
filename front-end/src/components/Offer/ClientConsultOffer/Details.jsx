@@ -26,7 +26,9 @@ function Details(props) {
               email={offer.data.coachBasicDTO.email}
               // speciality="athlete"
               level="1"
-              date={new Date(offer.data.creationDate).toLocaleDateString()} maxPrice={offer.data.maxPrice} minPrice={offer.data.minPrice}/>}</>
+              date={new Date(offer.data.creationDate).toLocaleDateString()}
+                  maxPrice={offer.data.maxPrice + "$"}
+                  minPrice={offer.data.minPrice + "$"}/>}</>
 
 
     );
