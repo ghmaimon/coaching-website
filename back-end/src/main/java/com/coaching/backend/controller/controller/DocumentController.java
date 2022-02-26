@@ -20,7 +20,7 @@ import static org.springframework.http.MediaType.*;
 public class DocumentController {
     private FileConfig fileConfig;
 
-    @GetMapping(path = "/{id}",
+    @GetMapping(path =  "/{id}",
             produces = {IMAGE_PNG_VALUE, IMAGE_GIF_VALUE, IMAGE_JPEG_VALUE, APPLICATION_PDF_VALUE}
     )
     public @ResponseBody byte[] getDocument(@PathVariable("id") String id) throws IOException {

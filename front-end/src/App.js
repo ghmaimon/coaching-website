@@ -17,6 +17,7 @@ import {isAdmin, isGuest, isMentee, isMentor} from "./service/authentication";
 import Details from './components/Offer/ClientConsultOffer/Details';
 import ConsultOffer from "./components/Offer/CoachConsultOffer/ConsultOffer"
 import MyClient from "./components/Offer/ConsultClient/MyClient"
+import CoachList from "./components/coachesList/Coaches"
 import EmailSent from "./components/emailSent/EmailSent"
 import NewPassword from "./components/NewEmail/NewPassword"
 import ChangePassword from './components/ChangePassword/ChangePassword';
@@ -42,7 +43,8 @@ const MentorRoutes = () => useRoutes([
 const AdminRoutes = () => useRoutes([
     {path: "/", element: <AdminProfil/>},
     {path: "/profil", element: <AdminProfil/>},
-    {path: "/changePassword", element: <ChangePassword/>}
+    {path: "/changePassword", element: <ChangePassword/>},
+    {path: "/admin/coaches_documents", element: <CoachList/>}
 ]);
 const GuestRoutes = () => useRoutes([
     {path: "/", element: <Home/>},
@@ -52,7 +54,6 @@ const GuestRoutes = () => useRoutes([
     {path: "/forgotPassword", element: <Forgot/>},
     {path: "/EmailSent", element: <EmailSent/>},
     {path: "/NewPassword/:userId", element: <NewPassword/>},
-
 
 ]);
 

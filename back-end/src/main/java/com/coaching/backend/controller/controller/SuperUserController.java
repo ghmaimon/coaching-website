@@ -24,7 +24,7 @@ public class SuperUserController {
         this.coachService = coachService;
     }
 
-    @PostMapping("/verifyCoach")
+    @GetMapping("/verifyCoach")
     public ResponseEntity<Void> verifyCoach(@RequestHeader("coach_id") long coach_id) {
         return new ResponseEntity<>(
                 coachService.verifyCoach(coach_id)
