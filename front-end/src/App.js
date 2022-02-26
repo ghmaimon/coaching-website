@@ -17,6 +17,7 @@ import {isAdmin, isGuest, isMentee, isMentor} from "./service/authentication";
 import Details from './components/Offer/ClientConsultOffer/Details';
 import ConsultOffer from "./components/Offer/CoachConsultOffer/ConsultOffer"
 import MyClient from "./components/Offer/ConsultClient/MyClient"
+import EmailSent from "./components/emailSent/EmailSent"
 
 const MenteeRoutes = () => useRoutes([
      {path: "/", element: <Profil/>},
@@ -42,6 +43,7 @@ const GuestRoutes = () => useRoutes([
     {path: "/signin", element: <SignIn/>},
     {path: "/signup", element: <SignUp/>},
     {path: "/forgotPassword", element: <Forgot/>},
+    {path: "/EmailSent", element: <EmailSent/>},
 
 
 ]);

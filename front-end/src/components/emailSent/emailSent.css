@@ -1,0 +1,19 @@
+.es-container{
+    position: relative;
+    margin-top: 10%;
+    left: 40%;
+}
+
+.es-img{
+    max-width: 20%;
+    position: relative;
+    top: 40%;
+}
+
+.es-text{
+    max-width: 20%;
+    position: relative;
+    top: 40%;
+    text-align: center ;
+    color: green;
+}
