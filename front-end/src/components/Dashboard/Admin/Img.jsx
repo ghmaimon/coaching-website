@@ -1,6 +1,6 @@
 import React from "react";
 import {Hidden} from "@mui/material";
-import man_training from "../../../css/fitness_stuff.png";
+import man_training from "../../../css/sport.png";
 
 function Img() {
     return (
@@ -13,7 +13,7 @@ function Img() {
                         position: "absolute",
                         width: "250px",
                         height: "300px",
-                        transform: "rotate(9.63deg)",
+                      
                         background: "transparent",
                         marginTop: "100px",
                         clipPath: "circle()",

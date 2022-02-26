@@ -7,13 +7,14 @@ import {deleteOfferById} from "../../../../service/offer";
 
 function OfferCard(props) {
     const Container = styled.div`
- width: 100%;
+ width: 1500px;
   max-width: 80%;
   background:#FFFFFF;
   padding: 44px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-  text-align: left;
+  text-align: center;
   border-radius: 4px;
+  margin-bottom: 20px
  
 `;
     const deleteOffer = () => {
@@ -23,6 +24,7 @@ function OfferCard(props) {
 
     const Img = styled.img`
   height: 200px;
+  wieght:300px;
  
 
 
@@ -32,7 +34,7 @@ function OfferCard(props) {
 color: #ed563b;
 margin: 0 0 0 0;
 font-weight: 500;
-font-size: 14px
+font-size: 15px
  
 `;
 
@@ -76,9 +78,11 @@ font-size: 60px;
 
                         <Grid item xs={12}>
                             <p style={{
-                                fontFamily: "Rubik Beastly",
+                               color:"rgba(15, 103, 8, 1)",
                                 fontWeight: "500",
-                                fontSize: "20px"
+                                fontSize: "50px",
+                                fontFamily:"Comfortaa",
+                                fontWeight: "bold"
                             }}
 
                             >
@@ -89,15 +93,15 @@ font-size: 60px;
                             <h3 style={{
                                 letterSpacing: "1px",
 
-                                fontSize: "60px"
-                            }}>{props.name}</h3>
+                                fontSize: "30px"
+                            }}> BY:{props.name}</h3>
                         </Grid>
 
                         <Grid item xs={12}>
                             <Test3>{props.desc}</Test3>
                         </Grid>
 
-                        <Grid item xs={12}> <Test1>{props.price}</Test1>
+                        <Grid item xs={12}> <Test1> min price :{props.price}$</Test1>
                         </Grid>
 
                     </Grid>
@@ -105,7 +109,7 @@ font-size: 60px;
                     <Grid item container xs={6}>
                         <Grid item xs={12}></Grid>
                         <Grid item xs={2}></Grid>
-                        <Img src={props.image} alt="trainer"/>
+                        <Img  src={props.image} alt="trainer"/>
                     </Grid>
                 </Grid>
             </Grid>

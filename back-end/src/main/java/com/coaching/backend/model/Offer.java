@@ -1,5 +1,6 @@
 package com.coaching.backend.model;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.TermVector;
@@ -7,6 +8,7 @@ import org.hibernate.search.annotations.TermVector;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +35,10 @@ public class Offer {
     private String title;
 
     @NotNull(message = "Description is required")
+    @Column(name="description",columnDefinition="LONGTEXT")
+
+
+
     private String description;
 
     private long minPrice;

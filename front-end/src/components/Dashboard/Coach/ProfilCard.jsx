@@ -56,7 +56,7 @@ return (
 <Test2>Name :{props.name}</Test2>
  <Img   src={props.photo} alt="trainer" />
     <Test3>email : {props.email }</Test3>
-    <Test3>Specility :{props.speciality }</Test3>
+    
     
     <Test1>My level :{props.level }</Test1>
 
