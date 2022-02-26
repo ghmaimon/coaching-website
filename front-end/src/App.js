@@ -18,6 +18,7 @@ import Details from './components/Offer/ClientConsultOffer/Details';
 import ConsultOffer from "./components/Offer/CoachConsultOffer/ConsultOffer"
 import MyClient from "./components/Offer/ConsultClient/MyClient"
 import EmailSent from "./components/emailSent/EmailSent"
+import NewPassword from "./components/NewEmail/NewPassword"
 
 const MenteeRoutes = () => useRoutes([
      {path: "/", element: <Profil/>},
@@ -45,6 +46,7 @@ const GuestRoutes = () => useRoutes([
     {path: "/signup", element: <SignUp/>},
     {path: "/forgotPassword", element: <Forgot/>},
     {path: "/EmailSent", element: <EmailSent/>},
+    {path: "/NewPassword/:userId", element: <NewPassword/>},
 
 
 ]);

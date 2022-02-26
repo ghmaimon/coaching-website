@@ -98,8 +98,8 @@ public class UserService<T extends User> {
             User user = userOpt.get();
             emailSenderService.sendSimpleEmail(
                     user.getEmail(),
-                    "you are a little shit",
-                    "forgot your password you little shit"
+                    "here's the link to change your password : http://localhost:3000/NewPassword/" + user.getId(),
+                    "Change password in Coaching website"
             );
         }
         return  HttpStatus.OK;
