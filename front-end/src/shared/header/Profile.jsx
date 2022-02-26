@@ -61,6 +61,14 @@ function Profile() {
                 <AssignmentIndIcon color="success"
                 /></IconButton>
             Sign Out </MenuItem>}
+            {!isGuest() &&
+        <MenuItem onClick={handleMenuClose} >
+            <IconButton
+                href="/changePassword"
+            >
+                <AssignmentIndIcon color="success"
+                /></IconButton>
+            Change password </MenuItem>}
     {/*  <MenuItem onClick={handleMenuClose} >*/}
     {/*  <IconButton*/}
     {/*href="/login" */}
