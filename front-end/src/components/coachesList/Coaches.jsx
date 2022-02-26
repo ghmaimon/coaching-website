@@ -33,7 +33,7 @@ const columns = [
 ];
 
 
-function createData(name, image, cin, certificate, Statut, id) {
+export function createData(name, image, cin, certificate, Statut, id) {
     return {name, image, cin, certificate, Statut, id};
 }
 

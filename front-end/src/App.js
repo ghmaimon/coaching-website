@@ -21,11 +21,11 @@ import CoachList from "./components/coachesList/Coaches"
 import EmailSent from "./components/emailSent/EmailSent"
 import NewPassword from "./components/NewEmail/NewPassword"
 import ChangePassword from './components/ChangePassword/ChangePassword';
-
+const AdminSignIn = SignIn;
 const MenteeRoutes = () => useRoutes([
      {path: "/", element: <Profil/>},
     {path: "/profil", element: <Profil/>},
-    {path:"/details", element: <Details/>},
+    {path:"/offer/:id", element: <Details/>},
     {path: "/changePassword", element: <ChangePassword/>}
 
 ]);
@@ -44,7 +44,8 @@ const AdminRoutes = () => useRoutes([
     {path: "/", element: <AdminProfil/>},
     {path: "/profil", element: <AdminProfil/>},
     {path: "/changePassword", element: <ChangePassword/>},
-    {path: "/admin/coaches_documents", element: <CoachList/>}
+    {path: "/admin/coaches_documents", element: <CoachList/>},
+    {path: "/NewPassword/:userId", element: <NewPassword/>}
 ]);
 const GuestRoutes = () => useRoutes([
     {path: "/", element: <Home/>},

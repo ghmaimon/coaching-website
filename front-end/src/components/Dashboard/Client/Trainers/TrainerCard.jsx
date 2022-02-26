@@ -4,8 +4,8 @@ import styled from "styled-components";
 import TextButton from "../../../../shared/TextButton"
  function TrainerCard(props){
   const Container = styled.div`
- width: 100%;
-  max-width: 80%;
+ width: 140%;   
+  
   background:#FFFFFF;
   padding: 44px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);

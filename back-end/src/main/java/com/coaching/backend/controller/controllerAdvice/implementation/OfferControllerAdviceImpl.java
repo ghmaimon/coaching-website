@@ -15,9 +15,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice(assignableTypes = {OfferController.class})
 public class OfferControllerAdviceImpl implements OfferControllerAdvice {
-    @ExceptionHandler(OfferNotFoundException.class)
+    @ExceptionHandler(CoachIsNotVerifiedException.class)
     public ResponseEntity<OfferError> handleException(
             CoachIsNotVerifiedException exception
+    ) {
+        return handleOfferException(HttpStatus.BAD_REQUEST.value(), exception);
+    }
+    @ExceptionHandler(OfferNotFoundException.class)
+    public ResponseEntity<OfferError> handleException(
+            OfferNotFoundException exception
     ) {
         return handleOfferException(HttpStatus.BAD_REQUEST.value(), exception);
     }

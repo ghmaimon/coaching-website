@@ -97,22 +97,8 @@ function Body(props) {
                      
                       <br />
                     </li>
-                    <li
-                      style={{
-                        marginTop: "60px",
-                        float: "right",
-                      }}
-                    >
-                      <DeleteButton />
-                    </li>
-                    <li
-                      style={{
-                        marginTop: "20px",
-                        float: "right",
-                      }}
-                    >
-                      <AddButton />
-                    </li>
+
+
                     <li
                       style={{
                         marginTop: "-20px",

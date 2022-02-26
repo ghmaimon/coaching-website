@@ -2,9 +2,11 @@ package com.coaching.backend.controller.controller;
 
 import com.coaching.backend.DTO.dataDTO.CoachNotVDTO;
 import com.coaching.backend.model.Coach;
+import com.coaching.backend.model.SuperUser;
 import com.coaching.backend.service.CoachService;
 import com.coaching.backend.service.SuperUserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +37,13 @@ public class SuperUserController {
     public ResponseEntity<List<CoachNotVDTO>> listNotVerified() {
         return new ResponseEntity<>(
                 coachService.listNotVerified(),
+                HttpStatus.OK
+        );
+    }
+    @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<SuperUser> getPersonalData(){
+        return new ResponseEntity<>(
+                superUserService.findCurrentSuperUser(),
                 HttpStatus.OK
         );
     }

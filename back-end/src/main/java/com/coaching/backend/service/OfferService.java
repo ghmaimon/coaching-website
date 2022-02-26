@@ -180,6 +180,9 @@ public class OfferService {
         offerRepository.deleteById(id);
     }
 
+    public OfferDTO getOfferDtoById(long id) {
+        return this.offerRepository.findById(id).map(OfferDTO::new).orElseThrow(() -> new OfferNotFoundException("422", "offer not found"));
+    }
     public Offer getOfferById(long id) {
         return this.offerRepository.findById(id).orElseThrow(() -> new OfferNotFoundException("422", "offer not found"));
     }

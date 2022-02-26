@@ -4,6 +4,7 @@ import { makeStyles } from "@mui/styles";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ButtonLogin from "../../../shared/ButtonLogin";
+import {getId} from "../../../service/personalData";
 const useStyles = makeStyles({
   root: {
     float: "left",
@@ -79,7 +80,7 @@ function DeleteButton() {
     />
   );
 }
-function ChangePassword() {
+function ChangePassword(props) {
   let style = useStyles();
   return (
     <MyButton
@@ -88,8 +89,10 @@ function ChangePassword() {
       className={style.fifth}
       startIcon={<SettingsIcon />}
       value="Change Password"
-      url="/admin/changePassword"
+      // url={`/NewPassword/${props.id}`}
+      onClick = {getId}
       size="13px"
+
     />
   );
 }

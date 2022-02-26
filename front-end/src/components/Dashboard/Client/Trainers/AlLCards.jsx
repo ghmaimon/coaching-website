@@ -27,6 +27,7 @@ import {getAllOffers, getMyOffers} from "../../../../service/offer";
 courses.data.map((card) => (
     <Grid item xs={3}>
         <TrainerCard
+            url = {"/offer/"+card.id}
             id={card.id}
             price={card.minPrice}
             name={card.coachBasicDTO.firstName + " " + card.coachBasicDTO.lastName}

@@ -1,4 +1,5 @@
 import axios from "axios";
+import {goto} from "./utils";
 
 export function getCoachData(setReceived, setFullName, setImage, setEmail, setSpeciality){
     axios.get(`http://localhost:8000/api/coach/me`
@@ -79,6 +80,25 @@ export function verifyCoach(id){
         (err) => {
             alert("veuillez contacter les dévellopeurs");
             console.error(err);
+        }
+    );
+}
+export function getId(){
+    axios.get(`http://localhost:8000/api/superuser/me`
+        , {
+            headers: {
+                "Authorization": `${localStorage.getItem("currentUser")}`
+            }
+        }
+    ).then(
+        (res) => {
+            goto(`/NewPassword/${res.data.id}`);
+        }
+        ,
+        (err) => {
+            alert(err.response.data.error + "\nveuillez contacter les dévellopeurs");
+            console.error(err.response.data);
+
         }
     );
 }
