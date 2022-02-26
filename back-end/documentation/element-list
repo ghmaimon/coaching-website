@@ -1,0 +1,13 @@
+com.coaching.backend
+com.coaching.backend.controller.controller
+com.coaching.backend.controller.controllerAdvice
+com.coaching.backend.controller.controllerAdvice.implementation
+com.coaching.backend.DTO.dataDTO
+com.coaching.backend.DTO.errorDTO
+com.coaching.backend.enumeration
+com.coaching.backend.exception
+com.coaching.backend.model
+com.coaching.backend.repository
+com.coaching.backend.security
+com.coaching.backend.service
+com.coaching.backend.utils
