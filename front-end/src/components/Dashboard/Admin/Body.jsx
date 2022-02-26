@@ -94,7 +94,7 @@ function Body(props) {
                     </li>
                     <br />
                     <li className={style.li}>
-                      <Disputes />
+                     
                       <br />
                     </li>
                     <li
