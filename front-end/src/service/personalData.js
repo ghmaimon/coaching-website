@@ -27,8 +27,10 @@ export function getCoachData(setReceived, setFullName, setImage, setEmail, setSp
     );
 }
 
-export function getAllCoaches(setCoaches){
-    axios.get(`http://localhost:8000/api/coach/all`
+export function getAllCoaches(setCoaches, createData, setSuccess){
+    // alert("hh")
+    console.log("hello")
+    axios.get(`http://localhost:8000/api/superuser/listNotVerified`
         , {
             headers: {
                 "Authorization": `${localStorage.getItem("currentUser")}`
@@ -36,12 +38,20 @@ export function getAllCoaches(setCoaches){
         }
     ).then(
         (res) => {
-            setReceived(true);
-            setFullName(res.data.firstName + " " + res.data.lastName);
-            setImage(res.data.image);
-            setEmail(res.data.email);
-            setSpeciality(res.data.speciality);
-            console.log("res");
+            let temp = [];
+            for (let i of res.data){
+                temp.push(
+                    createData(
+                        i.nom_coach,
+                        <a href={"http://localhost:8000/api/document/" + i.image}>cliquer ici</a>,
+                        <a href={"http://localhost:8000/api/document/" + i.cin}>cliquer ici</a>,
+                        <a href={"http://localhost:8000/api/document/" + i.certificate}>cliquer ici</a>,
+                        i.id_coach
+                    )
+                );
+            }
+            setCoaches(temp);
+            setSuccess(true);
             console.log(res.data);
             // alert("hh");
             // goto("/this_link_is_not_yet_defined");
@@ -49,6 +59,25 @@ export function getAllCoaches(setCoaches){
         ,
         (err) => {
             alert("erreur lors de l'acces à vos données, en cas de besoin contacter l'admin");
+            console.error(err);
+        }
+    );
+}
+export function verifyCoach(id){
+    axios.get(`http://localhost:8000/api/superuser/verifyCoach`
+        , {
+            headers: {
+                "Authorization": `${localStorage.getItem("currentUser")}`,
+                "coach_id": id
+            }
+        }
+    ).then(
+        (res) => {
+            window.location.reload();
+        }
+        ,
+        (err) => {
+            alert("veuillez contacter les dévellopeurs");
             console.error(err);
         }
     );
