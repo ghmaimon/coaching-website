@@ -3,6 +3,7 @@ import MyButton from "../../../shared/MyButton";
 import { makeStyles } from "@mui/styles";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import SettingsIcon from "@mui/icons-material/Settings";
+import ButtonLogin from "../../../shared/ButtonLogin";
 const useStyles = makeStyles({
   root: {
     float: "left",
@@ -43,8 +44,8 @@ function Coaches() {
   let style = useStyles();
   return (
     <MyButton
-      bgColor="#FBEEC1"
-      fgColor="black"
+      bgColor="#3FA437"
+      fgColor="white"
       className={style.secondary}
       value="Coaches documents"
       url="/admin/coaches_documents"

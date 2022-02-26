@@ -17,8 +17,8 @@ export default function Description() {
       >
           You have : <br/>
           <ul>
-              <li>{numberOfDocumentsToVerify} new documents to verify.</li>
-              <li>{numberOfDisputesToResolve} new disputes to resolve.</li>
+              <li>{numberOfDocumentsToVerify}  documents to verify.</li>
+              
           </ul>
       </p>
     </div>

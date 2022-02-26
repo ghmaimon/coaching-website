@@ -11,11 +11,17 @@ import TextButton from "../../../../shared/TextButton"
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   text-align: left;
   border-radius: 4px;
+  
  
 `;
 
 const Img = styled.img`
-  height: 100px;
+display: block;
+  margin-left: auto;
+  margin-right: auto;
+ height: 100px;
+ width: 150px;
+  
 
 
 
@@ -42,6 +48,12 @@ margin: 24px 0 28px 0;
     font-size: 15px;
     font-weight: 400;
     line-height: 1.7;
+    
+overflow: hidden;
+
+display: -webkit-box;
+-webkit-line-clamp: 3;
+-webkit-box-orient: vertical;
   
 
     
